@@ -2,18 +2,23 @@ rootProject.name = "Eshop"
 
 pluginManagement {
     repositories {
-        gradlePluginPortal()
-        mavenCentral()
+//        mavenCentral()
+//        mavenLocal()
+//        gradlePluginPortal()
+        maven { url = uri("https://maven.myket.ir/") }
     }
 }
 
 dependencyResolutionManagement {
     repositories {
-        mavenCentral()
+//        mavenLocal()
+//        mavenCentral()
+//        google()
+        maven { url = uri("https://maven.myket.ir/") }
     }
     versionCatalogs {
         create("ktorLibs") {
-            from("io.ktor:ktor-version-catalog:3.5.0")
+            from(files("gradle/ktor-version-catalog-3.5.0.toml"))
         }
     }
 }

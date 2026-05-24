@@ -35,10 +35,13 @@ object AppConstants {
 
     object Crypto {
 
-        const val PBKDF2_SHA256 = "PBKDF2WithHmacSHA256"
-
         const val RANDOM_ALGORITHM = "SHA1PRNG"
 
-        const val TOKEN_ALGORITHM = "HmacSHA256"
+    }
+
+    object Exception{
+        const val MISSING_PARAM = "Missing parameter"
+
+        const val INVALID_TOKEN = "Invalid token"
     }
 }
