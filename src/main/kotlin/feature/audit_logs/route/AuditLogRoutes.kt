@@ -14,7 +14,7 @@ fun Route.auditLogRoutes(
     route(AuditLogConst.MAIN_ROUTE) {
 
         authenticate {
-            get(AuditLogConst.GET_ROUTE) {
+            post(AuditLogConst.GET_ROUTE) {
                 call.checkIfIsEmployee()
                 val userId = call.extractFromParam(AuditLogConst.GET_PARAM)
                 call.respond(auditLogService.get(userId))

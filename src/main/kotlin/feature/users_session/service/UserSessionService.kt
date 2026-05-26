@@ -42,9 +42,9 @@ class UserSessionService(
         dbQuery{ userSessionRepo.revokeSession(userId) }
     }
 
-    suspend fun getSessionByID(userId: String): UserSession =
+    suspend fun getSessionByUserId(userId: String): UserSession? =
         dbQuery {
-            userSessionRepo.getSessionByUserId(userId) ?: throw NotFoundException()
+            userSessionRepo.getSessionByUserId(userId)
         }
 
     suspend fun verify(hash: String): UserSession =

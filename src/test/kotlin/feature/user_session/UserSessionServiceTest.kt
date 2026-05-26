@@ -8,9 +8,7 @@ import core.database.dbQuery
 import core.security.token.RefreshTokenGenerator
 import io.ktor.server.plugins.NotFoundException
 import io.mockk.*
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
 import kotlin.test.*
 import java.time.Clock
 import java.time.Instant
@@ -202,7 +200,7 @@ class UserSessionServiceTest {
             } returns session
 
             val result =
-                service.getSessionByID(
+                service.getSessionByUserId(
                     "user-1"
                 )
 
@@ -221,7 +219,7 @@ class UserSessionServiceTest {
             } returns null
 
             assertFailsWith<NotFoundException> {
-                service.getSessionByID(
+                service.getSessionByUserId(
                     "user-1"
                 )
             }
