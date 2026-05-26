@@ -16,16 +16,9 @@ gradle-app.setting
 *.ipr
 *.iws
 
-# ------------ Logs ------------
-*.log
-logs/
-log/
-
 # ------------ Environment / Secrets ------------
 .env
 *.env
-secret/
-secrets/
 
 # ------------ OS Files ------------
 .DS_Store
