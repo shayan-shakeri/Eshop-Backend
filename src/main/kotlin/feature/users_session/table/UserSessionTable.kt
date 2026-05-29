@@ -1,7 +1,9 @@
 package com.shayan.feature.users_session.table
 
+import com.shayan.feature.users.table.UsersTable
 import com.shayan.feature.users_session.constants.UserSessionConst
 import core.consts.UNC
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.timestamp
 
