@@ -1,6 +1,7 @@
 package com.shayan.feature.users.dto
 
 import com.shayan.util.Gender
+import com.shayan.util.LocalDateSerializer
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -11,7 +12,8 @@ data class UserSignupRequest(
     val email: String,
     val phoneNumber: String,
     val gender: Gender,
-    @Contextual val birthday: LocalDate,
+    @Serializable(with = LocalDateSerializer::class)
+    val birthday: LocalDate,
     val password: String,
     val deviceId: String,
     val ip: String

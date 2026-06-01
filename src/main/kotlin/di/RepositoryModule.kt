@@ -2,6 +2,8 @@ package di
 
 import com.shayan.feature.audit_logs.repository.AuditLogRepository
 import com.shayan.feature.audit_logs.repository.AuditLogRepositoryImpl
+import com.shayan.feature.users.repository.UserRepository
+import com.shayan.feature.users.repository.UserRepositoryImpl
 import com.shayan.feature.users_session.repository.UserSessionRepository
 import com.shayan.feature.users_session.repository.UserSessionRepositoryImpl
 import org.koin.core.context.GlobalContext.get
@@ -11,5 +13,6 @@ val repositoryModule = module {
 
     single<AuditLogRepository> { AuditLogRepositoryImpl() }
     single<UserSessionRepository> { UserSessionRepositoryImpl() }
+    single<UserRepository> { UserRepositoryImpl() }
 
 }

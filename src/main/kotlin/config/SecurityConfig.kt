@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import core.consts.AppConstants
 import core.exception.AuthenticationException
+import core.response.ApiResponse
 import core.util.EnvLoader
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -44,6 +45,7 @@ fun Application.configureSecurity() {
             challenge { _, _ ->
                 throw AuthenticationException("Unauthorized")
             }
+
         }
     }
 }

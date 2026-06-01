@@ -4,7 +4,6 @@ import com.shayan.feature.users.model.Users
 
 interface UserRepository {
     suspend fun findById(id: String): Users?
-    suspend fun findByPassword(password: String): Users?
     suspend fun findByEmail(email: String): Users?
 
     suspend fun add(users: Users): Users?

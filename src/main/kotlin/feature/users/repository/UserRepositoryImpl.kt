@@ -3,25 +3,17 @@ package com.shayan.feature.users.repository
 import com.shayan.feature.users.mapper.toUser
 import com.shayan.feature.users.model.Users
 import com.shayan.feature.users.table.UsersTable
-import di.repositoryModule
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.update
 
-class UserRepositoryImpl: UserRepository {
+class UserRepositoryImpl : UserRepository {
     override suspend fun findById(id: String): Users? =
         UsersTable
             .selectAll()
             .where { UsersTable.id eq id }
-            .singleOrNull()
-            ?.toUser()
-
-    override suspend fun findByPassword(password: String): Users? =
-        UsersTable
-            .selectAll()
-            .where { UsersTable.passwordHash eq password }
             .singleOrNull()
             ?.toUser()
 

@@ -3,9 +3,8 @@ package core.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ApiResponse<T>(
+data class ApiResponse(
     val success: Boolean,
-    val data: T? = null,
     val message: String? = null
 
 )

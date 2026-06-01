@@ -59,7 +59,7 @@ class UserSessionRepositoryImpl : UserSessionRepository {
 
     override suspend fun revokeSession(userId: String) {
         UserSessionTable.update({ UserSessionTable.userId eq userId }) {
-            it[UserSessionTable.revoked] = false
+            it[UserSessionTable.revoked] = true
         }
     }
 }

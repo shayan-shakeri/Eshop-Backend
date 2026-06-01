@@ -11,7 +11,7 @@ class AuditLogService(
     private val auditLogRepository: AuditLogRepository,
 ) {
 
-    suspend fun add(userId: String, action: String, ip: String): AuditLog=
+    suspend fun add(userId: String, action: String, ip: String): AuditLog =
         dbQuery {
             val auditLog = AuditLog(
                 id = IdGenerator.generate(),
@@ -22,6 +22,7 @@ class AuditLogService(
             )
             auditLogRepository.add(auditLog) ?: throw FailedToAdd()
         }
+
 
 
     suspend fun get(userId: String): List<AuditLog> =

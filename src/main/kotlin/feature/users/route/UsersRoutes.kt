@@ -7,18 +7,12 @@ import com.shayan.feature.users.dto.UserUpdateInfoRequest
 import com.shayan.feature.users.dto.UserUpdatePasswordRequest
 import com.shayan.feature.users.service.UsersService
 import com.shayan.util.idExtractor
+import core.consts.AppConstants
 import core.util.extractFromParam
-import io.ktor.server.auth.authenticate
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.response.respondText
-import io.ktor.server.routing.Routing
-import io.ktor.server.routing.delete
-import io.ktor.server.routing.port
-import io.ktor.server.routing.post
-import io.ktor.server.routing.put
-import io.ktor.server.routing.route
-import org.koin.ktor.ext.get
+import io.ktor.server.auth.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
 fun Routing.userRoutes(
     usersService: UsersService
@@ -31,25 +25,25 @@ fun Routing.userRoutes(
         }
 
         post(UsersConst.SIGNUP_ROUTE) {
-            val request =  call.receive<UserSignupRequest>()
+            val request = call.receive<UserSignupRequest>()
             call.respond(usersService.signup(request))
         }
 
-        authenticate {
+        authenticate(AppConstants.Jwt.ACCESS_AUTH) {
 
-            post(UsersConst.LOGIN_TOKEN_ROUTE) {
+            get(UsersConst.LOGIN_TOKEN_ROUTE) {
                 val id = call.idExtractor()
                 val ip = call.extractFromParam(UsersConst.IP_PARAM)
                 call.respond(usersService.loginToken(id, ip))
             }
 
-            put(UsersConst.UPDATE_INFO_ROUTE){
+            put(UsersConst.UPDATE_INFO_ROUTE) {
                 val id = call.idExtractor()
                 val request = call.receive<UserUpdateInfoRequest>()
                 call.respond(usersService.updateInfo(id, request))
             }
 
-            put(UsersConst.UPDATE_PASSWORD_ROUTE){
+            put(UsersConst.UPDATE_PASSWORD_ROUTE) {
                 val id = call.idExtractor()
                 val request = call.receive<UserUpdatePasswordRequest>()
                 call.respond(usersService.updatePassword(id, request))
@@ -68,7 +62,6 @@ fun Routing.userRoutes(
             }
 
         }
-
 
 
     }

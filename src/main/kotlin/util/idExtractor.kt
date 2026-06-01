@@ -8,5 +8,6 @@ import io.ktor.server.auth.principal
 
 fun ApplicationCall.idExtractor(): String {
     val principal = this.principal<JWTPrincipal>() ?: throw AuthenticationException(AppConstants.Exception.INVALID_TOKEN)
+
     return principal.payload.getClaim(AppConstants.Jwt.CLAIM_ID).asString()
 }

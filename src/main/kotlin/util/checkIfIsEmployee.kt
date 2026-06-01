@@ -1,4 +1,4 @@
-package core.util
+package com.shayan.util
 
 import core.consts.AppConstants
 import core.exception.AuthenticationException

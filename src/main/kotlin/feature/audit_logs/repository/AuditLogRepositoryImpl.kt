@@ -24,11 +24,10 @@ class AuditLogRepositoryImpl : AuditLogRepository {
     }
 
 
-    override suspend fun findByUserId(id: String): List<AuditLog> =
+    override suspend fun findByUserId(userId: String): List<AuditLog> =
         AuditLogTable
             .selectAll()
-            .where { AuditLogTable.id eq id }
+            .where { AuditLogTable.userId eq userId }
             .map { it.toAuditLog() }
-
 
 }

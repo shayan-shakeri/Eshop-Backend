@@ -1,4 +1,4 @@
-package com.shayan.feature.auth.dto
+package com.shayan.feature.user_auth.dto
 
 data class UserAuthResponse(
     val accessToken: String,

@@ -2,8 +2,6 @@ package com.shayan.feature.users.service
 
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.exception.InvalidCredentials
-import com.shayan.feature.audit_logs.model.AuditLog
-import com.shayan.feature.audit_logs.repository.AuditLogRepository
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.users.constants.UsersConst
@@ -28,18 +26,20 @@ class UsersService(
 ) {
     suspend fun login(user: UserLoginRequest): UserResponse {
 
-        val db =  dbQuery {
+        val db = dbQuery {
             val userResponse = usersRepository.findByEmail(user.email) ?: throw InvalidCredentials()
-            val password = PasswordHashResult(
-                hash = user.passwordHash,
+            print(userResponse.passwordHash)
+
+            val passwordHashResult = PasswordHasher.hashPassword(
                 iterations = userResponse.iterations,
                 algorithm = userResponse.algorithm,
-                salt = userResponse.salt
+                salt = userResponse.salt,
+                password = user.passwordHash
             )
 
             runCatching { auditLogService.add(userResponse.id, UsersConst.LOGIN_ACTION, user.ip) }
 
-            if (userResponse.passwordHash != password.hash) throw InvalidCredentials()
+            if (userResponse.passwordHash != passwordHashResult.hash) throw InvalidCredentials()
 
             val token = authService.generateRefreshToken(userResponse.id, user.deviceId)
             userResponse.toUserResponse(token.accessToken, token.refreshToken)
@@ -49,15 +49,15 @@ class UsersService(
         return db
     }
 
-    suspend fun loginToken(id: String, ip: String): UserNoTokenResponse  {
+    suspend fun loginToken(id: String, ip: String): UserNoTokenResponse {
         runCatching { auditLogService.add(id, UsersConst.LOGIN_TOKEN_ACTION, ip) }
         return dbQuery {
             usersRepository.findById(id)?.toUserNoTokenResponse() ?: throw NotFoundException()
         }
     }
 
-    suspend fun signup(user: UserSignupRequest): UserResponse  {
-        val db =  dbQuery{
+    suspend fun signup(user: UserSignupRequest): UserResponse {
+        val db = dbQuery {
             val hashResult = PasswordHasher.hashPassword(user.password)
             val id = IdGenerator.generate()
 
@@ -75,21 +75,21 @@ class UsersService(
                 salt = hashResult.salt
             )
 
+
+
             val users = usersRepository.add(usersRequest) ?: throw FailedToAdd()
             val token = authService.generateRefreshToken(users.id, user.deviceId)
-
-
 
             users.toUserResponse(token.accessToken, token.refreshToken)
         }
 
-        runCatching { auditLogService.add(db.id, UsersConst.SIGNUP_ACTION,user.ip)}
+        runCatching { auditLogService.add(db.id, UsersConst.SIGNUP_ACTION, user.ip) }
         return db
     }
 
-    suspend fun updateInfo(id: String, user: UserUpdateInfoRequest): UserNoTokenResponse   {
-        runCatching { auditLogService.add(id, UsersConst.UPDATE_INFO_ROUTE,user.ip)}
-        return dbQuery{
+    suspend fun updateInfo(id: String, user: UserUpdateInfoRequest): UserNoTokenResponse {
+        runCatching { auditLogService.add(id, UsersConst.UPDATE_INFO_ACTION, user.ip) }
+        return dbQuery {
             val usersRequest = Users(
                 id = id,
                 fullName = user.fullName,
@@ -106,11 +106,22 @@ class UsersService(
         }
     }
 
-    suspend fun updatePassword(id: String, user: UserUpdatePasswordRequest): UserNoTokenResponse  {
-        runCatching { auditLogService.add(id, UsersConst.UPDATE_PASSWORD_ACTION, user.ip)}
+    suspend fun updatePassword(id: String, user: UserUpdatePasswordRequest): UserNoTokenResponse {
+        runCatching { auditLogService.add(id, UsersConst.UPDATE_PASSWORD_ACTION, user.ip) }
         return dbQuery {
-            val checkValidity = usersRepository.findByPassword(user.oldPassword) ?: throw NotFoundException()
-            if (checkValidity.id != id) throw InvalidCredentials()
+            val currentUser =
+                usersRepository.findById(id)
+                    ?: throw NotFoundException()
+
+            val oldPasswordHash = PasswordHasher.hashPassword(
+                password = user.oldPassword,
+                iterations = currentUser.iterations,
+                algorithm = currentUser.algorithm,
+                salt = currentUser.salt
+            )
+
+            if (oldPasswordHash.hash != currentUser.passwordHash)
+                throw InvalidCredentials()
 
             val password = PasswordHasher.hashPassword(user.newPassword)
             val usersRequest = Users(
@@ -132,14 +143,14 @@ class UsersService(
     }
 
     suspend fun logout(id: String, ip: String) {
-        runCatching { auditLogService.add(id, UsersConst.LOGOUT_ACTION, ip)}
-        authService.revokeRefreshToken(id)
+        runCatching { auditLogService.add(id, UsersConst.LOGOUT_ACTION, ip) }
+        dbQuery{ authService.revokeRefreshToken(id) }
     }
 
     suspend fun deleteUser(id: String, ip: String) {
-        runCatching { auditLogService.add(id, UsersConst.DELETE_ACTION, ip)}
-        authService.revokeRefreshToken(id)
-        dbQuery{ usersRepository.delete(id) }
+        runCatching { auditLogService.add(id, UsersConst.DELETE_ACTION, ip) }
+        dbQuery{ authService.revokeRefreshToken(id) }
+        dbQuery { usersRepository.delete(id) }
     }
 
 }

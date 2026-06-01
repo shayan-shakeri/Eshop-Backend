@@ -13,7 +13,6 @@ fun Users.toUserResponse(
     phoneNumber = this.phoneNumber,
     gender = this.gender,
     birthday = this.birthday,
-    passwordHash = this.passwordHash,
     accessToken = accessToken,
     refreshToken = refreshToken
 )
