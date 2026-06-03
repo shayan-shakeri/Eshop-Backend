@@ -1,5 +1,7 @@
 package routes
 
+import com.shayan.feature.address.route.addressRoute
+import com.shayan.feature.address.service.AddressService
 import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.user_auth.route.userAuthRoutes
@@ -20,5 +22,8 @@ fun Application.registerRoutes() {
 
         val userService by inject<UsersService>()
         userRoutes(userService)
+
+        val addressService by inject<AddressService>()
+        addressRoute(addressService)
     }
 }

@@ -1,5 +1,7 @@
 package di
 
+import com.shayan.feature.address.repository.AddressRepository
+import com.shayan.feature.address.repository.AddressRepositoryImpl
 import com.shayan.feature.audit_logs.repository.AuditLogRepository
 import com.shayan.feature.audit_logs.repository.AuditLogRepositoryImpl
 import com.shayan.feature.users.repository.UserRepository
@@ -14,5 +16,6 @@ val repositoryModule = module {
     single<AuditLogRepository> { AuditLogRepositoryImpl() }
     single<UserSessionRepository> { UserSessionRepositoryImpl() }
     single<UserRepository> { UserRepositoryImpl() }
+    single<AddressRepository> { AddressRepositoryImpl() }
 
 }

@@ -6,7 +6,7 @@ import com.shayan.feature.users.dto.UserSignupRequest
 import com.shayan.feature.users.dto.UserUpdateInfoRequest
 import com.shayan.feature.users.dto.UserUpdatePasswordRequest
 import com.shayan.feature.users.service.UsersService
-import com.shayan.util.idExtractor
+import com.shayan.util.callUtil.idExtractor
 import core.consts.AppConstants
 import core.util.extractFromParam
 import io.ktor.server.auth.*
