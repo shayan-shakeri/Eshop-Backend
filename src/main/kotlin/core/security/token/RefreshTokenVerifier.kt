@@ -11,7 +11,7 @@ object RefreshTokenVerifier {
     private fun algorithm(): Algorithm {
 
         val secret = EnvLoader.get(
-            AppConstants.Env.REFRESH_SECRET
+            ENV.REFRESH_SECRET
         )
 
         return Algorithm.HMAC256(secret)
@@ -20,7 +20,7 @@ object RefreshTokenVerifier {
     fun verify(token: String): DecodedJWT {
 
         val issuer = EnvLoader.get(
-            AppConstants.Env.TOKEN_ISSUER
+            ENV.TOKEN_ISSUER
         )
 
         val verifier = JWT.require(algorithm())

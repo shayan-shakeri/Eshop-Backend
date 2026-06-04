@@ -3,6 +3,9 @@ package config
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import core.consts.AppConstants
+import core.consts.CJWT
+import core.consts.ENV
+import core.consts.EXC
 import core.exception.AuthenticationException
 import core.response.ApiResponse
 import core.util.EnvLoader
@@ -14,27 +17,27 @@ fun Application.configureSecurity() {
 
     authentication {
 
-        jwt(AppConstants.Jwt.ACCESS_AUTH) {
+        jwt(CJWT.ACCESS_AUTH) {
 
-            realm = EnvLoader.get(AppConstants.Env.TOKEN_ISSUER)
+            realm = EnvLoader.get(ENV.TOKEN_ISSUER)
 
             verifier(
                 JWT.require(
                     Algorithm.HMAC256(
-                        EnvLoader.get(AppConstants.Env.ACCESS_SECRET)
+                        EnvLoader.get(ENV.ACCESS_SECRET)
                     )
                 )
                     .withIssuer(
-                        EnvLoader.get(AppConstants.Env.TOKEN_ISSUER)
+                        EnvLoader.get(ENV.TOKEN_ISSUER)
                     )
                     .withAudience(
-                        EnvLoader.get(AppConstants.Env.TOKEN_AUDIENCE)
+                        EnvLoader.get(ENV.TOKEN_AUDIENCE)
                     )
                     .build()
             )
 
             validate { credential ->
-                val id = credential.payload.getClaim(AppConstants.Jwt.CLAIM_ID).asString()
+                val id = credential.payload.getClaim(CJWT.CLAIM_ID).asString()
                 if (id.isNullOrBlank()) {
                     null
                 } else {
@@ -43,7 +46,7 @@ fun Application.configureSecurity() {
             }
 
             challenge { _, _ ->
-                throw AuthenticationException("Unauthorized")
+                throw AuthenticationException(EXC.UNAUTHORIZED)
             }
 
         }

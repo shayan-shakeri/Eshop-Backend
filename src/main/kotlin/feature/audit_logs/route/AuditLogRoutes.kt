@@ -11,7 +11,7 @@ fun Route.auditLogRoutes(
 ) {
     route(AuditLogConst.MAIN_ROUTE) {
 //commented auth for testing
-//        authenticate(AppConstants.Jwt.ACCESS_AUTH) {
+//        authenticate(CJWT.ACCESS_AUTH) {
         get(AuditLogConst.GET_ROUTE) {
             //               call.checkIfIsEmployee()
             val userId = call.extractFromParam(AuditLogConst.GET_PARAM)

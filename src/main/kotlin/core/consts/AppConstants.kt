@@ -43,5 +43,17 @@ object AppConstants {
         const val MISSING_PARAM = "Missing parameter"
 
         const val INVALID_TOKEN = "Invalid token"
+
+        const val UNAUTHORIZED = "Unauthorized"
+    }
+
+    object NumeralConst{
+        const val ID_LENGTH = 40
     }
 }
+
+typealias ANC = AppConstants.NumeralConst
+typealias ENV = AppConstants.Env
+typealias CJWT = AppConstants.Jwt
+typealias CRY = AppConstants.Crypto
+typealias EXC = AppConstants.Exception

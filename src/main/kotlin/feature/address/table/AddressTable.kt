@@ -2,13 +2,13 @@ package com.shayan.feature.address.table
 
 import com.shayan.feature.address.constants.AddressConst
 import com.shayan.feature.users.table.UsersTable
-import core.consts.UNC
+import core.consts.ANC
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
 object AddressTable : Table(AddressConst.TABLE_NAME) {
-    val id = varchar(AddressConst.USER_ID, UNC.ID_LENGTH)
-    val userId = varchar(AddressConst.USER_ID, UNC.ID_LENGTH).references(
+    val id = varchar(AddressConst.USER_ID, ANC.ID_LENGTH)
+    val userId = varchar(AddressConst.USER_ID, ANC.ID_LENGTH).references(
         UsersTable.id,
         onDelete = ReferenceOption.CASCADE,
         onUpdate = ReferenceOption.RESTRICT

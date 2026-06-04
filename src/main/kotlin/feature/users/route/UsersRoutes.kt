@@ -8,6 +8,7 @@ import com.shayan.feature.users.dto.UserUpdatePasswordRequest
 import com.shayan.feature.users.service.UsersService
 import com.shayan.util.callUtil.idExtractor
 import core.consts.AppConstants
+import core.consts.CJWT
 import core.util.extractFromParam
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
@@ -29,7 +30,7 @@ fun Routing.userRoutes(
             call.respond(usersService.signup(request))
         }
 
-        authenticate(AppConstants.Jwt.ACCESS_AUTH) {
+        authenticate(CJWT.ACCESS_AUTH) {
 
             get(UsersConst.LOGIN_TOKEN_ROUTE) {
                 val id = call.idExtractor()

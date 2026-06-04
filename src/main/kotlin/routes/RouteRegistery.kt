@@ -4,6 +4,8 @@ import com.shayan.feature.address.route.addressRoute
 import com.shayan.feature.address.service.AddressService
 import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
+import com.shayan.feature.search_history.route.searchHistoryRoute
+import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.route.userAuthRoutes
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.users.route.userRoutes
@@ -25,5 +27,8 @@ fun Application.registerRoutes() {
 
         val addressService by inject<AddressService>()
         addressRoute(addressService)
+
+        val searchHistoryService by inject<SearchHistoryService>()
+        searchHistoryRoute(searchHistoryService)
     }
 }

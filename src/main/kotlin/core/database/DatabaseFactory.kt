@@ -4,6 +4,7 @@ import core.consts.AppConstants
 import core.util.EnvLoader
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import core.consts.ENV
 import org.jetbrains.exposed.sql.Database
 
 object DatabaseFactory {
@@ -12,14 +13,14 @@ object DatabaseFactory {
 
         val config = HikariConfig().apply {
 
-            jdbcUrl = EnvLoader.get(AppConstants.Env.DB_URL)
+            jdbcUrl = EnvLoader.get(ENV.DB_URL)
 
-            username = EnvLoader.get(AppConstants.Env.DB_USER)
+            username = EnvLoader.get(ENV.DB_USER)
 
-            password = EnvLoader.get(AppConstants.Env.DB_PASSWORD)
+            password = EnvLoader.get(ENV.DB_PASSWORD)
 
             maximumPoolSize =
-                EnvLoader.getInt(AppConstants.Env.DB_POOL_SIZE)
+                EnvLoader.getInt(ENV.DB_POOL_SIZE)
 
         }
 

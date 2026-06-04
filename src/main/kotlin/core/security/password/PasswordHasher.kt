@@ -1,6 +1,8 @@
 package core.security.password
 
 import core.consts.AppConstants
+import core.consts.CRY
+import core.consts.ENV
 import core.util.EnvLoader
 import java.security.SecureRandom
 import java.util.Base64
@@ -17,10 +19,10 @@ object PasswordHasher {
     ): PasswordHashResult {
 
         val usedAlgorithm =
-            algorithm ?: EnvLoader.get(AppConstants.Env.HASH_ALGORITHM)
+            algorithm ?: EnvLoader.get(ENV.HASH_ALGORITHM)
 
         val usedIterations =
-            iterations ?: EnvLoader.getInt(AppConstants.Env.HASH_ITERATIONS)
+            iterations ?: EnvLoader.getInt(ENV.HASH_ITERATIONS)
 
         val saltBytes = salt?.let {
             Base64.getDecoder().decode(it)
@@ -68,7 +70,7 @@ object PasswordHasher {
     private fun generateSalt(): ByteArray {
 
         val random = SecureRandom.getInstance(
-            AppConstants.Crypto.RANDOM_ALGORITHM
+            CRY.RANDOM_ALGORITHM
         )
 
         val salt = ByteArray(16)

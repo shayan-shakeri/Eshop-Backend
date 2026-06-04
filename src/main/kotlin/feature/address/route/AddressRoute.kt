@@ -7,6 +7,7 @@ import com.shayan.feature.address.dto.UpdateAddress
 import com.shayan.feature.address.service.AddressService
 import com.shayan.util.callUtil.idExtractor
 import core.consts.AppConstants
+import core.consts.CJWT
 import core.util.extractFromParam
 import io.ktor.server.auth.authenticate
 import io.ktor.server.request.receive
@@ -22,7 +23,7 @@ fun Route.addressRoute(
     addressService: AddressService
 ) {
     route(AddressConst.MAIN_ROUTE){
-        authenticate(AppConstants.Jwt.ACCESS_AUTH) {
+        authenticate(CJWT.ACCESS_AUTH) {
 
             get(AddressConst.READ_ROUTE) {
                 val ip = call.extractFromParam(AddressConst.IP_PARAM)
