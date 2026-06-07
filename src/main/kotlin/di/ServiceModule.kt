@@ -2,6 +2,7 @@ package di
 
 import com.shayan.feature.address.service.AddressService
 import com.shayan.feature.audit_logs.service.AuditLogService
+import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.users.service.UsersService
@@ -45,6 +46,13 @@ val serviceModule = module {
         SearchHistoryService(
             searchHistoryRepository = get(),
             auditLogService = get()
+        )
+    }
+    single {
+        EmailVerifierService(
+            repository = get(),
+            sha256Hasher = get(),
+            emailSender = get()
         )
     }
 }

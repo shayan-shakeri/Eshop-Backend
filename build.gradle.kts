@@ -63,4 +63,7 @@ dependencies {
     testImplementation(ktorLibs.server.testHost)
     testImplementation(libs.mockk)
 
+    // Resend
+    implementation(libs.resend)
+
 }

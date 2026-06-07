@@ -22,6 +22,8 @@ object AppConstants {
         const val ACCESS_USER_EXP = "ACCESS_USER_EXP"
         const val ACCESS_EMPLOYEE_EXP = "ACCESS_EMPLOYEE_EXP"
         const val REFRESH_EXP = "REFRESH_EXP"
+
+        const val EMAIL_SENDER_API_KEY = "EMAIL_SENDER_API_KEY"
     }
 
     object Jwt {

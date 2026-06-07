@@ -11,4 +11,11 @@ class Sha256Hasher {
         return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
+    fun hash(hash: String): String {
+        val bytes = hash.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+        return digest.fold("", { str, it -> str + "%02x".format(it) })
+    }
+
 }
