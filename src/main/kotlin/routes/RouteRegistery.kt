@@ -8,6 +8,8 @@ import com.shayan.feature.search_history.route.searchHistoryRoute
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.route.userAuthRoutes
 import com.shayan.feature.user_auth.service.UserAuthService
+import com.shayan.feature.user_pic.route.userPicRoute
+import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.route.userRoutes
 import com.shayan.feature.users.service.UsersService
 import io.ktor.server.application.*
@@ -30,5 +32,8 @@ fun Application.registerRoutes() {
 
         val searchHistoryService by inject<SearchHistoryService>()
         searchHistoryRoute(searchHistoryService)
+
+        val userPicService by inject<UserPicService>()
+        userPicRoute(userPicService)
     }
 }

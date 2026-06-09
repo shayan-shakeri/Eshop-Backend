@@ -8,6 +8,9 @@ import com.shayan.feature.email_verifier.repository.EmailVerifierRepository
 import com.shayan.feature.email_verifier.repository.EmailVerifierRepositoryImpl
 import com.shayan.feature.search_history.repository.SearchHistoryRepository
 import com.shayan.feature.search_history.repository.SearchHistoryRepositoryImpl
+import com.shayan.feature.user_pic.dto.UserPicResponse
+import com.shayan.feature.user_pic.repository.UserPicRepository
+import com.shayan.feature.user_pic.repository.UserPicRepositoryImpl
 import com.shayan.feature.users.repository.UserRepository
 import com.shayan.feature.users.repository.UserRepositoryImpl
 import com.shayan.feature.users_session.repository.UserSessionRepository
@@ -23,4 +26,5 @@ val repositoryModule = module {
     single<AddressRepository> { AddressRepositoryImpl() }
     single<SearchHistoryRepository> { SearchHistoryRepositoryImpl() }
     single<EmailVerifierRepository> { EmailVerifierRepositoryImpl() }
+    single<UserPicRepository>{ UserPicRepositoryImpl() }
 }
