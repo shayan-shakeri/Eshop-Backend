@@ -46,9 +46,9 @@ class AddressService(
         }
     }
 
-    suspend fun getAllAddresses(userId: String, ip: String): List<Address> {
+    suspend fun getAllAddresses(userId: String, ip: String): List<ReadAddress> {
         runCatching { auditLogService.add(userId, AddressConst.READ_ACTION, ip) }
-        return dbQuery { addressRepository.findAllAddresses(userId) }
+        return dbQuery { addressRepository.findAllAddresses(userId).map { it.toReadAddress() } }
     }
 
 
@@ -73,7 +73,7 @@ class AddressService(
                 road = updateAddress.road,
                 postalCode = updateAddress.postalCode,
                 additionalInfo = updateAddress.additionalInfo,
-                mainAddress = updateAddress.mainAddress,
+                mainAddress = false,
             )
             addressRepository.updateAddress(address)?.toReadAddress() ?: throw NotFoundException()
         }
@@ -81,11 +81,11 @@ class AddressService(
 
     suspend fun deleteAddress(idIpDTO: IdIpDTO, userId: String){
         runCatching { auditLogService.add(userId, AddressConst.DELETE_SINGLE_ACTION, idIpDTO.ip) }
-        addressRepository.deleteOneAddress(idIpDTO.id)
+        dbQuery{ addressRepository.deleteOneAddress(idIpDTO.id) }
     }
 
     suspend fun deleteAllAddresses(userId: String, ip: String){
         runCatching { auditLogService.add(userId, AddressConst.DELETE_ALL_ACTION, ip) }
-        addressRepository.deleteAllAddresses(userId)
+        dbQuery{ addressRepository.deleteAllAddresses(userId) }
     }
 }

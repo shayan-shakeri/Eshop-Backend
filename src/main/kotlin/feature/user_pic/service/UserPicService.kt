@@ -23,7 +23,8 @@ class UserPicService(
         userId: String,
         ip: String,
         fileBytes: ByteArray,
-        originalFileName: String?
+        originalFileName: String?,
+        baseUrl: String
     ): UserPicResponse {
 
         runCatching {
@@ -45,24 +46,31 @@ class UserPicService(
             )
 
             repository.addUserPic(userPic)
-                ?.toUserPicResponse("${UserPicConst.IMAGE_ROUTE}/${userPic.title}")
+                ?.toUserPicResponse(
+                    "$baseUrl${UserPicConst.IMAGE_ROUTE}/${userPic.title}"
+                )
                 ?: throw FailedToAdd()
         }
     }
 
-    suspend fun readUserPic(userId: String): UserPicResponse = dbQuery {
+    suspend fun readUserPic(
+        userId: String,
+        baseUrl: String
+    ): UserPicResponse = dbQuery {
 
         val userPic = repository.getUserPic(userId)
             ?: throw NotFoundException()
 
-        userPic.toUserPicResponse(userPic.title)
+        userPic.toUserPicResponse(
+            "$baseUrl${UserPicConst.IMAGE_ROUTE}/${userPic.title}"
+        )
     }
 
     suspend fun updateUserPic(
         userId: String,
         ip: String,
         fileBytes: ByteArray,
-        originalFileName: String?
+        baseUrl: String
     ): UserPicResponse {
 
         runCatching {
@@ -74,24 +82,24 @@ class UserPicService(
             val existing = repository.getUserPic(userId)
                 ?: throw NotFoundException()
 
-            val finalFileName = originalFileName ?: existing.title
 
             imageController.updateImage(
                 image = fileBytes,
-                title = finalFileName,
+                title = existing.title,
                 imageType = ImageType.UserImage
             )
 
             val updatedUserPic = UserPic(
                 id = existing.id,
                 userId = existing.userId,
-                title = finalFileName
+                title = existing.title
             )
 
             repository.updateUserPic(updatedUserPic)
-                ?.toUserPicResponse("${UserPicConst.IMAGE_ROUTE}/${updatedUserPic.title}")
+                ?.toUserPicResponse(
+                    "$baseUrl${UserPicConst.IMAGE_ROUTE}/${updatedUserPic.title}"
+                )
                 ?: throw NotFoundException()
-
         }
     }
 

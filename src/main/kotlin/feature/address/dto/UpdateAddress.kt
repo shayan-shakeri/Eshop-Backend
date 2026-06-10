@@ -11,6 +11,5 @@ data class UpdateAddress (
         val road: String,
         val postalCode: String,
         val additionalInfo: String?,
-        val mainAddress: Boolean,
         val ip: String
 )

@@ -11,7 +11,10 @@ import io.ktor.http.content.PartData
 import io.ktor.http.content.forEachPart
 import io.ktor.http.content.streamProvider
 import io.ktor.server.auth.authenticate
+import io.ktor.server.http.content.staticFiles
 import io.ktor.server.plugins.origin
+import io.ktor.server.request.host
+import io.ktor.server.request.port
 import io.ktor.server.request.receiveMultipart
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
@@ -21,15 +24,23 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import io.ktor.server.routing.route
+import java.io.File
 
 fun Route.userPicRoute(
     userPicService: UserPicService
 ) {
     route(UserPicConst.MAIN_ROUTE) {
 
+        staticFiles(
+            remotePath = UserPicConst.REMOTE_PATH,
+            dir = File(UserPicConst.FILE_PATH)
+        )
+
         authenticate(CJWT.ACCESS_AUTH) {
 
             post(UserPicConst.ADD_ROUTE) {
+                val baseUrl =
+                    "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
                 val ip = call.extractFromParam(UserPicConst.IP_PARAM)
                 val userId = call.idExtractor()
 
@@ -58,20 +69,25 @@ fun Route.userPicRoute(
                     userId = userId,
                     ip = ip,
                     fileBytes = fileBytes,
-                    originalFileName = fileName
+                    originalFileName = fileName,
+                    baseUrl = baseUrl
                 )
 
                 call.respond(result)
             }
 
             get(UserPicConst.READ_ROUTE) {
+                val baseUrl =
+                    "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
                 val userId =  call.idExtractor()
-                val result = userPicService.readUserPic(userId)
+                val result = userPicService.readUserPic(userId, baseUrl)
 
                 call.respond(result)
             }
 
             put(UserPicConst.UPDATE_ROUTE) {
+                val baseUrl =
+                    "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
                 val ip = call.extractFromParam(UserPicConst.IP_PARAM)
                 val userId = call.idExtractor()
 
@@ -99,7 +115,8 @@ fun Route.userPicRoute(
                     userId = userId,
                     ip = ip,
                     fileBytes = fileBytes,
-                    originalFileName = fileName
+                    originalFileName = fileName,
+                    baseUrl = baseUrl
                 )
 
                 call.respond(result)

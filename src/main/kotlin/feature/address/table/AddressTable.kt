@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
 object AddressTable : Table(AddressConst.TABLE_NAME) {
-    val id = varchar(AddressConst.USER_ID, ANC.ID_LENGTH)
+    val id = varchar(AddressConst.ID, ANC.ID_LENGTH)
     val userId = varchar(AddressConst.USER_ID, ANC.ID_LENGTH).references(
         UsersTable.id,
         onDelete = ReferenceOption.CASCADE,

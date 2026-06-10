@@ -23,6 +23,7 @@ gradle-app.setting
 # ------------ OS Files ------------
 .DS_Store
 Thumbs.db
+uploads/
 
 # ------------ Ktor specific ------------
 # Ktor often generates temporary files for development mode hot reload

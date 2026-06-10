@@ -15,9 +15,11 @@ object UserPicConst {
     const val IP_PARAM = "ip"
     const val MAIN_ROUTE = "/user-pic"
     const val IMAGE_ROUTE = "$MAIN_ROUTE/images"
+    const val REMOTE_PATH = "/images"
+    const val FILE_PATH = "uploads/user"
 
-    const val ADD_ROUTE = "/add"
-    const val READ_ROUTE = "/read/$IP_URL"
+    const val ADD_ROUTE = "/add/$IP_URL"
+    const val READ_ROUTE = "/read"
     const val UPDATE_ROUTE = "/update/$IP_URL"
     const val DELETE_ROUTE = "/delete/$IP_URL"
 

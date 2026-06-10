@@ -1,7 +1,6 @@
 package com.shayan.feature.search_history.route
 
 import com.shayan.feature.search_history.constants.SearchHistoryConstant
-import com.shayan.feature.search_history.dto.AddSearchHistory
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.util.callUtil.idExtractor
 import core.consts.CJWT
@@ -22,11 +21,12 @@ fun Route.searchHistoryRoute(
             }
 
             post(SearchHistoryConstant.ADD_ROUTE) {
-                val request = call.receive<AddSearchHistory>()
-                call.respond(searchHistoryService.addSearchHistory(request))
+                val id = call.idExtractor()
+                val request = call.receive<String>()
+                call.respond(searchHistoryService.addSearchHistory(userId = id, content = request))
             }
 
-            delete(SearchHistoryConstant.ADD_ROUTE) {
+            delete(SearchHistoryConstant.DELETE_ROUTE) {
                 val id = call.idExtractor()
                 val ip = call.extractFromParam(SearchHistoryConstant.IP_PARM)
                 call.respond(searchHistoryService.deleteSearchHistory(id, ip))

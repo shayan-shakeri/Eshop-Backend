@@ -3,7 +3,6 @@ package com.shayan.feature.search_history.service
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.search_history.constants.SearchHistoryConstant
-import com.shayan.feature.search_history.dto.AddSearchHistory
 import com.shayan.feature.search_history.dto.ReadSearchHistory
 import com.shayan.feature.search_history.mapper.toReadSearchHistory
 import com.shayan.feature.search_history.model.SearchHistory
@@ -17,15 +16,15 @@ class SearchHistoryService(
     private val auditLogService: AuditLogService
 ) {
 
-    suspend fun addSearchHistory(addSearchHistory: AddSearchHistory): ReadSearchHistory =
+    suspend fun addSearchHistory(userId: String, content: String): ReadSearchHistory =
         dbQuery {
             val id = IdGenerator.generate()
             val now = Instant.now()
 
             val history = SearchHistory(
                 id = id,
-                userId = addSearchHistory.userId,
-                content = addSearchHistory.content,
+                userId = userId,
+                content = content,
                 createdAt = now
             )
             searchHistoryRepository.addHistory(history)?.toReadSearchHistory() ?: throw FailedToAdd()
