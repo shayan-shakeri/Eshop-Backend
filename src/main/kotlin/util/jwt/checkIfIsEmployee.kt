@@ -1,6 +1,5 @@
-package com.shayan.util.callUtil
+package com.shayan.util.jwt
 
-import core.consts.AppConstants
 import core.consts.CJWT
 import core.consts.EXC
 import core.exception.AuthenticationException

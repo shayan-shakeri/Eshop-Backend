@@ -1,6 +1,6 @@
 package com.shayan.feature.search_history.dto
 
-import com.shayan.util.InstantSerializer
+import com.shayan.util.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
 import java.time.Instant
 

@@ -1,9 +1,8 @@
 package com.shayan.feature.user_pic.route
 
 import com.shayan.feature.user_pic.constants.UserPicConst
-import com.shayan.feature.user_pic.repository.UserPicRepository
 import com.shayan.feature.user_pic.service.UserPicService
-import com.shayan.util.callUtil.idExtractor
+import com.shayan.util.jwt.idExtractor
 import core.consts.CJWT
 import core.util.extractFromParam
 import io.ktor.http.HttpStatusCode

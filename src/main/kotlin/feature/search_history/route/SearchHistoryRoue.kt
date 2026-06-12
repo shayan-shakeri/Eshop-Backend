@@ -2,7 +2,7 @@ package com.shayan.feature.search_history.route
 
 import com.shayan.feature.search_history.constants.SearchHistoryConstant
 import com.shayan.feature.search_history.service.SearchHistoryService
-import com.shayan.util.callUtil.idExtractor
+import com.shayan.util.jwt.idExtractor
 import core.consts.CJWT
 import core.util.extractFromParam
 import io.ktor.server.auth.*

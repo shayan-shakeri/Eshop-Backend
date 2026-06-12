@@ -1,4 +1,4 @@
-package com.shayan.util
+package com.shayan.util.serializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

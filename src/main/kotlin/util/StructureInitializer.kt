@@ -16,7 +16,6 @@ fun main() {
     )
 
     val mainFolders = listOf("constants", "table", "model", "dto", "mapper", "repository", "service", "route")
-    val testFolders = listOf("repository", "service", "route")
 
     println("🚀 Starting to build the enterprise structure...")
 
@@ -24,11 +23,6 @@ fun main() {
         // Generate Main Folders
         mainFolders.forEach { folder ->
             File("$basePackage/$table/$folder").mkdirs()
-        }
-
-        // Generate Test Folders
-        testFolders.forEach { folder ->
-            File("$testPackage/$table/$folder").mkdirs()
         }
     }
 

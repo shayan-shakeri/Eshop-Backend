@@ -5,8 +5,7 @@ import com.shayan.feature.address.dto.AddAddress
 import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.address.dto.UpdateAddress
 import com.shayan.feature.address.service.AddressService
-import com.shayan.util.callUtil.idExtractor
-import core.consts.AppConstants
+import com.shayan.util.jwt.idExtractor
 import core.consts.CJWT
 import core.util.extractFromParam
 import io.ktor.server.auth.authenticate

@@ -6,6 +6,8 @@ import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.email_verifier.route.emailVerifierRoute
 import com.shayan.feature.email_verifier.service.EmailVerifierService
+import com.shayan.feature.employee_audit_log.route.employeeAuditLog
+import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.search_history.route.searchHistoryRoute
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.route.userAuthRoutes
@@ -40,5 +42,8 @@ fun Application.registerRoutes() {
 
         val userPicService by inject<UserPicService>()
         userPicRoute(userPicService)
+
+        val employeeAuditLogService by inject<EmployeeAuditLogService>()
+        employeeAuditLog(employeeAuditLogService)
     }
 }

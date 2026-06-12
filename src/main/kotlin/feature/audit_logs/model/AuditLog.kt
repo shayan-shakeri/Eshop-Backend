@@ -1,6 +1,6 @@
 package com.shayan.feature.audit_logs.model
 
-import com.shayan.util.InstantSerializer
+import com.shayan.util.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
 import java.time.Instant
 
