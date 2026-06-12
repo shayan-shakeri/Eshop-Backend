@@ -8,6 +8,8 @@ import com.shayan.feature.email_verifier.repository.EmailVerifierRepository
 import com.shayan.feature.email_verifier.repository.EmailVerifierRepositoryImpl
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepository
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepositoryImpl
+import com.shayan.feature.role.repository.RoleRepository
+import com.shayan.feature.role.repository.RoleRepositoryImpl
 import com.shayan.feature.search_history.repository.SearchHistoryRepository
 import com.shayan.feature.search_history.repository.SearchHistoryRepositoryImpl
 import com.shayan.feature.user_pic.dto.UserPicResponse
@@ -30,4 +32,5 @@ val repositoryModule = module {
     single<EmailVerifierRepository> { EmailVerifierRepositoryImpl() }
     single<UserPicRepository>{ UserPicRepositoryImpl() }
     single<EmployeeAuditLogRepository> { EmployeeAuditLogRepositoryImpl() }
+    single<RoleRepository> { RoleRepositoryImpl() }
 }

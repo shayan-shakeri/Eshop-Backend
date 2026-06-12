@@ -5,6 +5,7 @@ import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.employee_audit_log.table.EmployeeAuditLogTable
+import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.service.UserPicService
@@ -71,6 +72,13 @@ val serviceModule = module {
     single {
         EmployeeAuditLogService(
             repository = get()
+        )
+    }
+
+    single {
+        RoleService(
+            repository = get(),
+            employeeAuditLogService = get()
         )
     }
 }
