@@ -4,6 +4,8 @@ import com.shayan.feature.address.route.addressRoute
 import com.shayan.feature.address.service.AddressService
 import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
+import com.shayan.feature.category.route.categoryRoute
+import com.shayan.feature.category.service.CategoryService
 import com.shayan.feature.email_verifier.route.emailVerifierRoute
 import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee.route.employeeRoute
@@ -50,5 +52,8 @@ fun Application.registerRoutes() {
 
         val employeeService by inject<EmployeeService>()
         employeeRoute(employeeService)
+
+        val categoryService by inject<CategoryService>()
+        categoryRoute(categoryService)
     }
 }

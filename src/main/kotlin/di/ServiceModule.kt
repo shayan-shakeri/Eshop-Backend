@@ -2,6 +2,7 @@ package di
 
 import com.shayan.feature.address.service.AddressService
 import com.shayan.feature.audit_logs.service.AuditLogService
+import com.shayan.feature.category.service.CategoryService
 import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
@@ -87,6 +88,14 @@ val serviceModule = module {
         EmployeeService(
             employeeRepository = get(),
             employeeAuditLogService = get()
+        )
+    }
+
+    single {
+        CategoryService(
+            categoryRepository = get(),
+            employeeAuditLogService = get(),
+            imageController = get()
         )
     }
 }
