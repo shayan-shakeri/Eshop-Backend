@@ -52,6 +52,15 @@ object AppConstants {
     object NumeralConst{
         const val ID_LENGTH = 40
     }
+
+    object Role{
+        const val CEO = 0
+        const val CUSTOMER_SUPPORT = 1
+        const val STORAGE = 2
+        const val DEVELOPER = 2
+        const val HR = 4
+        const val MARKETING = 5
+    }
 }
 
 typealias ANC = AppConstants.NumeralConst
@@ -59,3 +68,4 @@ typealias ENV = AppConstants.Env
 typealias CJWT = AppConstants.Jwt
 typealias CRY = AppConstants.Crypto
 typealias EXC = AppConstants.Exception
+typealias ACR = AppConstants.Role

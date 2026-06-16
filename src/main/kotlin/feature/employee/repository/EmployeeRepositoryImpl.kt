@@ -54,7 +54,6 @@ class EmployeeRepositoryImpl : EmployeeRepository {
 
     override suspend fun updateInfo(employee: Employee): Employee? {
         EmployeeTable.update({ EmployeeTable.id eq employee.id }) {
-            it[EmployeeTable.roleId] = employee.roleId
             it[EmployeeTable.name] = employee.name
             it[EmployeeTable.nationalId] = employee.nationalId
             it[EmployeeTable.phone] = employee.phone
@@ -65,7 +64,6 @@ class EmployeeRepositoryImpl : EmployeeRepository {
             it[EmployeeTable.birthday] = employee.birthday
             it[EmployeeTable.emergencyContactName] = employee.emergencyContactName
             it[EmployeeTable.emergencyContactPhone] = employee.emergencyContactPhone
-            it[EmployeeTable.state] = employee.state
         }
 
         return EmployeeTable
@@ -102,6 +100,6 @@ class EmployeeRepositoryImpl : EmployeeRepository {
             .singleOrNull()
             ?.toEmployee()
 
-        return result != null && result.state != EmployeeState.Terminated
+        return result != null && result.state == EmployeeState.Terminated
     }
 }

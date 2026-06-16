@@ -7,7 +7,8 @@ import com.shayan.feature.employee.dto.UpdateEmployeePassword
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.util.jwt.checkIfIsEmployee
 import com.shayan.util.jwt.idExtractor
-import com.shayan.util.jwt.roleIdExtract
+import com.shayan.util.jwt.roleCodeExtract
+import core.consts.ACR
 import core.consts.CJWT
 import core.util.extractFromParam
 import feature.employee.constants.EmployeeConst
@@ -29,8 +30,8 @@ fun Route.employeeRoute(
         authenticate(CJWT.ACCESS_AUTH) {
             post(EmployeeConst.CREATE_ROUTE) {
                 call.checkIfIsEmployee()
-                val roleId = call.roleIdExtract()
-                if (roleId.toInt() == 0 || roleId.toInt() == 4) {
+                val roleId = call.roleCodeExtract()
+                if (roleId.toInt() == ACR.HR) {
                     val request = call.receive<SignupEmployee>()
                     val employeeId = call.idExtractor()
                     call.respond(employeeService.signup(request, employeeId, roleId))
@@ -42,8 +43,8 @@ fun Route.employeeRoute(
 
             put(EmployeeConst.UPDATE_INFO_ROUTE) {
                 call.checkIfIsEmployee()
-                val roleId = call.roleIdExtract()
-                if (roleId.toInt() == 0 || roleId.toInt() == 4) {
+                val roleId = call.roleCodeExtract()
+                if (roleId.toInt() == ACR.HR) {
                     val request = call.receive<UpdateEmployeeInfo>()
                     val employeeId = call.idExtractor()
                     call.respond(employeeService.updateInfo(request, employeeId, roleId))
@@ -55,8 +56,8 @@ fun Route.employeeRoute(
 
             put(EmployeeConst.UPDATE_PASSWORD_ROUTE) {
                 call.checkIfIsEmployee()
-                val roleId = call.roleIdExtract()
-                if (roleId.toInt() == 0 || roleId.toInt() == 4) {
+                val roleId = call.roleCodeExtract()
+                if (roleId.toInt() == ACR.HR) {
                     val request = call.receive<UpdateEmployeePassword>()
                     val employeeId = call.idExtractor()
                     call.respond(employeeService.updatePassword(request, employeeId, roleId))
@@ -68,8 +69,8 @@ fun Route.employeeRoute(
 
             delete(EmployeeConst.DELETE_ROUTE) {
                 call.checkIfIsEmployee()
-                val roleId = call.roleIdExtract()
-                if (roleId.toInt() == 0 || roleId.toInt() == 4) {
+                val roleId = call.roleCodeExtract()
+                if (roleId.toInt() == ACR.CEO) {
                     val request = call.receive<IdIpDTO>()
                     val employeeId = call.idExtractor()
                     call.respond(employeeService.deleteEmployee(employeeId, roleId, request))
@@ -81,8 +82,8 @@ fun Route.employeeRoute(
 
             get(EmployeeConst.GET_ALL_ROUTE) {
                 call.checkIfIsEmployee()
-                val roleId = call.roleIdExtract()
-                if (roleId.toInt() == 0 || roleId.toInt() == 4) {
+                val roleId = call.roleCodeExtract()
+                if (roleId.toInt() == ACR.CEO|| roleId.toInt() == ACR.HR) {
                     val employeeId = call.idExtractor()
                     val ip = call.extractFromParam(EmployeeConst.IP_PARAM)
                     call.respond(employeeService.getAll(ip, employeeId, roleId))

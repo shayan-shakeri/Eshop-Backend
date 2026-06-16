@@ -87,7 +87,9 @@ val serviceModule = module {
     single {
         EmployeeService(
             employeeRepository = get(),
-            employeeAuditLogService = get()
+            employeeAuditLogService = get(),
+            roleService = get(),
+            userService = get()
         )
     }
 

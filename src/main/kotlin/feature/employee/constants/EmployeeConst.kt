@@ -50,8 +50,8 @@ object EmployeeConst {
 
     //---------------ACTIONS
     const val CREATE_ACTION = "Employee account was created"
-    const val LOGIN_ACTION = "Employee account was created"
-    const val GET_ALL_ACTION = "Employee account was created"
+    const val LOGIN_ACTION = "Employee logged into account"
+    const val GET_ALL_ACTION = "Employee loaded all the users"
     const val UPDATE_INFO_ACTION = "Employee information was updated"
     const val UPDATE_PASSWORD_ACTION = "Employee password was updated"
     const val DELETE_ACTION = "Employee account was deleted"

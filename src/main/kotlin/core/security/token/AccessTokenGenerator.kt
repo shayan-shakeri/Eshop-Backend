@@ -48,7 +48,7 @@ object AccessTokenGenerator {
 
     fun employeeToken(
         id: String,
-        roleId: String
+        roleCode: Int
     ): String {
 
         val issuer = EnvLoader.get(
@@ -69,7 +69,7 @@ object AccessTokenGenerator {
             .withIssuer(issuer)
             .withAudience(audience)
             .withClaim(CJWT.CLAIM_ID, id)
-            .withClaim(CJWT.CLAIM_ROLE, roleId)
+            .withClaim(CJWT.CLAIM_ROLE, roleCode)
             .withClaim(CJWT.CLAIM_EMPLOYEE, true)
             .withExpiresAt(Date(now + exp))
             .sign(algorithm())

@@ -7,4 +7,6 @@ interface RoleRepository {
 
     suspend fun finRoleById(id: String): Role?
 
+    suspend fun getAll(): List<Role>
+
 }

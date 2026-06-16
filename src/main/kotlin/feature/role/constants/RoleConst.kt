@@ -16,6 +16,7 @@ object RoleConst {
     const val MAIN_ROUTE = "/role"
     const val ADD_ROUTE = "/add"
     const val READ_ROUTE = "/read/$ROLE_URL"
+    const val READ_All_ROUTE = "/getAll"
 
     const val ADD_ACTION = "Added a new role to the database this action is not revertible"
 

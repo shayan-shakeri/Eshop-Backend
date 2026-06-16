@@ -1,6 +1,7 @@
 package com.shayan.feature.employee.table
 
 import com.shayan.feature.role.table.RoleTable
+import com.shayan.feature.users.constants.UsersConst
 import com.shayan.util.Gender
 import core.consts.ANC
 import feature.employee.constants.EmployeeConst
@@ -23,13 +24,16 @@ object EmployeeTable : Table(EmployeeConst.TABLE_NAME) {
     val email = varchar(EmployeeConst.EMAIL, EmployeeConst.EMAIL_LENGTH).uniqueIndex()
     val salary = decimal(EmployeeConst.SALARY, EmployeeConst.SALARY_PRECISION, EmployeeConst.SALARY_SCALE)
     val address = text(EmployeeConst.ADDRESS)
-    val gender = enumeration<Gender>(EmployeeConst.GENDER)
+    val gender = enumerationByName<Gender>(
+        EmployeeConst.GENDER,
+        20
+    )
     val birthday = date(EmployeeConst.BIRTHDAY)
     val emergencyContactName =
         varchar(EmployeeConst.EMERGENCY_CONTACT_NAME, EmployeeConst.EMERGENCY_CONTACT_NAME_LENGTH)
     val emergencyContactPhone =
         varchar(EmployeeConst.EMERGENCY_CONTACT_PHONE, EmployeeConst.EMERGENCY_CONTACT_PHONE_LENGTH)
-    val state = enumeration<EmployeeState>(EmployeeConst.STATE)
+    val state = enumerationByName<EmployeeState>(EmployeeConst.STATE, 20)
     val passwordHash = varchar(EmployeeConst.PASSWORD_HASH, EmployeeConst.PASSWORD_HASH_LENGTH)
     val iterations = integer(EmployeeConst.ITERATIONS)
     val algorithm = varchar(EmployeeConst.ALGORITHM, EmployeeConst.ALGORITHM_LENGTH)

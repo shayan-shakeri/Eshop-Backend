@@ -2,10 +2,12 @@ package com.shayan.feature.role.route
 
 import com.shayan.feature.role.constants.RoleConst
 import com.shayan.feature.role.dto.AddRole
+import com.shayan.feature.role.model.Role
 import com.shayan.feature.role.service.RoleService
 import com.shayan.util.jwt.checkIfIsEmployee
 import com.shayan.util.jwt.idExtractor
-import com.shayan.util.jwt.roleIdExtract
+import com.shayan.util.jwt.roleCodeExtract
+import core.consts.ACR
 import core.consts.CJWT
 import core.util.extractFromParam
 import io.ktor.http.*
@@ -27,13 +29,26 @@ fun Route.roleRoute(
             post(RoleConst.ADD_ROUTE) {
                 call.checkIfIsEmployee()
                 val employeeId = call.idExtractor()
-                val roleId = call.roleIdExtract()
-                if (roleId.toInt() == 4) {
+                val roleId = call.roleCodeExtract()
+
+                if (roleId.toInt() == ACR.HR) {
                     val request = call.receive<AddRole>()
                     call.respond(roleService.add(request, employeeId, roleId))
                 } else {
-                    call.respond(HttpStatusCode.Unauthorized)
+                    call.respond(HttpStatusCode.Forbidden)
                     return@post
+                }
+
+            }
+            get(RoleConst.READ_All_ROUTE){
+                call.checkIfIsEmployee()
+                val roleId = call.roleCodeExtract()
+
+                if (roleId.toInt() == ACR.HR || roleId.toInt() == ACR.CEO) {
+                    call.respond(roleService.getAll())
+                } else {
+                    call.respond(HttpStatusCode.Forbidden)
+                    return@get
                 }
             }
         }

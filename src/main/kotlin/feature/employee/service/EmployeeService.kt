@@ -1,7 +1,9 @@
 package com.shayan.feature.employee.service
 
+import com.shayan.core.exception.EmailExist
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.exception.InvalidCredentials
+import com.shayan.core.image_controller.ImageController
 import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.employee.dto.*
 import com.shayan.feature.employee.mapper.toEmployeeNoTokenResponse
@@ -9,6 +11,8 @@ import com.shayan.feature.employee.mapper.toEmployeeResponse
 import com.shayan.feature.employee.model.Employee
 import com.shayan.feature.employee.repository.EmployeeRepository
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
+import com.shayan.feature.role.service.RoleService
+import com.shayan.feature.users.service.UsersService
 import com.shayan.util.Gender
 import core.database.dbQuery
 import core.exception.Forbidden
@@ -24,7 +28,9 @@ import java.time.LocalDateTime
 
 class EmployeeService(
     private val employeeRepository: EmployeeRepository,
-    private val employeeAuditLogService: EmployeeAuditLogService
+    private val employeeAuditLogService: EmployeeAuditLogService,
+    private val roleService: RoleService,
+    private val userService: UsersService
 ) {
     suspend fun getAll(ip: String, employeeId: String, roleId: String): List<EmployeeNoTokenResponse> {
         runCatching { employeeAuditLogService.addAuditLog(employeeId, roleId, EmployeeConst.GET_ALL_ACTION, ip) }
@@ -42,15 +48,15 @@ class EmployeeService(
                 result.algorithm
             )
 
-            if (employeeRepository.checkIfTerminated(result.id!!)) throw Forbidden(true)
-
+            if (employeeRepository.checkIfTerminated(result.id)) throw Forbidden(true)
             if (hashPassword.hash != result.passwordHash) throw InvalidCredentials()
-            result.toEmployeeResponse(AccessTokenGenerator.employeeToken(result.email!!, result.roleId!!))
+            val role = roleService.read(result.roleId)
+            result.toEmployeeResponse(AccessTokenGenerator.employeeToken(result.id, role.code))
         }
         runCatching {
             employeeAuditLogService.addAuditLog(
                 result.id,
-                result.email,
+                result.roleId,
                 EmployeeConst.LOGIN_ACTION,
                 loginEmployee.ip
             )
@@ -70,6 +76,7 @@ class EmployeeService(
         return dbQuery {
             val password = PasswordHasher.hashPassword(signupEmployee.password)
             val id = IdGenerator.generate()
+            if(userService.emailExist(signupEmployee.email)) throw EmailExist()
             val request = Employee(
                 id = id,
                 roleId = signupEmployee.roleId,
@@ -109,7 +116,7 @@ class EmployeeService(
         return dbQuery {
             val request = Employee(
                 id = updateEmployeeInfo.id,
-                roleId = updateEmployeeInfo.roleId,
+                roleId = "",
                 name = updateEmployeeInfo.name,
                 nationalId = updateEmployeeInfo.nationalId,
                 phone = updateEmployeeInfo.phone,
@@ -120,7 +127,7 @@ class EmployeeService(
                 birthday = updateEmployeeInfo.birthday,
                 emergencyContactName = updateEmployeeInfo.emergencyContactName,
                 emergencyContactPhone = updateEmployeeInfo.emergencyContactPhone,
-                state = updateEmployeeInfo.state,
+                state = EmployeeState.Terminated,
                 passwordHash = "",
                 iterations = 0,
                 algorithm = "",
@@ -164,7 +171,7 @@ class EmployeeService(
                 emergencyContactPhone = "",
                 state = EmployeeState.Terminated,
             )
-            employeeRepository.updateInfo(request)?.toEmployeeNoTokenResponse() ?: throw NotFoundException()
+            employeeRepository.updatePassword(request)?.toEmployeeNoTokenResponse() ?: throw NotFoundException()
         }
     }
 

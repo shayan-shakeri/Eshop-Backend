@@ -114,7 +114,6 @@ fun Route.userPicRoute(
                     userId = userId,
                     ip = ip,
                     fileBytes = fileBytes,
-                    originalFileName = fileName,
                     baseUrl = baseUrl
                 )
 

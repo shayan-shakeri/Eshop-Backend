@@ -27,4 +27,9 @@ class RoleRepositoryImpl: RoleRepository {
             .where { RoleTable.id eq id }
             .singleOrNull()
             ?.toRole()
+
+    override suspend fun getAll(): List<Role> =
+        RoleTable
+            .selectAll()
+            .map { it.toRole() }
 }

@@ -4,7 +4,7 @@ import java.time.Instant
 
 data class EmployeeAuditLog (
     val id: String,
-    val employeeId: String,
+    val employeeId: String?,
     val roleId: String,
     val action: String,
     val ip: String,

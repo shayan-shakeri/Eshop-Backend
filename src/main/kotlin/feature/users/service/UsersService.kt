@@ -153,4 +153,10 @@ class UsersService(
         dbQuery { usersRepository.delete(id) }
     }
 
+    suspend fun emailExist(email: String): Boolean =
+        dbQuery {
+            usersRepository.findByEmail(email) != null
+        }
+
+
 }

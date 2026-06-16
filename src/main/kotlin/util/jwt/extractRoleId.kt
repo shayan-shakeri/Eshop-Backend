@@ -7,8 +7,8 @@ import io.ktor.server.application.ApplicationCall
 import io.ktor.server.auth.jwt.JWTPrincipal
 import io.ktor.server.auth.principal
 
-fun ApplicationCall.roleIdExtract(): String {
+fun ApplicationCall.roleCodeExtract(): String {
     val principal = this.principal<JWTPrincipal>() ?: throw AuthenticationException(EXC.INVALID_TOKEN)
 
-    return principal.payload.getClaim(CJWT.CLAIM_ROLE).asString()
+    return principal.payload.getClaim(CJWT.CLAIM_ROLE).asInt().toString()
 }

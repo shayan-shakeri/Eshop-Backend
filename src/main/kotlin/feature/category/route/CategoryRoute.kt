@@ -1,14 +1,12 @@
 package com.shayan.feature.category.route
 
 import com.shayan.feature.category.constants.CategoryConst
-import com.shayan.feature.category.repository.CategoryRepository
 import com.shayan.feature.category.service.CategoryService
-import com.shayan.feature.user_pic.constants.UserPicConst
 import com.shayan.util.jwt.checkIfIsEmployee
 import com.shayan.util.jwt.idExtractor
-import com.shayan.util.jwt.roleIdExtract
+import com.shayan.util.jwt.roleCodeExtract
+import core.consts.ACR
 import core.consts.CJWT
-import core.util.extractFromParam
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.PartData
 import io.ktor.http.content.forEachPart
@@ -30,6 +28,7 @@ import java.io.File
 fun Route.categoryRoute(
     categoryService: CategoryService
 ) {
+
     route(CategoryConst.MAIN_ROUTE) {
 
         staticFiles(
@@ -38,77 +37,95 @@ fun Route.categoryRoute(
         )
 
         get(CategoryConst.GET_ROUTE) {
+
             val baseUrl =
                 "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
-            call.respond(categoryService.readCategory(baseUrl))
+
+            call.respond(
+                categoryService.readCategory(baseUrl)
+            )
         }
 
         authenticate(CJWT.ACCESS_AUTH) {
 
             post(CategoryConst.ADD_ROUTE) {
-                call.checkIfIsEmployee()
+
+                val employeeId = call.idExtractor()
+                val roleId = call.roleCodeExtract()
+
+                if (roleId.toInt() != ACR.STORAGE) {
+                    return@post
+                }
 
                 val baseUrl =
                     "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
 
-                val employeeId = call.idExtractor()
-                val roleId = call.roleIdExtract()
+                val multipart = call.receiveMultipart()
 
-                if (roleId.toInt() == 2) {
+                var fileBytes: ByteArray? = null
+                var categoryName: String? = null
+                var ip: String? = null
 
-                    val multipart = call.receiveMultipart()
+                multipart.forEachPart { part ->
 
-                    var fileBytes: ByteArray? = null
-                    var fileName: String? = null
-                    var categoryName: String? = null
+                    when (part) {
 
-                    multipart.forEachPart { part ->
-                        when (part) {
-
-                            is PartData.FileItem -> {
+                        is PartData.FileItem -> {
+                            if (part.name == CategoryConst.IMAGE) {
                                 fileBytes = part.streamProvider().readBytes()
-                                fileName = part.originalFileName
                             }
-
-                            is PartData.FormItem -> {
-                                when (part.name) {
-                                    "categoryName" -> categoryName = part.value
-                                }
-                            }
-
-                            else -> Unit
                         }
 
-                        part.dispose()
+                        is PartData.FormItem -> {
+                            when (part.name) {
+
+                                CategoryConst.CATEGORY_NAME -> {
+                                    categoryName = part.value
+                                }
+
+                                CategoryConst.IP -> {
+                                    ip = part.value
+                                }
+                            }
+                        }
+
+                        else -> Unit
                     }
 
-                    if (fileBytes == null) {
-                        return@post call.respondText(
-                            UserPicConst.MISSING_FILE,
-                            status = HttpStatusCode.BadRequest
-                        )
-                    }
-
-                    if (categoryName.isNullOrBlank()) {
-                        return@post call.respondText(
-                            "Category name is required",
-                            status = HttpStatusCode.BadRequest
-                        )
-                    }
-
-                    val ip = call.request.origin.remoteHost
-
-                    val result = categoryService.addCategory(
-                        employeeId = employeeId,
-                        roleId = roleId,
-                        ip = ip,
-                        categoryName = categoryName!!,
-                        fileBytes = fileBytes!!,
-                        baseUrl = baseUrl
-                    )
-
-                    call.respond(result)
+                    part.dispose()
                 }
+
+                if (fileBytes == null) {
+                    return@post call.respondText(
+                        CategoryConst.MISSING_FILE_ERROR,
+                        status = HttpStatusCode.BadRequest
+                    )
+                }
+
+                if (categoryName.isNullOrBlank()) {
+                    return@post call.respondText(
+                        CategoryConst.CATEGORY_NULL_ERROR,
+                        status = HttpStatusCode.BadRequest
+                    )
+                }
+
+                if (ip.isNullOrBlank()) {
+                    return@post call.respondText(
+                        CategoryConst.IP_NULL_ERROR,
+                        status = HttpStatusCode.BadRequest
+                    )
+                }
+
+                val result = categoryService.addCategory(
+                    employeeId = employeeId,
+                    roleId = roleId,
+                    ip = ip,
+                    categoryName = categoryName,
+                    fileBytes = fileBytes,
+                    baseUrl = baseUrl
+                )
+
+                call.respond(result)
             }
         }
     }

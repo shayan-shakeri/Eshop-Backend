@@ -30,4 +30,7 @@ class RoleService(
     suspend fun read(id: String): RoleResponse = dbQuery{
         repository.finRoleById(id)?.toRoleResponse() ?: throw FailedToAdd()
     }
+
+    suspend fun getAll(): List<RoleResponse> =
+        dbQuery { repository.getAll().map { it.toRoleResponse() } }
 }

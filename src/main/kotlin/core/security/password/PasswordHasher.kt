@@ -51,22 +51,6 @@ object PasswordHasher {
         )
     }
 
-    fun verify(
-        password: String,
-        storedHash: String,
-        data: PasswordHashResult
-    ): Boolean {
-
-        val newHash = hashPassword(
-            password = password,
-            salt = data.salt,
-            iterations = data.iterations,
-            algorithm = data.algorithm
-        )
-
-        return newHash.hash == storedHash
-    }
-
     private fun generateSalt(): ByteArray {
 
         val random = SecureRandom.getInstance(

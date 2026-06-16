@@ -8,9 +8,9 @@ import util.serializer.BigDecimalSerializer
 import java.math.BigDecimal
 import java.time.LocalDate
 
+@Serializable
 data class UpdateEmployeeInfo(
     val id: String,
-    val roleId: String,
     val name: String,
     val nationalId: String,
     val phone: String,
@@ -23,7 +23,5 @@ data class UpdateEmployeeInfo(
     val birthday: LocalDate,
     val emergencyContactName: String,
     val emergencyContactPhone: String,
-    val state: EmployeeState,
-    val password: String,
     val ip: String
 )

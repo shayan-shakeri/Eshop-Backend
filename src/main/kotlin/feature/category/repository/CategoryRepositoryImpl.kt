@@ -2,24 +2,25 @@ package com.shayan.feature.category.repository
 
 import com.shayan.feature.category.mapper.toCategory
 import com.shayan.feature.category.model.Category
+import com.shayan.feature.category.table.CategoryTable
 import com.shayan.feature.employee.table.EmployeeTable
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 
 class CategoryRepositoryImpl : CategoryRepository {
     override suspend fun getAllCategories(): List<Category> =
-        EmployeeTable
+        CategoryTable
             .selectAll()
             .map { it.toCategory() }
 
     override suspend fun addCategory(category: Category): Category? {
-        EmployeeTable.insert {
-            it[EmployeeTable.id] = category.id
-            it[EmployeeTable.name] = category.name
+        CategoryTable.insert {
+            it[CategoryTable.id] = category.id
+            it[CategoryTable.name] = category.name
         }
-        return EmployeeTable
+        return CategoryTable
             .selectAll()
-            .where { EmployeeTable.id eq category.id }
+            .where { CategoryTable.id eq category.id }
             .singleOrNull()
             ?.toCategory()
     }

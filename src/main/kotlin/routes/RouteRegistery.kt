@@ -12,6 +12,8 @@ import com.shayan.feature.employee.route.employeeRoute
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.feature.employee_audit_log.route.employeeAuditLog
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
+import com.shayan.feature.role.route.roleRoute
+import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.route.searchHistoryRoute
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.route.userAuthRoutes
@@ -21,6 +23,7 @@ import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.route.userRoutes
 import com.shayan.feature.users.service.UsersService
 import io.ktor.server.application.*
+import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
@@ -50,10 +53,14 @@ fun Application.registerRoutes() {
         val employeeAuditLogService by inject<EmployeeAuditLogService>()
         employeeAuditLog(employeeAuditLogService)
 
+        val roleService by inject<RoleService>()
+        roleRoute(roleService)
+
         val employeeService by inject<EmployeeService>()
         employeeRoute(employeeService)
 
         val categoryService by inject<CategoryService>()
         categoryRoute(categoryService)
+
     }
 }

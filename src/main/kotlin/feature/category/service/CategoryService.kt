@@ -32,7 +32,7 @@ class CategoryService (
         return dbQuery {
             val fileName = imageController.addImage(
                 fileBytes = fileBytes,
-                title = categoryName,
+                title = "$categoryName.png",
                 imageType = ImageType.CategoryImage
             )
 
@@ -43,7 +43,7 @@ class CategoryService (
 
             categoryRepository.addCategory(category)
                 ?.toCategoryResponse(
-                    "$baseUrl${CategoryConst.IMAGE_ROUTE}/${category.name}"
+                    "$baseUrl${CategoryConst.IMAGE_ROUTE}/${fileName}"
                 )
                 ?: throw FailedToAdd()
         }
@@ -51,7 +51,7 @@ class CategoryService (
 
     suspend fun readCategory(baseUrl: String): List<CategoryResponse> = dbQuery{
         categoryRepository.getAllCategories().map {
-            it.toCategoryResponse("$baseUrl${CategoryConst.IMAGE_ROUTE}/${it.name}")
+            it.toCategoryResponse("$baseUrl${CategoryConst.IMAGE_ROUTE}/${it.name}.png")
         }
     }
 }
