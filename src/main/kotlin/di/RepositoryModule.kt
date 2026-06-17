@@ -12,6 +12,8 @@ import com.shayan.feature.employee.repository.EmployeeRepository
 import com.shayan.feature.employee.repository.EmployeeRepositoryImpl
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepository
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepositoryImpl
+import com.shayan.feature.filter.repository.RepositoryFilter
+import com.shayan.feature.filter.repository.RepositoryFilterImpl
 import com.shayan.feature.role.repository.RoleRepository
 import com.shayan.feature.role.repository.RoleRepositoryImpl
 import com.shayan.feature.search_history.repository.SearchHistoryRepository
@@ -39,4 +41,5 @@ val repositoryModule = module {
     single<RoleRepository> { RoleRepositoryImpl() }
     single<EmployeeRepository> { EmployeeRepositoryImpl() }
     single<CategoryRepository> { CategoryRepositoryImpl() }
+    single<RepositoryFilter> { RepositoryFilterImpl() }
 }

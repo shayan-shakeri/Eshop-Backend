@@ -4,5 +4,6 @@ enum class ImageType {
     UserImage,
     ProductImage,
     BannerImage,
-    CategoryImage
+    CategoryImage,
+    FilterImage
 }

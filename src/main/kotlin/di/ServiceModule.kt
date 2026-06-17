@@ -7,6 +7,8 @@ import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.employee_audit_log.table.EmployeeAuditLogTable
+import com.shayan.feature.filter.dto.FilterResponse
+import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.user_auth.service.UserAuthService
@@ -96,6 +98,14 @@ val serviceModule = module {
     single {
         CategoryService(
             categoryRepository = get(),
+            employeeAuditLogService = get(),
+            imageController = get()
+        )
+    }
+
+    single {
+        FilterService(
+            filterRepository = get(),
             employeeAuditLogService = get(),
             imageController = get()
         )
