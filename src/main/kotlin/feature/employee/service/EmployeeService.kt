@@ -3,7 +3,6 @@ package com.shayan.feature.employee.service
 import com.shayan.core.exception.EmailExist
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.exception.InvalidCredentials
-import com.shayan.core.image_controller.ImageController
 import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.employee.dto.*
 import com.shayan.feature.employee.mapper.toEmployeeNoTokenResponse
@@ -13,7 +12,7 @@ import com.shayan.feature.employee.repository.EmployeeRepository
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.users.service.UsersService
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import core.database.dbQuery
 import core.exception.Forbidden
 import core.security.password.PasswordHasher
@@ -22,9 +21,8 @@ import core.util.IdGenerator
 import feature.employee.constants.EmployeeConst
 import feature.employee.dto.SignupEmployee
 import io.ktor.server.plugins.*
-import util.EmployeeState
+import com.shayan.util.enums.EmployeeState
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class EmployeeService(
     private val employeeRepository: EmployeeRepository,

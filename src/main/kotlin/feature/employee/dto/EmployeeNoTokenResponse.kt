@@ -1,9 +1,9 @@
 package com.shayan.feature.employee.dto
 
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import com.shayan.util.serializer.LocalDateSerializer
 import kotlinx.serialization.Serializable
-import util.EmployeeState
+import com.shayan.util.enums.EmployeeState
 import util.serializer.BigDecimalSerializer
 import java.math.BigDecimal
 import java.time.LocalDate

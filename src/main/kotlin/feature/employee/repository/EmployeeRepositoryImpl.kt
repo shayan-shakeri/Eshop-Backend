@@ -6,7 +6,7 @@ import com.shayan.feature.employee.table.EmployeeTable
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.update
-import util.EmployeeState
+import com.shayan.util.enums.EmployeeState
 
 class EmployeeRepositoryImpl : EmployeeRepository {
     override suspend fun getAll(): List<Employee> =

@@ -14,6 +14,8 @@ import com.shayan.feature.employee_audit_log.route.employeeAuditLog
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.filter.route.filterRouting
 import com.shayan.feature.filter.service.FilterService
+import com.shayan.feature.product_image.route.productImageRoute
+import com.shayan.feature.product_image.service.ProductImageService
 import com.shayan.feature.role.route.roleRoute
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.route.searchHistoryRoute
@@ -66,5 +68,8 @@ fun Application.registerRoutes() {
 
         val filterService by inject<FilterService>()
         filterRouting(filterService)
+
+        val productImageService by inject<ProductImageService>()
+        productImageRoute(productImageService)
     }
 }

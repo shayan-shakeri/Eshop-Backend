@@ -1,4 +1,4 @@
-package com.shayan.util
+package com.shayan.util.enum
 
 enum class Gender {
     Male,

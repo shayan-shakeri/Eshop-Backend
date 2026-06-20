@@ -15,7 +15,7 @@ object FilterConst {
 
     //---------------route
     const val MAIN_ROUTE = "/filter"
-    const val IMAGE_ROUTE = "${CategoryConst.MAIN_ROUTE}/images"
+    const val IMAGE_ROUTE = "${MAIN_ROUTE}/images"
     const val READ_ROUTE = "/read"
     const val ADD_ROUTE = "/add"
     const val REMOTE_PATH = "/images"

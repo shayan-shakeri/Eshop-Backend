@@ -1,7 +1,7 @@
 package com.shayan.feature.users.table
 
 import com.shayan.feature.users.constants.UsersConst
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import core.consts.ANC
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.date

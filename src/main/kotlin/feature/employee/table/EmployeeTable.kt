@@ -1,14 +1,13 @@
 package com.shayan.feature.employee.table
 
 import com.shayan.feature.role.table.RoleTable
-import com.shayan.feature.users.constants.UsersConst
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import core.consts.ANC
 import feature.employee.constants.EmployeeConst
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.date
-import util.EmployeeState
+import com.shayan.util.enums.EmployeeState
 
 object EmployeeTable : Table(EmployeeConst.TABLE_NAME) {
     val id = varchar(EmployeeConst.ID, ANC.ID_LENGTH)

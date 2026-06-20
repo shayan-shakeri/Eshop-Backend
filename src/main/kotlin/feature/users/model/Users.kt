@@ -1,6 +1,6 @@
 package com.shayan.feature.users.model
 
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import java.time.LocalDate
 
 data class Users(

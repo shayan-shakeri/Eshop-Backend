@@ -1,7 +1,7 @@
 package com.shayan.feature.employee.model
 
-import com.shayan.util.Gender
-import util.EmployeeState
+import com.shayan.util.enum.Gender
+import com.shayan.util.enums.EmployeeState
 import java.math.BigDecimal
 import java.time.LocalDate
 

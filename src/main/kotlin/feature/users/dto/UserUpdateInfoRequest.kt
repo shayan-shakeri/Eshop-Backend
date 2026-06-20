@@ -1,6 +1,6 @@
 package com.shayan.feature.users.dto
 
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import com.shayan.util.serializer.LocalDateSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDate

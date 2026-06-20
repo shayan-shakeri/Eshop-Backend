@@ -10,9 +10,8 @@ import com.shayan.feature.users.mapper.toUserNoTokenResponse
 import com.shayan.feature.users.mapper.toUserResponse
 import com.shayan.feature.users.model.Users
 import com.shayan.feature.users.repository.UserRepository
-import com.shayan.util.Gender
+import com.shayan.util.enum.Gender
 import core.database.dbQuery
-import core.security.password.PasswordHashResult
 import core.security.password.PasswordHasher
 import core.util.IdGenerator
 import io.ktor.server.plugins.*
