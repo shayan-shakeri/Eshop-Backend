@@ -6,6 +6,8 @@ import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.category.route.categoryRoute
 import com.shayan.feature.category.service.CategoryService
+import com.shayan.feature.discount.route.discountRoute
+import com.shayan.feature.discount.service.DiscountService
 import com.shayan.feature.email_verifier.route.emailVerifierRoute
 import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee.route.employeeRoute
@@ -71,5 +73,8 @@ fun Application.registerRoutes() {
 
         val productImageService by inject<ProductImageService>()
         productImageRoute(productImageService)
+
+        val discountService by inject<DiscountService>()
+        discountRoute(discountService)
     }
 }

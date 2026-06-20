@@ -6,6 +6,8 @@ import com.shayan.feature.audit_logs.repository.AuditLogRepository
 import com.shayan.feature.audit_logs.repository.AuditLogRepositoryImpl
 import com.shayan.feature.category.repository.CategoryRepository
 import com.shayan.feature.category.repository.CategoryRepositoryImpl
+import com.shayan.feature.discount.repository.DiscountRepository
+import com.shayan.feature.discount.repository.DiscountRepositoryImpl
 import com.shayan.feature.email_verifier.repository.EmailVerifierRepository
 import com.shayan.feature.email_verifier.repository.EmailVerifierRepositoryImpl
 import com.shayan.feature.employee.repository.EmployeeRepository
@@ -45,4 +47,5 @@ val repositoryModule = module {
     single<CategoryRepository> { CategoryRepositoryImpl() }
     single<RepositoryFilter> { RepositoryFilterImpl() }
     single<ProductImageRepository> { ProductImageRepositoryImpl() }
+    single<DiscountRepository> { DiscountRepositoryImpl() }
 }
