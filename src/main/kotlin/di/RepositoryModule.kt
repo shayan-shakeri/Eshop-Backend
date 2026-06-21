@@ -22,6 +22,8 @@ import com.shayan.feature.role.repository.RoleRepository
 import com.shayan.feature.role.repository.RoleRepositoryImpl
 import com.shayan.feature.search_history.repository.SearchHistoryRepository
 import com.shayan.feature.search_history.repository.SearchHistoryRepositoryImpl
+import com.shayan.feature.setting.repository.SettingRepository
+import com.shayan.feature.setting.repository.SettingRepositoryImpl
 import com.shayan.feature.user_pic.dto.UserPicResponse
 import com.shayan.feature.user_pic.repository.UserPicRepository
 import com.shayan.feature.user_pic.repository.UserPicRepositoryImpl
@@ -48,4 +50,5 @@ val repositoryModule = module {
     single<RepositoryFilter> { RepositoryFilterImpl() }
     single<ProductImageRepository> { ProductImageRepositoryImpl() }
     single<DiscountRepository> { DiscountRepositoryImpl() }
+    single<SettingRepository> { SettingRepositoryImpl() }
 }

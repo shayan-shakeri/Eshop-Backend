@@ -1,28 +1,27 @@
 package com.shayan.feature.product_image.table
 
-import com.shayan.feature.product_image.constants.ProductImageConst
 import core.consts.ANC
 import org.jetbrains.exposed.sql.Table
 
-object ProductImageTable : Table(ProductImageConst.TABLE_NAME) {
+object ProductImageTable : Table(`SettingConst.kt`.TABLE_NAME) {
 
     val id = varchar(
-        ProductImageConst.ID,
+        `SettingConst.kt`.ID,
         ANC.ID_LENGTH
     )
 
     val productId = varchar(
-        ProductImageConst.PRODUCT_ID,
+        `SettingConst.kt`.PRODUCT_ID,
         ANC.ID_LENGTH
     )
 
     val previewImage = bool(
-        ProductImageConst.PREVIEW_IMAGE
+        `SettingConst.kt`.PREVIEW_IMAGE
     )
 
     val title = varchar(
-        ProductImageConst.TITLE,
-        ProductImageConst.TITLE_LENGTH
+        `SettingConst.kt`.TITLE,
+        `SettingConst.kt`.TITLE_LENGTH
     )
 
     override val primaryKey = PrimaryKey(id)

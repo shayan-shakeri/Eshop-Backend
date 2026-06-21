@@ -1,6 +1,5 @@
 package com.shayan.feature.product_image.route
 
-import com.shayan.feature.product_image.constants.ProductImageConst
 import com.shayan.feature.product_image.service.ProductImageService
 import com.shayan.util.jwt.idExtractor
 import com.shayan.util.jwt.roleCodeExtract
@@ -26,16 +25,16 @@ fun Route.productImageRoute(
     productImageService: ProductImageService
 ) {
 
-    route(ProductImageConst.MAIN_ROUTE) {
+    route(`SettingConst.kt`.MAIN_ROUTE) {
 
         staticFiles(
-            remotePath = ProductImageConst.REMOTE_PATH,
-            dir = File(ProductImageConst.FILE_PATH)
+            remotePath = `SettingConst.kt`.REMOTE_PATH,
+            dir = File(`SettingConst.kt`.FILE_PATH)
         )
 
         authenticate(CJWT.ACCESS_AUTH) {
 
-            post(ProductImageConst.ADD_ROUTE) {
+            post(`SettingConst.kt`.ADD_ROUTE) {
 
                 val baseUrl =
                     "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
@@ -44,7 +43,7 @@ fun Route.productImageRoute(
                 val roleId = call.roleCodeExtract()
 
                 val productId =
-                    call.parameters[ProductImageConst.PRODUCT_ID]
+                    call.parameters[`SettingConst.kt`.PRODUCT_ID]
                         ?: return@post call.respond(
                             HttpStatusCode.BadRequest
                         )
@@ -55,7 +54,7 @@ fun Route.productImageRoute(
 
                 val ip =
                     call.extractFromParam(
-                        ProductImageConst.IP_PARAM
+                        `SettingConst.kt`.IP_PARAM
                     )
 
                 val multipart = call.receiveMultipart()
@@ -83,7 +82,7 @@ fun Route.productImageRoute(
 
                 if (fileBytes == null) {
                     return@post call.respondText(
-                        ProductImageConst.MISSING_FILE,
+                        `SettingConst.kt`.MISSING_FILE,
                         status = HttpStatusCode.BadRequest
                     )
                 }
@@ -103,13 +102,13 @@ fun Route.productImageRoute(
                 call.respond(result)
             }
 
-            get(ProductImageConst.READ_PREVIEW_ROUTE) {
+            get(`SettingConst.kt`.READ_PREVIEW_ROUTE) {
 
                 val baseUrl =
                     "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
 
                 val productId =
-                    call.parameters[ProductImageConst.PRODUCT_ID]
+                    call.parameters[`SettingConst.kt`.PRODUCT_ID]
                         ?: return@get call.respond(
                             HttpStatusCode.BadRequest
                         )
@@ -122,13 +121,13 @@ fun Route.productImageRoute(
                 )
             }
 
-            get(ProductImageConst.READ_ALL_ROUTE) {
+            get(`SettingConst.kt`.READ_ALL_ROUTE) {
 
                 val baseUrl =
                     "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
 
                 val productId =
-                    call.parameters[ProductImageConst.PRODUCT_ID]
+                    call.parameters[`SettingConst.kt`.PRODUCT_ID]
                         ?: return@get call.respond(
                             HttpStatusCode.BadRequest
                         )
@@ -141,7 +140,7 @@ fun Route.productImageRoute(
                 )
             }
 
-            put(ProductImageConst.UPDATE_IMAGE_ROUTE) {
+            put(`SettingConst.kt`.UPDATE_IMAGE_ROUTE) {
 
                 val baseUrl =
                     "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
@@ -150,14 +149,14 @@ fun Route.productImageRoute(
                 val roleId = call.roleCodeExtract()
 
                 val imageId =
-                    call.parameters[ProductImageConst.IMAGE_ID]
+                    call.parameters[`SettingConst.kt`.IMAGE_ID]
                         ?: return@put call.respond(
                             HttpStatusCode.BadRequest
                         )
 
                 val ip =
                     call.extractFromParam(
-                        ProductImageConst.IP_PARAM
+                        `SettingConst.kt`.IP_PARAM
                     )
 
                 val multipart = call.receiveMultipart()
@@ -181,7 +180,7 @@ fun Route.productImageRoute(
 
                 if (fileBytes == null) {
                     return@put call.respondText(
-                        ProductImageConst.MISSING_FILE,
+                        `SettingConst.kt`.MISSING_FILE,
                         status = HttpStatusCode.BadRequest
                     )
                 }
@@ -199,7 +198,7 @@ fun Route.productImageRoute(
                 call.respond(result)
             }
 
-            put(ProductImageConst.UPDATE_PREVIEW_ROUTE) {
+            put(`SettingConst.kt`.UPDATE_PREVIEW_ROUTE) {
 
                 val baseUrl =
                     "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
@@ -208,14 +207,14 @@ fun Route.productImageRoute(
                 val roleId = call.roleCodeExtract()
 
                 val imageId =
-                    call.parameters[ProductImageConst.IMAGE_ID]
+                    call.parameters[`SettingConst.kt`.IMAGE_ID]
                         ?: return@put call.respond(
                             HttpStatusCode.BadRequest
                         )
 
                 val ip =
                     call.extractFromParam(
-                        ProductImageConst.IP_PARAM
+                        `SettingConst.kt`.IP_PARAM
                     )
 
                 call.respond(
@@ -229,20 +228,20 @@ fun Route.productImageRoute(
                 )
             }
 
-            delete(ProductImageConst.DELETE_SINGLE_ROUTE) {
+            delete(`SettingConst.kt`.DELETE_SINGLE_ROUTE) {
 
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
 
                 val imageId =
-                    call.parameters[ProductImageConst.IMAGE_ID]
+                    call.parameters[`SettingConst.kt`.IMAGE_ID]
                         ?: return@delete call.respond(
                             HttpStatusCode.BadRequest
                         )
 
                 val ip =
                     call.extractFromParam(
-                        ProductImageConst.IP_PARAM
+                        `SettingConst.kt`.IP_PARAM
                     )
 
                 call.respond(
@@ -255,20 +254,20 @@ fun Route.productImageRoute(
                 )
             }
 
-            delete(ProductImageConst.DELETE_ALL_ROUTE) {
+            delete(`SettingConst.kt`.DELETE_ALL_ROUTE) {
 
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
 
                 val productId =
-                    call.parameters[ProductImageConst.PRODUCT_ID]
+                    call.parameters[`SettingConst.kt`.PRODUCT_ID]
                         ?: return@delete call.respond(
                             HttpStatusCode.BadRequest
                         )
 
                 val ip =
                     call.extractFromParam(
-                        ProductImageConst.IP_PARAM
+                        `SettingConst.kt`.IP_PARAM
                     )
 
                 call.respond(

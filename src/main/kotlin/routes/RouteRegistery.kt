@@ -22,6 +22,8 @@ import com.shayan.feature.role.route.roleRoute
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.route.searchHistoryRoute
 import com.shayan.feature.search_history.service.SearchHistoryService
+import com.shayan.feature.setting.route.settingRoute
+import com.shayan.feature.setting.service.SettingService
 import com.shayan.feature.user_auth.route.userAuthRoutes
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.route.userPicRoute
@@ -76,5 +78,8 @@ fun Application.registerRoutes() {
 
         val discountService by inject<DiscountService>()
         discountRoute(discountService)
+
+        val settingService by inject<SettingService>()
+        settingRoute(settingService)
     }
 }

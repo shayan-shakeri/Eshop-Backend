@@ -13,6 +13,7 @@ import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.product_image.service.ProductImageService
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.service.SearchHistoryService
+import com.shayan.feature.setting.service.SettingService
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.service.UsersService
@@ -123,6 +124,13 @@ val serviceModule = module {
 
     single {
         DiscountService(
+            repository = get(),
+            employeeAuditLogService = get()
+        )
+    }
+
+    single {
+        SettingService(
             repository = get(),
             employeeAuditLogService = get()
         )
