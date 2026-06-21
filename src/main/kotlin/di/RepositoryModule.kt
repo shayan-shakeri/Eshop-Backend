@@ -16,6 +16,8 @@ import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogReposito
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepositoryImpl
 import com.shayan.feature.filter.repository.RepositoryFilter
 import com.shayan.feature.filter.repository.RepositoryFilterImpl
+import com.shayan.feature.product.repository.ProductRepository
+import com.shayan.feature.product.repository.ProductRepositoryImpl
 import com.shayan.feature.product_image.repository.ProductImageRepository
 import com.shayan.feature.product_image.repository.ProductImageRepositoryImpl
 import com.shayan.feature.role.repository.RoleRepository
@@ -51,4 +53,5 @@ val repositoryModule = module {
     single<ProductImageRepository> { ProductImageRepositoryImpl() }
     single<DiscountRepository> { DiscountRepositoryImpl() }
     single<SettingRepository> { SettingRepositoryImpl() }
+    single<ProductRepository> { ProductRepositoryImpl() }
 }

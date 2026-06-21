@@ -3,7 +3,9 @@ package com.shayan.feature.product_image.service
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.image_controller.ImageController
 import com.shayan.core.image_controller.ImageType
+import com.shayan.feature.employee_audit_log.constants.EmployeeAuditLogConst
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
+import com.shayan.feature.product_image.constants.ProductImageConst
 import com.shayan.feature.product_image.dto.ProductImageResponse
 import com.shayan.feature.product_image.mapper.toProductImageResponse
 import com.shayan.feature.product_image.model.ProductImage
@@ -33,7 +35,7 @@ class ProductImageService(
             employeeAuditLogService.addAuditLog(
                 employeeId = employeeId,
                 roleId = roleId,
-                action = `SettingConst.kt`.ADD_ACTION,
+                action = ProductImageConst.ADD_ACTION,
                 ip = ip
             )
         }
@@ -64,7 +66,7 @@ class ProductImageService(
 
             repository.add(request)
                 ?.toProductImageResponse(
-                    "$baseUrl${`SettingConst.kt`.IMAGE_ROUTE}/${fileName}"
+                    "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${fileName}"
                 )
                 ?: throw FailedToAdd()
         }
@@ -78,7 +80,7 @@ class ProductImageService(
 
             val result =  repository.findPreview(productId)
             result?.toProductImageResponse(
-                "$baseUrl${`SettingConst.kt`.IMAGE_ROUTE}/${result.title}"
+                "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${result.title}"
             )
                 ?: throw NotFoundException()
         }
@@ -92,7 +94,7 @@ class ProductImageService(
             repository.findAll(productId)
                 .map {
                     it.toProductImageResponse(
-                        "$baseUrl${`SettingConst.kt`.IMAGE_ROUTE}/${it.title}"
+                        "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${it.title}"
                     )
                 }
         }
@@ -110,7 +112,7 @@ class ProductImageService(
             employeeAuditLogService.addAuditLog(
                 employeeId = employeeId,
                 roleId = roleId,
-                action = `SettingConst.kt`.UPDATE_IMAGE_ACTION,
+                action = ProductImageConst.UPDATE_IMAGE_ACTION,
                 ip = ip
             )
         }
@@ -129,7 +131,7 @@ class ProductImageService(
 
             repository.update(existing)
                 ?.toProductImageResponse(
-                    "$baseUrl${`SettingConst.kt`.IMAGE_ROUTE}/${existing.title}"
+                    "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${existing.title}"
                 )
                 ?: throw NotFoundException()
         }
@@ -147,7 +149,7 @@ class ProductImageService(
             employeeAuditLogService.addAuditLog(
                 employeeId = employeeId,
                 roleId = roleId,
-                action = `SettingConst.kt`.UPDATE_PREVIEW_ACTION,
+                action = ProductImageConst.UPDATE_PREVIEW_ACTION,
                 ip = ip
             )
         }
@@ -163,7 +165,7 @@ class ProductImageService(
 
             val result =  repository.setPreview(imageId)
             result?.toProductImageResponse(
-                "$baseUrl${`SettingConst.kt`.IMAGE_ROUTE}/${result.title}"
+                "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${result.title}"
             )
                 ?: throw NotFoundException()
         }
@@ -180,7 +182,7 @@ class ProductImageService(
             employeeAuditLogService.addAuditLog(
                 employeeId = employeeId,
                 roleId = roleId,
-                action = `SettingConst.kt`.DELETE_SINGLE_ACTION,
+                action = ProductImageConst.DELETE_SINGLE_ACTION,
                 ip = ip
             )
         }
@@ -227,7 +229,7 @@ class ProductImageService(
             employeeAuditLogService.addAuditLog(
                 employeeId = employeeId,
                 roleId = roleId,
-                action = `SettingConst.kt`.DELETE_ALL_ACTION,
+                action = ProductImageConst.DELETE_ALL_ACTION,
                 ip = ip
             )
         }
@@ -246,4 +248,18 @@ class ProductImageService(
             repository.deleteAll(productId)
         }
     }
+
+    suspend fun readPreviewImage(
+        productId: String,
+        baseUrl: String
+    ): ProductImageResponse? =
+        dbQuery {
+
+            val result = repository.findPreview(productId)
+                ?: return@dbQuery null
+
+            result.toProductImageResponse(
+                "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${result.title}"
+            )
+        }
 }
