@@ -3,6 +3,7 @@ package di
 import com.shayan.feature.address.service.AddressService
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.category.service.CategoryService
+import com.shayan.feature.comment.service.CommentService
 import com.shayan.feature.discount.service.DiscountService
 import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee.service.EmployeeService
@@ -151,6 +152,12 @@ val serviceModule = module {
         QuestionService(
             repository = get(),
             usersService = get()
+        )
+    }
+    
+    single {
+        CommentService(
+            repository = get()
         )
     }
 }

@@ -6,6 +6,8 @@ import com.shayan.feature.audit_logs.repository.AuditLogRepository
 import com.shayan.feature.audit_logs.repository.AuditLogRepositoryImpl
 import com.shayan.feature.category.repository.CategoryRepository
 import com.shayan.feature.category.repository.CategoryRepositoryImpl
+import com.shayan.feature.comment.repository.CommentRepository
+import com.shayan.feature.comment.repository.CommentRepositoryImpl
 import com.shayan.feature.discount.repository.DiscountRepository
 import com.shayan.feature.discount.repository.DiscountRepositoryImpl
 import com.shayan.feature.email_verifier.repository.EmailVerifierRepository
@@ -28,14 +30,12 @@ import com.shayan.feature.search_history.repository.SearchHistoryRepository
 import com.shayan.feature.search_history.repository.SearchHistoryRepositoryImpl
 import com.shayan.feature.setting.repository.SettingRepository
 import com.shayan.feature.setting.repository.SettingRepositoryImpl
-import com.shayan.feature.user_pic.dto.UserPicResponse
 import com.shayan.feature.user_pic.repository.UserPicRepository
 import com.shayan.feature.user_pic.repository.UserPicRepositoryImpl
 import com.shayan.feature.users.repository.UserRepository
 import com.shayan.feature.users.repository.UserRepositoryImpl
 import com.shayan.feature.users_session.repository.UserSessionRepository
 import com.shayan.feature.users_session.repository.UserSessionRepositoryImpl
-import org.koin.core.context.GlobalContext.get
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -46,7 +46,7 @@ val repositoryModule = module {
     single<AddressRepository> { AddressRepositoryImpl() }
     single<SearchHistoryRepository> { SearchHistoryRepositoryImpl() }
     single<EmailVerifierRepository> { EmailVerifierRepositoryImpl() }
-    single<UserPicRepository>{ UserPicRepositoryImpl() }
+    single<UserPicRepository> { UserPicRepositoryImpl() }
     single<EmployeeAuditLogRepository> { EmployeeAuditLogRepositoryImpl() }
     single<RoleRepository> { RoleRepositoryImpl() }
     single<EmployeeRepository> { EmployeeRepositoryImpl() }
@@ -57,4 +57,5 @@ val repositoryModule = module {
     single<SettingRepository> { SettingRepositoryImpl() }
     single<ProductRepository> { ProductRepositoryImpl() }
     single<QuestionRepository> { QuestionRepositoryImpl() }
+    single<CommentRepository> { CommentRepositoryImpl() }
 }

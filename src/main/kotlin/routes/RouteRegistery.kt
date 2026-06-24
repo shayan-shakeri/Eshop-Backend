@@ -6,6 +6,8 @@ import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.category.route.categoryRoute
 import com.shayan.feature.category.service.CategoryService
+import com.shayan.feature.comment.route.commentRoute
+import com.shayan.feature.comment.service.CommentService
 import com.shayan.feature.discount.route.discountRoute
 import com.shayan.feature.discount.service.DiscountService
 import com.shayan.feature.email_verifier.route.emailVerifierRoute
@@ -20,6 +22,8 @@ import com.shayan.feature.product.route.productRoutes
 import com.shayan.feature.product.service.ProductService
 import com.shayan.feature.product_image.route.productImageRoute
 import com.shayan.feature.product_image.service.ProductImageService
+import com.shayan.feature.question.route.questionRoute
+import com.shayan.feature.question.service.QuestionService
 import com.shayan.feature.role.route.roleRoute
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.route.searchHistoryRoute
@@ -86,5 +90,11 @@ fun Application.registerRoutes() {
 
         val productService by inject<ProductService>()
         productRoutes(productService)
+
+        val questionService by inject<QuestionService>()
+        questionRoute(questionService)
+
+        val commentService by inject<CommentService>()
+        commentRoute(commentService)
     }
 }
