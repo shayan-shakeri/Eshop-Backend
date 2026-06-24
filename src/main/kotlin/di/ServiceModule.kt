@@ -12,6 +12,7 @@ import com.shayan.feature.filter.dto.FilterResponse
 import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.product.service.ProductService
 import com.shayan.feature.product_image.service.ProductImageService
+import com.shayan.feature.question.service.QuestionService
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.setting.service.SettingService
@@ -143,6 +144,13 @@ val serviceModule = module {
             employeeAuditLogService = get(),
             discountService = get(),
             productImageService = get()
+        )
+    }
+
+    single {
+        QuestionService(
+            repository = get(),
+            usersService = get()
         )
     }
 }

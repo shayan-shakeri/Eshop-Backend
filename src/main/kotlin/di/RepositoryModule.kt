@@ -20,6 +20,8 @@ import com.shayan.feature.product.repository.ProductRepository
 import com.shayan.feature.product.repository.ProductRepositoryImpl
 import com.shayan.feature.product_image.repository.ProductImageRepository
 import com.shayan.feature.product_image.repository.ProductImageRepositoryImpl
+import com.shayan.feature.question.repository.QuestionRepository
+import com.shayan.feature.question.repository.QuestionRepositoryImpl
 import com.shayan.feature.role.repository.RoleRepository
 import com.shayan.feature.role.repository.RoleRepositoryImpl
 import com.shayan.feature.search_history.repository.SearchHistoryRepository
@@ -54,4 +56,5 @@ val repositoryModule = module {
     single<DiscountRepository> { DiscountRepositoryImpl() }
     single<SettingRepository> { SettingRepositoryImpl() }
     single<ProductRepository> { ProductRepositoryImpl() }
+    single<QuestionRepository> { QuestionRepositoryImpl() }
 }
