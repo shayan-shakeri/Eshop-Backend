@@ -16,5 +16,6 @@ data class AddDiscountRequest(
     val active: Boolean,
 
     @Serializable(with = LocalDateTimeSerializer::class)
-    val endingDate: LocalDateTime?
+    val endingDate: LocalDateTime?,
+    val ip: String
 )

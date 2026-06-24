@@ -5,5 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UpdateSettingRequest(
     val name: String,
-    val value: String
+    val value: String,
+    val ip: String,
+    val id: String
 )

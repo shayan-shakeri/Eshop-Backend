@@ -3,6 +3,7 @@ package com.shayan.feature.product_image.service
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.image_controller.ImageController
 import com.shayan.core.image_controller.ImageType
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.employee_audit_log.constants.EmployeeAuditLogConst
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.product_image.constants.ProductImageConst
@@ -12,6 +13,7 @@ import com.shayan.feature.product_image.model.ProductImage
 import com.shayan.feature.product_image.repository.ProductImageRepository
 import core.database.dbQuery
 import core.util.IdGenerator
+import io.ktor.http.cio.Request
 import io.ktor.server.plugins.*
 
 class ProductImageService(
@@ -140,8 +142,7 @@ class ProductImageService(
     suspend fun updatePreview(
         employeeId: String,
         roleId: String,
-        imageId: String,
-        ip: String,
+        request: IdIpDTO,
         baseUrl: String
     ): ProductImageResponse {
 
@@ -150,20 +151,20 @@ class ProductImageService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = ProductImageConst.UPDATE_PREVIEW_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         return dbQuery {
 
             val image =
-                repository.findById(imageId)
+                repository.findById(request.id)
                     ?: throw NotFoundException()
 
             repository.clearPreview(image.productId)
 
 
-            val result =  repository.setPreview(imageId)
+            val result =  repository.setPreview(request.id)
             result?.toProductImageResponse(
                 "$baseUrl${ProductImageConst.IMAGE_ROUTE}/${result.title}"
             )
@@ -174,8 +175,7 @@ class ProductImageService(
     suspend fun deleteSingle(
         employeeId: String,
         roleId: String,
-        imageId: String,
-        ip: String
+        request: IdIpDTO
     ) {
 
         runCatching {
@@ -183,14 +183,14 @@ class ProductImageService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = ProductImageConst.DELETE_SINGLE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         dbQuery {
 
             val existing =
-                repository.findById(imageId)
+                repository.findById(request.id)
                     ?: throw NotFoundException()
 
             val deleted = imageController.deleteImage(
@@ -202,7 +202,7 @@ class ProductImageService(
                 throw NotFoundException()
             }
 
-            repository.delete(imageId)
+            repository.delete(request.id)
 
             if (existing.previewImage) {
 
@@ -221,8 +221,7 @@ class ProductImageService(
     suspend fun deleteAll(
         employeeId: String,
         roleId: String,
-        productId: String,
-        ip: String
+        request: IdIpDTO
     ) {
 
         runCatching {
@@ -230,13 +229,13 @@ class ProductImageService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = ProductImageConst.DELETE_ALL_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         dbQuery {
 
-            repository.findAll(productId)
+            repository.findAll(request.id)
                 .forEach {
 
                     imageController.deleteImage(
@@ -245,7 +244,7 @@ class ProductImageService(
                     )
                 }
 
-            repository.deleteAll(productId)
+            repository.deleteAll(request.id)
         }
     }
 

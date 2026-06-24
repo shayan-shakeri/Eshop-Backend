@@ -1,6 +1,7 @@
 package com.shayan.feature.setting.service
 
 import com.shayan.core.exception.FailedToAdd
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.setting.constants.SettingConst
 import com.shayan.feature.setting.dto.AddSettingRequest
@@ -21,7 +22,6 @@ class SettingService(
     suspend fun add(
         employeeId: String,
         roleId: String,
-        ip: String,
         request: AddSettingRequest
     ): SettingResponse {
 
@@ -30,7 +30,7 @@ class SettingService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = SettingConst.ADD_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
@@ -82,8 +82,6 @@ class SettingService(
     suspend fun update(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String,
         request: UpdateSettingRequest
     ): SettingResponse {
 
@@ -92,14 +90,14 @@ class SettingService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = SettingConst.UPDATE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         return dbQuery {
 
             val existing =
-                repository.findById(id)
+                repository.findById(request.id)
                     ?: throw NotFoundException()
 
             val updated = Setting(
@@ -118,8 +116,7 @@ class SettingService(
     suspend fun delete(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String
+        request: IdIpDTO
     ) {
 
         runCatching {
@@ -127,16 +124,16 @@ class SettingService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = SettingConst.DELETE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         dbQuery {
 
-            repository.findById(id)
+            repository.findById(request.id)
                 ?: throw NotFoundException()
 
-            repository.delete(id)
+            repository.delete(request.id)
         }
     }
 }

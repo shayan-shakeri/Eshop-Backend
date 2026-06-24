@@ -25,7 +25,7 @@ object SettingConst {
     const val IP_PARAM = "ip"
 
     const val ADD_ROUTE =
-        "/add/$IP_PARAM_URL"
+        "/add"
 
     const val READ_ROUTE =
         "/read/$ID_PARAM_URL"
@@ -37,10 +37,10 @@ object SettingConst {
         "/read/product/$PRODUCT_ID_PARAM_URL"
 
     const val UPDATE_ROUTE =
-        "/update/$ID_PARAM_URL/$IP_PARAM_URL"
+        "/update"
 
     const val DELETE_ROUTE =
-        "/delete/$ID_PARAM_URL/$IP_PARAM_URL"
+        "/delete"
 
     // Actions
     const val ADD_ACTION =

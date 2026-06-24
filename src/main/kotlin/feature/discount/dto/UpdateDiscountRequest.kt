@@ -7,6 +7,8 @@ import java.time.LocalDateTime
 
 @Serializable
 data class UpdateDiscountRequest(
+    val id: String,
+    val ip: String,
     val userId: String?,
     val value: Int,
     val quantity: Int,

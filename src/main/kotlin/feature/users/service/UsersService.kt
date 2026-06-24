@@ -27,7 +27,6 @@ class UsersService(
 
         val db = dbQuery {
             val userResponse = usersRepository.findByEmail(user.email) ?: throw InvalidCredentials()
-            print(userResponse.passwordHash)
 
             val passwordHashResult = PasswordHasher.hashPassword(
                 iterations = userResponse.iterations,

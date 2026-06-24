@@ -1,13 +1,17 @@
 package com.shayan.feature.product.route
 
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.product.constants.ProductConst
 import com.shayan.feature.product.dto.AddProductRequest
 import com.shayan.feature.product.dto.UpdateProductRequest
+import com.shayan.feature.product.dto.UpdateStock
 import com.shayan.feature.product.service.ProductService
 import com.shayan.util.jwt.idExtractor
 import com.shayan.util.jwt.roleCodeExtract
+import core.consts.ACR
 import core.consts.CJWT
 import core.util.extractFromParam
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.auth.authenticate
 import io.ktor.server.plugins.origin
 import io.ktor.server.request.host
@@ -22,9 +26,6 @@ fun Route.productRoutes(
 
     route(ProductConst.MAIN_ROUTE) {
 
-        /**
-         * PUBLIC READ ENDPOINTS
-         */
 
         get(ProductConst.READ_ALL_ROUTE) {
             call.respond(productService.readAll())
@@ -50,9 +51,7 @@ fun Route.productRoutes(
             call.respond(productService.searchByName(name))
         }
 
-        /**
-         * PREVIEW (HOMEPAGE)
-         */
+
         get(ProductConst.READ_PREVIEW_ROUTE) {
             val baseUrl =
                 "${call.request.origin.scheme}://${call.request.host()}:${call.request.port()}"
@@ -62,23 +61,23 @@ fun Route.productRoutes(
             )
         }
 
-        /**
-         * AUTHORIZED ADMIN/EMPLOYEE ACTIONS
-         */
+
         authenticate(CJWT.ACCESS_AUTH) {
 
             post(ProductConst.ADD_ROUTE) {
 
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
-                val ip = call.extractFromParam(ProductConst.IP_PARAM)
+
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                }
                 val request = call.receive<AddProductRequest>()
 
                 call.respond(
                     productService.add(
                         employeeId = employeeId,
                         roleId = roleId,
-                        ip = ip,
                         request = request
                     )
                 )
@@ -88,16 +87,17 @@ fun Route.productRoutes(
 
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
-                val id = call.extractFromParam(ProductConst.ID_PARAM)
-                val ip = call.extractFromParam(ProductConst.IP_PARAM)
+
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                }
+
                 val request = call.receive<UpdateProductRequest>()
 
                 call.respond(
                     productService.update(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip,
                         request = request
                     )
                 )
@@ -107,15 +107,17 @@ fun Route.productRoutes(
 
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
-                val id = call.extractFromParam(ProductConst.ID_PARAM)
-                val ip = call.extractFromParam(ProductConst.IP_PARAM)
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                }
+
+                val request = call.receive<IdIpDTO>()
 
                 call.respond(
                     productService.delete(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip
+                        request = request
                     )
                 )
             }
@@ -124,36 +126,27 @@ fun Route.productRoutes(
 
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
-                val id = call.extractFromParam(ProductConst.ID_PARAM)
-                val ip = call.extractFromParam(ProductConst.IP_PARAM)
-                val amount = call.parameters["amount"]?.toInt() ?: 1
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                }
+                val request = call.receive<UpdateStock>()
 
                 call.respond(
                     productService.increaseStock(
                         employeeId,
                         roleId,
-                        id,
-                        amount,
-                        ip
+                        request
                     )
                 )
             }
 
             put(ProductConst.DECREASE_STOCK_ROUTE) {
 
-                val employeeId = call.idExtractor()
-                val roleId = call.roleCodeExtract()
-                val id = call.extractFromParam(ProductConst.ID_PARAM)
-                val ip = call.extractFromParam(ProductConst.IP_PARAM)
-                val amount = call.parameters["amount"]?.toInt() ?: 1
+                val request = call.receive<UpdateStock>()
 
                 call.respond(
                     productService.decreaseStock(
-                        employeeId,
-                        roleId,
-                        id,
-                        amount,
-                        ip
+                        request
                     )
                 )
             }

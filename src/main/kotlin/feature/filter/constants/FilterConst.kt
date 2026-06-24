@@ -18,8 +18,8 @@ object FilterConst {
     const val IMAGE_ROUTE = "${MAIN_ROUTE}/images"
     const val READ_ROUTE = "/read"
     const val ADD_ROUTE = "/add"
-    const val REMOTE_PATH = "/images"
-    const val FILE_PATH = "uploads/category"
+    const val REMOTE_PATH = "${MAIN_ROUTE}/images"
+    const val FILE_PATH = "uploads/filter"
 
     //----------------field name
     const val IMAGE = "image"

@@ -25,5 +25,6 @@ data class AddProductRequest(
     val length: String,
     val material: String,
     val gender: ProductGender,
-    val age: ProductAge
+    val age: ProductAge,
+    val ip: String
 )

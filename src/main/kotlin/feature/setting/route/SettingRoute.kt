@@ -1,5 +1,6 @@
 package com.shayan.feature.setting.route
 
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.setting.constants.SettingConst
 import com.shayan.feature.setting.dto.AddSettingRequest
 import com.shayan.feature.setting.dto.UpdateSettingRequest
@@ -30,10 +31,6 @@ fun Route.settingRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                val ip =
-                    call.extractFromParam(
-                        SettingConst.IP_PARAM
-                    )
 
                 val request =
                     call.receive<AddSettingRequest>()
@@ -42,7 +39,6 @@ fun Route.settingRoute(
                     settingService.add(
                         employeeId = employeeId,
                         roleId = roleId,
-                        ip = ip,
                         request = request
                     )
                 )
@@ -89,15 +85,6 @@ fun Route.settingRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                val id =
-                    call.extractFromParam(
-                        SettingConst.ID_PARAM
-                    )
-
-                val ip =
-                    call.extractFromParam(
-                        SettingConst.IP_PARAM
-                    )
 
                 val request =
                     call.receive<UpdateSettingRequest>()
@@ -106,8 +93,6 @@ fun Route.settingRoute(
                     settingService.update(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip,
                         request = request
                     )
                 )
@@ -121,22 +106,13 @@ fun Route.settingRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                val id =
-                    call.extractFromParam(
-                        SettingConst.ID_PARAM
-                    )
-
-                val ip =
-                    call.extractFromParam(
-                        SettingConst.IP_PARAM
-                    )
+                val request = call.receive<IdIpDTO>()
 
                 call.respond(
                     settingService.delete(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip
+                        request = request
                     )
                 )
             }

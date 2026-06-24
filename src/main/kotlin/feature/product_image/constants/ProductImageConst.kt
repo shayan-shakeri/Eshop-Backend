@@ -11,44 +11,42 @@ object ProductImageConst {
 
     const val TITLE_LENGTH = 40
 
-    // Routes
-    private const val IP_PARAM_URL = "/{ip}"
-    private const val IMAGE_ID_PARAM = "/{imageId}"
     private const val PRODUCT_ID_PARAM = "/{productId}"
 
     const val MAIN_ROUTE = "/product-image"
 
-    const val IMAGE_ROUTE = "/images/product"
+    const val IMAGE_ROUTE = "/product-image/image"
 
-    const val FILE_PATH = "images/product"
-    const val REMOTE_PATH = "images/product"
+    const val FILE_PATH = "uploads/products"
 
     const val IP_PARAM = "ip"
+    const val PREVIEW_PARAM = "preview"
     const val IMAGE_ID = "imageId"
     const val PRODUCT_ID = "productId"
 
-    const val ADD_ROUTE = "/add/$PRODUCT_ID_PARAM/{preview}/$IP_PARAM_URL"
+    const val ADD_ROUTE = "/add"
 
     const val READ_PREVIEW_ROUTE = "/preview/$PRODUCT_ID_PARAM"
 
     const val READ_ALL_ROUTE = "/all/$PRODUCT_ID_PARAM"
 
-    const val UPDATE_IMAGE_ROUTE = "/update/image/$IMAGE_ID_PARAM/$IP_PARAM_URL"
+    const val UPDATE_IMAGE_ROUTE = "/update/image"
 
-    const val UPDATE_PREVIEW_ROUTE = "/update/preview/$IMAGE_ID_PARAM/$IP_PARAM_URL"
+    const val UPDATE_PREVIEW_ROUTE = "/update/preview"
 
-    const val DELETE_SINGLE_ROUTE = "/delete/$IMAGE_ID_PARAM/$IP_PARAM_URL"
+    const val DELETE_SINGLE_ROUTE = "/delete"
 
-    const val DELETE_ALL_ROUTE = "/delete/all/$PRODUCT_ID_PARAM/$IP_PARAM_URL"
+    const val DELETE_ALL_ROUTE = "/delete/all"
 
     const val MISSING_FILE = "Image file is required"
+    const val MISSING_PRODUCT_ID = "Product id is required"
+    const val MISSING_IMAGE_ID = "Product id is required"
+    const val MISSING_PREVIEW = "Preview is required"
+    const val MISSING_IP = "Ip is required"
 
     // Actions
     const val ADD_ACTION = "Added a product image"
 
-    const val READ_PREVIEW_ACTION = "Read product preview image"
-
-    const val READ_ALL_ACTION = "Read all product images"
 
     const val UPDATE_IMAGE_ACTION = "Updated product image"
 

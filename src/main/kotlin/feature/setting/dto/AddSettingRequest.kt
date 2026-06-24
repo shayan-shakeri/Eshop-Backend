@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class AddSettingRequest(
     val productId: String,
     val name: String,
-    val value: String
+    val value: String,
+    val ip: String
 )

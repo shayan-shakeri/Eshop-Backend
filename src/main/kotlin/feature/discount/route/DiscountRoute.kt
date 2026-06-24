@@ -1,13 +1,16 @@
 package com.shayan.feature.discount.route
 
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.discount.constants.DiscountConst
 import com.shayan.feature.discount.dto.AddDiscountRequest
 import com.shayan.feature.discount.dto.UpdateDiscountRequest
 import com.shayan.feature.discount.service.DiscountService
 import com.shayan.util.jwt.idExtractor
 import com.shayan.util.jwt.roleCodeExtract
+import core.consts.ACR
 import core.consts.CJWT
 import core.util.extractFromParam
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.auth.authenticate
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -19,34 +22,6 @@ fun Route.discountRoute(
 
     route(DiscountConst.MAIN_ROUTE) {
 
-        /*
-         * Public discount calculation
-         */
-        get("/calculate/{productId}/{quantity}") {
-
-            val productId =
-                call.parameters[DiscountConst.PRODUCT_ID_PARAM]
-                    ?: throw IllegalArgumentException()
-
-            val quantity =
-                call.parameters["quantity"]
-                    ?.toInt()
-                    ?: throw IllegalArgumentException()
-
-            val userId =
-                call.request.queryParameters[
-                    DiscountConst.USER_ID_PARAM
-                ]
-
-            call.respond(
-                discountService.calculateApplicableDiscount(
-                    productId = productId,
-                    userId = userId,
-                    quantity = quantity
-                )
-            )
-        }
-
         authenticate(CJWT.ACCESS_AUTH) {
 
             post(DiscountConst.ADD_ROUTE) {
@@ -57,10 +32,10 @@ fun Route.discountRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                val ip =
-                    call.extractFromParam(
-                        DiscountConst.IP_PARAM
-                    )
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                    return@post
+                }
 
                 val request =
                     call.receive<AddDiscountRequest>()
@@ -69,7 +44,6 @@ fun Route.discountRoute(
                     discountService.add(
                         employeeId = employeeId,
                         roleId = roleId,
-                        ip = ip,
                         request = request
                     )
                 )
@@ -88,6 +62,8 @@ fun Route.discountRoute(
             }
 
             get(DiscountConst.READ_ALL_ROUTE) {
+
+
 
                 call.respond(
                     discountService.readAll()
@@ -137,15 +113,11 @@ fun Route.discountRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                val id =
-                    call.extractFromParam(
-                        DiscountConst.ID_PARAM
-                    )
 
-                val ip =
-                    call.extractFromParam(
-                        DiscountConst.IP_PARAM
-                    )
+
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                }
 
                 val request =
                     call.receive<UpdateDiscountRequest>()
@@ -154,8 +126,6 @@ fun Route.discountRoute(
                     discountService.update(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip,
                         request = request
                     )
                 )
@@ -169,22 +139,20 @@ fun Route.discountRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                val id =
-                    call.extractFromParam(
-                        DiscountConst.ID_PARAM
-                    )
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                    return@put
+                }
 
-                val ip =
-                    call.extractFromParam(
-                        DiscountConst.IP_PARAM
-                    )
+
+
+                val request = call.receive<IdIpDTO>()
 
                 call.respond(
                     discountService.activate(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip
+                        request = request
                     )
                 )
             }
@@ -196,22 +164,18 @@ fun Route.discountRoute(
 
                 val roleId =
                     call.roleCodeExtract()
-                val id =
-                    call.extractFromParam(
-                        DiscountConst.ID_PARAM
-                    )
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                    return@put
+                }
 
-                val ip =
-                    call.extractFromParam(
-                        DiscountConst.IP_PARAM
-                    )
 
+                val request = call.receive<IdIpDTO>()
                 call.respond(
                     discountService.deactivate(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip
+                        request = request
                     )
                 )
             }
@@ -223,23 +187,18 @@ fun Route.discountRoute(
 
                 val roleId =
                     call.roleCodeExtract()
+                if (roleId.toInt() != ACR.STORAGE){
+                    call.respond(HttpStatusCode.Forbidden)
+                    return@delete
+                }
 
-                val id =
-                    call.extractFromParam(
-                        DiscountConst.ID_PARAM
-                    )
-
-                val ip =
-                    call.extractFromParam(
-                        DiscountConst.IP_PARAM
-                    )
+                val request = call.receive<IdIpDTO>()
 
                 call.respond(
                     discountService.delete(
                         employeeId = employeeId,
                         roleId = roleId,
-                        id = id,
-                        ip = ip
+                        request = request
                     )
                 )
             }

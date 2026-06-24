@@ -1,6 +1,7 @@
 package com.shayan.feature.product.service
 
 import com.shayan.core.exception.FailedToAdd
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.discount.service.DiscountService
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.product.constants.ProductConst
@@ -8,7 +9,7 @@ import com.shayan.feature.product.dto.AddProductRequest
 import com.shayan.feature.product.dto.ProductPreviewResponse
 import com.shayan.feature.product.dto.ProductResponse
 import com.shayan.feature.product.dto.UpdateProductRequest
-import com.shayan.feature.product.mapper.toProduct
+import com.shayan.feature.product.dto.UpdateStock
 import com.shayan.feature.product.mapper.toProductPreviewResponse
 import com.shayan.feature.product.mapper.toProductResponse
 import com.shayan.feature.product.model.Product
@@ -29,7 +30,6 @@ class ProductService(
     suspend fun add(
         employeeId: String,
         roleId: String,
-        ip: String,
         request: AddProductRequest
     ): ProductResponse {
 
@@ -38,7 +38,7 @@ class ProductService(
                 employeeId,
                 roleId,
                 ProductConst.ADD_ACTION,
-                ip
+                request.ip
             )
         }
 
@@ -96,8 +96,6 @@ class ProductService(
     suspend fun update(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String,
         request: UpdateProductRequest
     ): ProductResponse {
 
@@ -106,13 +104,13 @@ class ProductService(
                 employeeId,
                 roleId,
                 ProductConst.UPDATE_ACTION,
-                ip
+                request.ip
             )
         }
 
         return dbQuery {
 
-            val existing = repository.findById(id)
+            val existing = repository.findById(request.id)
                 ?: throw NotFoundException()
 
             val updated = Product(
@@ -140,8 +138,7 @@ class ProductService(
     suspend fun delete(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String
+        request: IdIpDTO
     ) {
 
         runCatching {
@@ -149,24 +146,35 @@ class ProductService(
                 employeeId,
                 roleId,
                 ProductConst.DELETE_ACTION,
-                ip
+                request.ip
             )
         }
 
+
+        productImageService.deleteAll(
+            employeeId,
+            roleId,
+            request
+        )
+
+        discountService.delete(
+            employeeId,
+            roleId,
+            request
+        )
+
         dbQuery {
-            repository.findById(id)
+            repository.findById(request.id)
                 ?: throw NotFoundException()
 
-            repository.delete(id)
+            repository.delete(request.id)
         }
     }
 
     suspend fun increaseStock(
         employeeId: String,
         roleId: String,
-        id: String,
-        amount: Int,
-        ip: String
+        request: UpdateStock
     ): ProductResponse {
 
         runCatching {
@@ -174,42 +182,27 @@ class ProductService(
                 employeeId,
                 roleId,
                 ProductConst.INCREASE_STOCK_ACTION,
-                ip
+                request.ip
             )
         }
 
         return dbQuery {
 
-            repository.increaseStock(id, amount)
+            repository.increaseStock(request.id, request.amount)
                 ?.toProductResponse()
                 ?: throw NotFoundException()
         }
     }
 
     suspend fun decreaseStock(
-        employeeId: String,
-        roleId: String,
-        id: String,
-        amount: Int,
-        ip: String
-    ): ProductResponse {
+        request: UpdateStock
+    ): ProductResponse = dbQuery {
 
-        runCatching {
-            employeeAuditLogService.addAuditLog(
-                employeeId,
-                roleId,
-                ProductConst.DECREASE_STOCK_ACTION,
-                ip
-            )
-        }
-
-        return dbQuery {
-
-            repository.decreaseStock(id, amount)
+            repository.decreaseStock(request.id, request.amount)
                 ?.toProductResponse()
                 ?: throw NotFoundException()
         }
-    }
+
 
     suspend fun readPreview(
         baseUrl: String
@@ -227,25 +220,9 @@ class ProductService(
                         )
                     }.getOrNull()
 
-                    val discount = runCatching {
-                        discountService.calculateApplicableDiscount(
-                            productId = product.id,
-                            userId = null,
-                            quantity = 1
-                        )
-                    }.getOrNull()
-
-                    val discountPrice: BigDecimal? =
-                        discount?.let {
-                            product.price -
-                                    product.price.multiply(
-                                        BigDecimal(it.value)
-                                    ).divide(BigDecimal(100))
-                        }
 
                     product.toProductPreviewResponse(
-                        previewImage = imageUrl?.imageUrl,
-                        discountPrice = discountPrice
+                        previewImage = imageUrl?.imageUrl
                     )
                 }
         }

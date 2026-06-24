@@ -34,6 +34,7 @@ object ProductConst {
     const val CATEGORY_ID_PARAM = "categoryId"
     const val FILTER_ID_PARAM = "filterId"
     const val IP_PARAM = "ip"
+    const val AMOUNT_PARAM = "ip"
     const val NAME_PARAM = "name"
 
     // Parameter URLs
@@ -47,7 +48,7 @@ object ProductConst {
     const val MAIN_ROUTE = "/product"
 
     const val ADD_ROUTE =
-        "/add$IP_PARAM_URL"
+        "/add"
 
     const val READ_ROUTE =
         "/read$ID_PARAM_URL"
@@ -68,16 +69,16 @@ object ProductConst {
         "/search$NAME_PARAM_URL"
 
     const val UPDATE_ROUTE =
-        "/update$ID_PARAM_URL$IP_PARAM_URL"
+        "/update"
 
     const val DELETE_ROUTE =
-        "/delete$ID_PARAM_URL$IP_PARAM_URL"
+        "/delete"
 
     const val INCREASE_STOCK_ROUTE =
-        "/stock/increase$ID_PARAM_URL$IP_PARAM_URL"
+        "/stock/increase"
 
     const val DECREASE_STOCK_ROUTE =
-        "/stock/decrease$ID_PARAM_URL$IP_PARAM_URL"
+        "/stock/decrease"
 
     // Actions
     const val ADD_ACTION =

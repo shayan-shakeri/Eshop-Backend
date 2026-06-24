@@ -6,12 +6,10 @@ import java.math.BigDecimal
 
 fun Product.toProductPreviewResponse(
     previewImage: String?,
-    discountPrice: BigDecimal?
 ): ProductPreviewResponse =
     ProductPreviewResponse(
         id = this.id,
         name = this.name,
         price = this.price,
-        discountPrice = discountPrice,
         previewImage = previewImage
     )

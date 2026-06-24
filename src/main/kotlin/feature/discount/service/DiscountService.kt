@@ -1,6 +1,7 @@
 package com.shayan.feature.discount.service
 
 import com.shayan.core.exception.FailedToAdd
+import com.shayan.core.response.IdIpDTO
 import com.shayan.feature.discount.constants.DiscountConst
 import com.shayan.feature.discount.dto.AddDiscountRequest
 import com.shayan.feature.discount.dto.DiscountResponse
@@ -8,7 +9,6 @@ import com.shayan.feature.discount.dto.UpdateDiscountRequest
 import com.shayan.feature.discount.mapper.toDiscountResponse
 import com.shayan.feature.discount.model.Discount
 import com.shayan.feature.discount.repository.DiscountRepository
-import com.shayan.feature.discount.util.DiscountCondition
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import core.database.dbQuery
 import core.util.IdGenerator
@@ -23,7 +23,6 @@ class DiscountService(
     suspend fun add(
         employeeId: String,
         roleId: String,
-        ip: String,
         request: AddDiscountRequest
     ): DiscountResponse {
 
@@ -32,7 +31,7 @@ class DiscountService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = DiscountConst.ADD_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
@@ -113,8 +112,6 @@ class DiscountService(
     suspend fun update(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String,
         request: UpdateDiscountRequest
     ): DiscountResponse {
 
@@ -123,14 +120,14 @@ class DiscountService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = DiscountConst.UPDATE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         return dbQuery {
 
             val existing =
-                repository.findById(id)
+                repository.findById(request.id)
                     ?: throw NotFoundException()
 
             val updated = Discount(
@@ -154,8 +151,7 @@ class DiscountService(
     suspend fun activate(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String
+        request: IdIpDTO
     ): DiscountResponse {
 
         runCatching {
@@ -163,13 +159,13 @@ class DiscountService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = DiscountConst.ACTIVATE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         return dbQuery {
 
-            repository.activate(id)
+            repository.activate(request.id)
                 ?.toDiscountResponse()
                 ?: throw NotFoundException()
         }
@@ -178,8 +174,7 @@ class DiscountService(
     suspend fun deactivate(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String
+        request: IdIpDTO
     ): DiscountResponse {
 
         runCatching {
@@ -187,13 +182,13 @@ class DiscountService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = DiscountConst.DEACTIVATE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         return dbQuery {
 
-            repository.deactivate(id)
+            repository.deactivate(request.id)
                 ?.toDiscountResponse()
                 ?: throw NotFoundException()
         }
@@ -202,8 +197,7 @@ class DiscountService(
     suspend fun delete(
         employeeId: String,
         roleId: String,
-        id: String,
-        ip: String
+        request: IdIpDTO
     ) {
 
         runCatching {
@@ -211,64 +205,17 @@ class DiscountService(
                 employeeId = employeeId,
                 roleId = roleId,
                 action = DiscountConst.DELETE_ACTION,
-                ip = ip
+                ip = request.ip
             )
         }
 
         dbQuery {
 
-            repository.findById(id)
+            repository.findById(request.id)
                 ?: throw NotFoundException()
 
-            repository.delete(id)
+            repository.delete(request.id)
         }
     }
 
-    suspend fun calculateApplicableDiscount(
-        productId: String,
-        userId: String?,
-        quantity: Int
-    ): DiscountResponse =
-        dbQuery {
-
-            repository.findByProductId(productId)
-                .filter {
-                    it.active
-                }
-                .filter {
-                    it.endingDate == null ||
-                            it.endingDate.isAfter(LocalDateTime.now())
-                }
-                .filter {
-                    it.userId == null ||
-                            it.userId == userId
-                }
-                .filter {
-
-                    when (it.conditions) {
-
-                        null -> true
-
-                        DiscountCondition.HigherThan ->
-                            quantity > (it.conditionValue ?: 0)
-
-                        DiscountCondition.LowerThan ->
-                            quantity < (
-                                    it.conditionValue
-                                        ?: Int.MAX_VALUE
-                                    )
-                    }
-                }
-                .sortedWith(
-                    compareByDescending<Discount> {
-                        it.userId == userId &&
-                                userId != null
-                    }.thenByDescending {
-                        it.value
-                    }
-                )
-                .firstOrNull()
-                ?.toDiscountResponse()
-                ?: throw NotFoundException()
-        }
 }

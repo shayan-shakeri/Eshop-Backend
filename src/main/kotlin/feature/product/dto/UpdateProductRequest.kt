@@ -5,9 +5,11 @@ import com.shayan.util.enums.ProductGender
 import kotlinx.serialization.Serializable
 import util.serializer.BigDecimalSerializer
 import java.math.BigDecimal
+import java.util.UUID
 
 @Serializable
 data class UpdateProductRequest(
+    val id: String,
     val categoryId: String,
     val filterId: String,
     val name: String,
@@ -24,5 +26,6 @@ data class UpdateProductRequest(
     val length: String,
     val material: String,
     val gender: ProductGender,
-    val age: ProductAge
+    val age: ProductAge,
+    val ip: String
 )

@@ -30,7 +30,7 @@ object DiscountConst {
     const val USER_ID_PARAM = "userId"
     const val IP_PARAM = "ip"
 
-    const val ADD_ROUTE = "/add/$IP_PARAM_URL"
+    const val ADD_ROUTE = "/add"
 
     const val READ_ROUTE = "/read/$ID_PARAM_URL"
 
@@ -46,16 +46,16 @@ object DiscountConst {
         "/read/active"
 
     const val UPDATE_ROUTE =
-        "/update/$ID_PARAM_URL/$IP_PARAM_URL"
+        "/update"
 
     const val ACTIVATE_ROUTE =
-        "/activate/$ID_PARAM_URL/$IP_PARAM_URL"
+        "/activate"
 
     const val DEACTIVATE_ROUTE =
-        "/deactivate/$ID_PARAM_URL/$IP_PARAM_URL"
+        "/deactivate"
 
     const val DELETE_ROUTE =
-        "/delete/$ID_PARAM_URL/$IP_PARAM_URL"
+        "/delete"
 
     // Actions
     const val ADD_ACTION =

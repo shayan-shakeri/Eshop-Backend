@@ -4,6 +4,7 @@ import com.shayan.feature.product.mapper.toProduct
 import com.shayan.feature.product.model.Product
 import com.shayan.feature.product.table.ProductTable
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.minus
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.plus
 

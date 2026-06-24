@@ -12,8 +12,6 @@ data class ProductPreviewResponse(
     @Serializable(with = BigDecimalSerializer::class)
     val price: BigDecimal,
 
-    @Serializable(with = BigDecimalSerializer::class)
-    val discountPrice: BigDecimal?,
 
     val previewImage: String?
 )

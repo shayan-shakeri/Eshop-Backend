@@ -31,19 +31,19 @@ class FilterService (
         runCatching { employeeAuditLogService.addAuditLog(employeeId, roleId, FilterConst.ADD_ACTION, ip) }
         return dbQuery{
 
-            val imageTitle = originalFilename ?: "${IdGenerator.generate()}.png"
+            val fileName = imageController.addImage(
+                fileBytes = fileBytes,
+                title = originalFilename ,
+                imageType = ImageType.FilterImage
+            )
             val request = Filter(
                 id = IdGenerator.generate(),
                 categoryId = categoryId,
                 name = filterName,
-                imageTitle = imageTitle,
+                imageTitle = fileName,
             )
 
-            val fileName = imageController.addImage(
-                fileBytes = fileBytes,
-                title = imageTitle,
-                imageType = ImageType.FilterImage
-            )
+
 
             filterRepository.addFilter(request)
                 ?.toFilterResponse(
