@@ -20,6 +20,8 @@ import com.shayan.feature.employee_audit_log.route.employeeAuditLog
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.filter.route.filterRoute
 import com.shayan.feature.filter.service.FilterService
+import com.shayan.feature.notification.route.notificationRoute
+import com.shayan.feature.notification.service.NotificationService
 import com.shayan.feature.product.route.productRoutes
 import com.shayan.feature.product.service.ProductService
 import com.shayan.feature.product_image.route.productImageRoute
@@ -101,5 +103,8 @@ fun Application.registerRoutes() {
 
         val answerService by inject<AnswerService>()
         answerRoute(answerService)
+
+        val notificationService by inject<NotificationService>()
+        notificationRoute(notificationService)
     }
 }
