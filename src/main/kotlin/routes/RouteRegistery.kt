@@ -2,6 +2,8 @@ package routes
 
 import com.shayan.feature.address.route.addressRoute
 import com.shayan.feature.address.service.AddressService
+import com.shayan.feature.answer.route.answerRoute
+import com.shayan.feature.answer.service.AnswerService
 import com.shayan.feature.audit_logs.route.auditLogRoutes
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.category.route.categoryRoute
@@ -96,5 +98,8 @@ fun Application.registerRoutes() {
 
         val commentService by inject<CommentService>()
         commentRoute(commentService)
+
+        val answerService by inject<AnswerService>()
+        answerRoute(answerService)
     }
 }

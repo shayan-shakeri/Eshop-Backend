@@ -1,5 +1,6 @@
 package com.shayan.feature.setting.table
 
+import com.shayan.feature.product.table.ProductTable
 import com.shayan.feature.setting.constants.SettingConst
 import core.consts.ANC
 import org.jetbrains.exposed.sql.ReferenceOption
@@ -15,6 +16,10 @@ object SettingTable : Table(SettingConst.TABLE_NAME) {
     val productId = varchar(
         SettingConst.PRODUCT_ID,
         ANC.ID_LENGTH
+    ).references(
+        ProductTable.id,
+        onUpdate = ReferenceOption.RESTRICT,
+        onDelete = ReferenceOption.CASCADE
     )
 
     val name = varchar(

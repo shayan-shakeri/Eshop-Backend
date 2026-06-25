@@ -2,6 +2,8 @@ package di
 
 import com.shayan.feature.address.repository.AddressRepository
 import com.shayan.feature.address.repository.AddressRepositoryImpl
+import com.shayan.feature.answer.repository.AnswerRepository
+import com.shayan.feature.answer.repository.AnswerRepositoryImpl
 import com.shayan.feature.audit_logs.repository.AuditLogRepository
 import com.shayan.feature.audit_logs.repository.AuditLogRepositoryImpl
 import com.shayan.feature.category.repository.CategoryRepository
@@ -58,4 +60,5 @@ val repositoryModule = module {
     single<ProductRepository> { ProductRepositoryImpl() }
     single<QuestionRepository> { QuestionRepositoryImpl() }
     single<CommentRepository> { CommentRepositoryImpl() }
+    single<AnswerRepository> { AnswerRepositoryImpl() }
 }

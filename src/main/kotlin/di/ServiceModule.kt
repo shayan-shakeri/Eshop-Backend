@@ -1,6 +1,7 @@
 package di
 
 import com.shayan.feature.address.service.AddressService
+import com.shayan.feature.answer.service.AnswerService
 import com.shayan.feature.audit_logs.service.AuditLogService
 import com.shayan.feature.category.service.CategoryService
 import com.shayan.feature.comment.service.CommentService
@@ -157,6 +158,12 @@ val serviceModule = module {
     
     single {
         CommentService(
+            repository = get()
+        )
+    }
+
+    single {
+        AnswerService(
             repository = get()
         )
     }

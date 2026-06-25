@@ -1,7 +1,9 @@
 package com.shayan.feature.product_image.table
 
+import com.shayan.feature.product.table.ProductTable
 import com.shayan.feature.product_image.constants.ProductImageConst
 import core.consts.ANC
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
 object ProductImageTable : Table(ProductImageConst.TABLE_NAME) {
@@ -14,6 +16,10 @@ object ProductImageTable : Table(ProductImageConst.TABLE_NAME) {
     val productId = varchar(
         ProductImageConst.PRODUCT_ID_DB,
         ANC.ID_LENGTH
+    ).references(
+        ProductTable.id,
+        onUpdate = ReferenceOption.RESTRICT,
+        onDelete = ReferenceOption.CASCADE
     )
 
     val previewImage = bool(
