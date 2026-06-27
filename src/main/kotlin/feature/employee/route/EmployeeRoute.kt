@@ -31,7 +31,7 @@ fun Route.employeeRoute(
             post(EmployeeConst.CREATE_ROUTE) {
                 call.checkIfIsEmployee()
                 val roleId = call.roleCodeExtract()
-                if (roleId.toInt() == ACR.HR) {
+                if (roleId.toInt() == ACR.CEO) {
                     val request = call.receive<SignupEmployee>()
                     val employeeId = call.idExtractor()
                     call.respond(employeeService.signup(request, employeeId, roleId))

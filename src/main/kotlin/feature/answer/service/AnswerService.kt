@@ -26,6 +26,7 @@ class AnswerService(
                 id = IdGenerator.generate(),
                 userId = userId,
                 questionCommentId = request.questionCommentId,
+                type = request.type,
                 content = request.content
             )
 

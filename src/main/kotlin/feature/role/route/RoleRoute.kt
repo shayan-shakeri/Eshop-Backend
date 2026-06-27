@@ -31,7 +31,7 @@ fun Route.roleRoute(
                 val employeeId = call.idExtractor()
                 val roleId = call.roleCodeExtract()
 
-                if (roleId.toInt() == ACR.HR) {
+                if (roleId.toInt() == ACR.CEO) {
                     val request = call.receive<AddRole>()
                     call.respond(roleService.add(request, employeeId, roleId))
                 } else {

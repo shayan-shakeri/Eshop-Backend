@@ -2,6 +2,7 @@ package com.shayan.feature.answer.table
 
 import com.shayan.feature.answer.constants.AnswerConst
 import com.shayan.feature.users.table.UsersTable
+import com.shayan.util.enums.AnswerType
 import core.consts.ANC
 import org.jetbrains.exposed.sql.Table
 
@@ -19,6 +20,11 @@ object AnswerTable : Table(AnswerConst.TABLE_NAME) {
             ANC.ID_LENGTH
         ).references(
             UsersTable.id
+        )
+    val type =
+        enumerationByName<AnswerType>(
+            AnswerConst.TYPE,
+            20
         )
 
     val questionCommentId =

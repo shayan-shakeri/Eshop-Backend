@@ -7,6 +7,7 @@ object AnswerConst {
     const val ID = "id"
     const val USER_ID = "user_id"
     const val QUESTION_COMMENT_ID = "question_comment_id"
+    const val TYPE = "type"
     const val CONTENT = "content"
 
     // Numeral

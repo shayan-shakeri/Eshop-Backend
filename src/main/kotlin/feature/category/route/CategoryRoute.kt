@@ -29,6 +29,8 @@ fun Route.categoryRoute(
     categoryService: CategoryService
 ) {
 
+    println(CategoryConst.MAIN_ROUTE)
+    println(CategoryConst.ADD_ROUTE)
     route(CategoryConst.MAIN_ROUTE) {
 
         staticFiles(
@@ -46,7 +48,7 @@ fun Route.categoryRoute(
             )
         }
 
-        authenticate(CJWT.ACCESS_AUTH) {
+       authenticate(CJWT.ACCESS_AUTH) {
 
             post(CategoryConst.ADD_ROUTE) {
 
@@ -54,6 +56,7 @@ fun Route.categoryRoute(
                 val roleId = call.roleCodeExtract()
 
                 if (roleId.toInt() != ACR.STORAGE) {
+                    call.respond(HttpStatusCode.Forbidden)
                     return@post
                 }
 

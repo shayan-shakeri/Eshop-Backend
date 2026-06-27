@@ -20,6 +20,7 @@ class AnswerRepositoryImpl : AnswerRepository {
             it[userId] = answer.userId
             it[questionCommentId] =
                 answer.questionCommentId
+            it[type] = answer.type
             it[content] = answer.content
         }
 
