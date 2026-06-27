@@ -22,6 +22,7 @@ import com.shayan.feature.filter.route.filterRoute
 import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.notification.route.notificationRoute
 import com.shayan.feature.notification.service.NotificationService
+import com.shayan.feature.order.service.OrderService
 import com.shayan.feature.product.route.productRoutes
 import com.shayan.feature.product.service.ProductService
 import com.shayan.feature.product_image.route.productImageRoute
@@ -40,6 +41,7 @@ import com.shayan.feature.user_pic.route.userPicRoute
 import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.route.userRoutes
 import com.shayan.feature.users.service.UsersService
+import feature.orders.route.orderRoute
 import io.ktor.server.application.*
 import io.ktor.server.response.respond
 import io.ktor.server.routing.*
@@ -106,5 +108,8 @@ fun Application.registerRoutes() {
 
         val notificationService by inject<NotificationService>()
         notificationRoute(notificationService)
+
+        val orderService by inject<OrderService>()
+        orderRoute(orderService)
     }
 }

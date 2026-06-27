@@ -13,6 +13,7 @@ import com.shayan.feature.employee_audit_log.table.EmployeeAuditLogTable
 import com.shayan.feature.filter.dto.FilterResponse
 import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.notification.service.NotificationService
+import com.shayan.feature.order.service.OrderService
 import com.shayan.feature.product.service.ProductService
 import com.shayan.feature.product_image.service.ProductImageService
 import com.shayan.feature.question.service.QuestionService
@@ -171,6 +172,12 @@ val serviceModule = module {
 
     single {
         NotificationService(
+            repository = get()
+        )
+    }
+
+    single {
+        OrderService(
             repository = get()
         )
     }
