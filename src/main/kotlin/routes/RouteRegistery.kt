@@ -39,6 +39,8 @@ import com.shayan.feature.setting.route.settingRoute
 import com.shayan.feature.setting.service.SettingService
 import com.shayan.feature.support_chat.route.supportChatRoute
 import com.shayan.feature.support_chat.service.SupportChatService
+import com.shayan.feature.support_message.route.supportMessageRoute
+import com.shayan.feature.support_message.service.SupportMessageService
 import com.shayan.feature.user_auth.route.userAuthRoutes
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.route.userPicRoute
@@ -121,5 +123,8 @@ fun Application.registerRoutes() {
 
         val supportChatService by inject<SupportChatService>()
         supportChatRoute(supportChatService)
+
+        val supportMessageService by inject<SupportMessageService>()
+        supportMessageRoute(supportMessageService)
     }
 }

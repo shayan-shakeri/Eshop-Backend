@@ -13,6 +13,7 @@ object ImageControllerConst {
     val BANNER_IMAGE_PATH: File = File(BASE_DIR, "banners")
     val CATEGORY_IMAGE_PATH: File = File(BASE_DIR, "category")
     val FILE_IMAGE_PATH: File = File(BASE_DIR, "filter")
+    val SUPPORT_IMAGE_PATH: File = File(BASE_DIR, "support")
 
     const val IMAGE_NOT_EXIST = "Image not found:"
 }

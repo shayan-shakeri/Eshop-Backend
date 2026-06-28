@@ -14,6 +14,7 @@ class ImageController {
             ImageType.BannerImage -> ImageControllerConst.BANNER_IMAGE_PATH
             ImageType.CategoryImage -> ImageControllerConst.CATEGORY_IMAGE_PATH
             ImageType.FilterImage -> ImageControllerConst.FILE_IMAGE_PATH
+            ImageType.Support -> ImageControllerConst.SUPPORT_IMAGE_PATH
         }
 
     private fun file(imageType: ImageType, title: String): File =

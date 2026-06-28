@@ -24,6 +24,8 @@ ktor-config-yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 java-datetime = { group = "org.jetbrains.exposed", name = "exposed-java-time", version.ref = "javaDatetime" }
 resend = { module = "com.resend:resend-java", version.ref = "resend" }
+websocket = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
+
 
 
 [plugins]

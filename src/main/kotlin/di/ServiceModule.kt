@@ -22,6 +22,7 @@ import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.setting.service.SettingService
 import com.shayan.feature.support_chat.service.SupportChatService
+import com.shayan.feature.support_message.service.SupportMessageService
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.service.UsersService
@@ -193,6 +194,13 @@ val serviceModule = module {
     single {
         SupportChatService(
             repository = get()
+        )
+    }
+
+    single {
+        SupportMessageService(
+            repository = get(),
+            imageController = get()
         )
     }
 }

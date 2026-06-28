@@ -66,4 +66,7 @@ dependencies {
     // Resend
     implementation(libs.resend)
 
+    //websocket
+    implementation(libs.websocket)
+
 }
