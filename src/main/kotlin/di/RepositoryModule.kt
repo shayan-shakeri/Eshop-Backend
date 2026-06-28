@@ -38,6 +38,8 @@ import com.shayan.feature.search_history.repository.SearchHistoryRepository
 import com.shayan.feature.search_history.repository.SearchHistoryRepositoryImpl
 import com.shayan.feature.setting.repository.SettingRepository
 import com.shayan.feature.setting.repository.SettingRepositoryImpl
+import com.shayan.feature.support_chat.repository.SupportChatRepository
+import com.shayan.feature.support_chat.repository.SupportChatRepositoryImpl
 import com.shayan.feature.user_pic.repository.UserPicRepository
 import com.shayan.feature.user_pic.repository.UserPicRepositoryImpl
 import com.shayan.feature.users.repository.UserRepository
@@ -70,4 +72,5 @@ val repositoryModule = module {
     single<NotificationRepository> { NotificationRepositoryImpl() }
     single<OrderRepository> { OrderRepositoryImpl() }
     single<OrderProductRepository> { OrderProductRepositoryImpl() }
+    single<SupportChatRepository> { SupportChatRepositoryImpl() }
 }

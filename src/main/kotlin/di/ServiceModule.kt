@@ -21,6 +21,7 @@ import com.shayan.feature.question.service.QuestionService
 import com.shayan.feature.role.service.RoleService
 import com.shayan.feature.search_history.service.SearchHistoryService
 import com.shayan.feature.setting.service.SettingService
+import com.shayan.feature.support_chat.service.SupportChatService
 import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.service.UsersService
@@ -185,6 +186,12 @@ val serviceModule = module {
 
     single {
         OrderProductService(
+            repository = get()
+        )
+    }
+
+    single {
+        SupportChatService(
             repository = get()
         )
     }
