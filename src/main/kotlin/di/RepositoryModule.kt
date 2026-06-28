@@ -24,6 +24,8 @@ import com.shayan.feature.notification.repository.NotificationRepository
 import com.shayan.feature.notification.repository.NotificationRepositoryImpl
 import com.shayan.feature.order.repository.OrderRepository
 import com.shayan.feature.order.repository.OrderRepositoryImpl
+import com.shayan.feature.order_product.repository.OrderProductRepository
+import com.shayan.feature.order_product.repository.OrderProductRepositoryImpl
 import com.shayan.feature.product.repository.ProductRepository
 import com.shayan.feature.product.repository.ProductRepositoryImpl
 import com.shayan.feature.product_image.repository.ProductImageRepository
@@ -67,4 +69,5 @@ val repositoryModule = module {
     single<AnswerRepository> { AnswerRepositoryImpl() }
     single<NotificationRepository> { NotificationRepositoryImpl() }
     single<OrderRepository> { OrderRepositoryImpl() }
+    single<OrderProductRepository> { OrderProductRepositoryImpl() }
 }

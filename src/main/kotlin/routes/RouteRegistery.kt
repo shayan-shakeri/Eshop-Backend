@@ -23,6 +23,8 @@ import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.notification.route.notificationRoute
 import com.shayan.feature.notification.service.NotificationService
 import com.shayan.feature.order.service.OrderService
+import com.shayan.feature.order_product.route.orderProductRoute
+import com.shayan.feature.order_product.service.OrderProductService
 import com.shayan.feature.product.route.productRoutes
 import com.shayan.feature.product.service.ProductService
 import com.shayan.feature.product_image.route.productImageRoute
@@ -111,5 +113,8 @@ fun Application.registerRoutes() {
 
         val orderService by inject<OrderService>()
         orderRoute(orderService)
+
+        val orderProductService by inject< OrderProductService>()
+        orderProductRoute(orderProductService)
     }
 }
