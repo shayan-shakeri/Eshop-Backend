@@ -19,7 +19,4 @@ object OrderProductConst {
     const val READ_BY_PRODUCT_ROUTE = "/read/product/{productId}"
     const val DELETE_ROUTE = "/delete"
 
-    // actions
-    const val ADD_ACTION = "Added order product"
-    const val DELETE_ACTION = "Deleted order product"
 }

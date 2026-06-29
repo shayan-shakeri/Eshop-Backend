@@ -5,6 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UpdateAnswerRequest(
     val id: String,
-    val content: String,
-    val ip: String
+    val content: String
 )

@@ -5,6 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AddQuestionRequest(
     val productId: String,
-    val content: String,
-    val ip: String
+    val content: String
 )

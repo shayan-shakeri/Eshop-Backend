@@ -69,28 +69,6 @@ class SupportChatService(
                 }
         }
 
-    suspend fun readByStatus(
-        status: SupportChatStatus
-    ): List<SupportChatResponse> =
-        dbQuery {
-
-            repository.findByStatus(status)
-                .map {
-                    it.toSupportChatResponse()
-                }
-        }
-
-    suspend fun readByPriority(
-        priority: SupportChatPriority
-    ): List<SupportChatResponse> =
-        dbQuery {
-
-            repository.findByPriority(priority)
-                .map {
-                    it.toSupportChatResponse()
-                }
-        }
-
     suspend fun updatePriority(
         request: UpdateSupportChatPriorityRequest
     ): SupportChatResponse =

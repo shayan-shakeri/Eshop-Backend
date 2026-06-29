@@ -4,6 +4,9 @@ import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.image_controller.ImageController
 import com.shayan.core.image_controller.ImageType
 import com.shayan.core.response.IdIpDTO
+import com.shayan.feature.notification.dto.AddNotificationRequest
+import com.shayan.feature.notification.service.NotificationService
+import com.shayan.feature.support_chat.service.SupportChatService
 import com.shayan.feature.support_message.constants.SupportMessageConst
 import com.shayan.feature.support_message.dto.AddSupportTextMessageRequest
 import com.shayan.feature.support_message.dto.SupportMessageResponse
@@ -16,19 +19,30 @@ import core.database.dbQuery
 import core.util.IdGenerator
 import io.ktor.server.plugins.*
 import io.ktor.websocket.*
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class SupportMessageService(
     private val repository: SupportMessageRepository,
-    private val imageController: ImageController
+    private val chatService: SupportChatService,
+    private val imageController: ImageController,
+    private val notificationService: NotificationService
 ) {
 
     suspend fun addText(
-        userId: String?,
+        userId: String,
+        roleCode: String?,
         request: AddSupportTextMessageRequest
-    ): SupportMessageResponse =
-        dbQuery {
+    ): SupportMessageResponse {
+        if (roleCode != "null") {
+            val result = chatService.readById(request.supportChatId)
+            val notifRequest = AddNotificationRequest(
+                userId = result.userId,
+                content = request.content,
+                title = "New message in the chat: ${result.name}",
+            )
+            notificationService.addNotification(notifRequest)
+        }
+        return dbQuery {
 
             val sequence =
                 repository.findLastSequence(
@@ -54,6 +68,7 @@ class SupportMessageService(
 
             result
         }
+    }
 
     suspend fun addImage(
         userId: String?,
@@ -71,6 +86,7 @@ class SupportMessageService(
                     imageType = ImageType.Support
                 )
 
+
             val sequence =
                 repository.findLastSequence(
                     supportChatId
@@ -86,10 +102,12 @@ class SupportMessageService(
                 sequence = sequence
             )
 
+
             val result =
                 repository.add(message)
                     ?.toSupportMessageResponse()
                     ?: throw FailedToAdd()
+
 
             broadcast(
                 result.copy(

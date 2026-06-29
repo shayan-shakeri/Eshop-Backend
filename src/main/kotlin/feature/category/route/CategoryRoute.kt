@@ -29,8 +29,6 @@ fun Route.categoryRoute(
     categoryService: CategoryService
 ) {
 
-    println(CategoryConst.MAIN_ROUTE)
-    println(CategoryConst.ADD_ROUTE)
     route(CategoryConst.MAIN_ROUTE) {
 
         staticFiles(

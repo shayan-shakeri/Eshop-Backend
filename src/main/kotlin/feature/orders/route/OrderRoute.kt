@@ -78,8 +78,11 @@ fun Route.orderRoute(
                 val request =
                     call.receive<UpdateOrderRequest>()
 
+                val userId = call.idExtractor()
+
                 call.respond(
                     orderService.updateDelivery(
+                        userId,
                         request
                     )
                 )
@@ -90,8 +93,11 @@ fun Route.orderRoute(
                 val request =
                     call.receive<IdIpDTO>()
 
+                val userId = call.idExtractor()
+
                 call.respond(
                     orderService.deleteOrder(
+                        userId,
                         request
                     )
                 )

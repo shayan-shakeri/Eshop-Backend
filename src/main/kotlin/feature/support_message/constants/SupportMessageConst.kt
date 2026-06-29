@@ -45,27 +45,15 @@ object SupportMessageConst {
     const val REMOTE_PATH =
         "/image"
 
-    // multipart fields
-    const val IMAGE =
-        "image"
-
     const val CHAT_ID =
         "chatId"
 
-    const val IP =
-        "ip"
-
-    // errors
     const val MISSING_CHAT_ID =
         "Support chat id is required"
 
-    const val MISSING_CONTENT =
-        "Content is required"
-
-    const val MISSING_IP =
-        "Ip is required"
 
     const val MISSING_FILE =
         "Image file is required"
+
 
 }

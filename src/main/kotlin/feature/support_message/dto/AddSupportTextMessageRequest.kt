@@ -5,6 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AddSupportTextMessageRequest(
     val supportChatId: String,
-    val content: String,
-    val ip: String
+    val content: String
 )

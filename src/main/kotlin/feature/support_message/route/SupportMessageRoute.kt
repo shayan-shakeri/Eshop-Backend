@@ -6,13 +6,18 @@ import com.shayan.feature.support_message.dto.AddSupportTextMessageRequest
 import com.shayan.feature.support_message.service.SupportMessageService
 import com.shayan.feature.support_message.websocket.SupportSessionManager
 import com.shayan.util.jwt.idExtractor
+import com.shayan.util.jwt.roleCodeExtract
 import core.consts.CJWT
+import core.consts.EXC
+import core.exception.AuthenticationException
 import core.util.extractFromParam
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.PartData
 import io.ktor.http.content.forEachPart
 import io.ktor.http.content.streamProvider
 import io.ktor.server.auth.authenticate
+import io.ktor.server.auth.jwt.JWTPrincipal
+import io.ktor.server.auth.principal
 import io.ktor.server.http.content.staticFiles
 import io.ktor.server.plugins.origin
 import io.ktor.server.request.host
@@ -55,10 +60,13 @@ fun Route.supportMessageRoute(
                 val request =
                     call.receive<AddSupportTextMessageRequest>()
 
+                val roleCode = call.roleCodeExtract()
+
                 call.respond(
                     supportMessageService.addText(
                         userId = userId,
-                        request = request
+                        request = request,
+                        roleCode = roleCode
                     )
                 )
             }

@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 data class AddAnswerRequest(
     val questionCommentId: String,
     val type: AnswerType,
-    val content: String,
-    val ip: String
+    val content: String
 )

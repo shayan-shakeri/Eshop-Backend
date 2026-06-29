@@ -22,12 +22,7 @@ object SupportMessageTable : Table(
         varchar(
             SupportMessageConst.USER_ID,
             ANC.ID_LENGTH
-        ).references(
-                UsersTable.id,
-            onDelete = ReferenceOption.CASCADE,
-            onUpdate = ReferenceOption.CASCADE
-            )
-            .nullable()
+        ).nullable()
 
     val supportChatId =
         varchar(

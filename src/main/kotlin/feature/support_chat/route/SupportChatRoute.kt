@@ -9,8 +9,11 @@ import com.shayan.feature.support_chat.service.SupportChatService
 import com.shayan.util.enums.SupportChatPriority
 import com.shayan.util.enums.SupportChatStatus
 import com.shayan.util.jwt.idExtractor
+import com.shayan.util.jwt.roleCodeExtract
+import core.consts.ACR
 import core.consts.CJWT
 import core.util.extractFromParam
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.auth.authenticate
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -78,38 +81,18 @@ fun Route.supportChatRoute(
 
             get(SupportChatConst.READ_ALL_ROUTE) {
 
+                val roleCode = call.roleCodeExtract()
+
+                if (roleCode.toInt() != ACR.CUSTOMER_SUPPORT){
+                    call.respond(HttpStatusCode.Forbidden)
+                    return@get
+                }
+
                 call.respond(
                     supportChatService.readAll()
                 )
             }
 
-            get(SupportChatConst.READ_BY_STATUS_ROUTE){
-
-                val status =
-                    SupportChatStatus.valueOf(
-                        call.parameters["status"]!!
-                    )
-
-                call.respond(
-                    supportChatService.readByStatus(
-                        status
-                    )
-                )
-            }
-
-            get(SupportChatConst.READ_BY_PRIORITY_ROUTE) {
-
-                val priority =
-                    SupportChatPriority.valueOf(
-                        call.parameters["priority"]!!
-                    )
-
-                call.respond(
-                    supportChatService.readByPriority(
-                        priority
-                    )
-                )
-            }
 
             put(
                 SupportChatConst.UPDATE_PRIORITY_ROUTE

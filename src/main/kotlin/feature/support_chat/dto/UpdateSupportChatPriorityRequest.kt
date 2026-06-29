@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UpdateSupportChatPriorityRequest(
     val id: String,
-    val priority: SupportChatPriority,
-    val ip: String
+    val priority: SupportChatPriority
 )

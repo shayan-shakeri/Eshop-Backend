@@ -15,8 +15,6 @@ object SupportChatConst {
 
     // params
     const val ID_PARAM = "id"
-    const val STATUS_PARAM = "status"
-    const val PRIORITY_PARAM = "priority"
 
     // routes
     const val MAIN_ROUTE = "/support-chat"
@@ -31,11 +29,6 @@ object SupportChatConst {
     const val READ_ALL_ROUTE =
         "/read/all"
 
-    const val READ_BY_STATUS_ROUTE =
-        "/read/status/{$STATUS_PARAM}"
-
-    const val READ_BY_PRIORITY_ROUTE =
-        "/read/priority/{$PRIORITY_PARAM}"
 
     const val UPDATE_PRIORITY_ROUTE =
         "/update/priority"
@@ -46,26 +39,4 @@ object SupportChatConst {
     const val DELETE_ROUTE =
         "/delete"
 
-    // actions
-    const val ADD_ACTION =
-        "Added support chat"
-
-    const val UPDATE_PRIORITY_ACTION =
-        "Updated support chat priority"
-
-    const val UPDATE_STATUS_ACTION =
-        "Updated support chat status"
-
-    const val DELETE_ACTION =
-        "Deleted support chat"
-
-    // errors
-    const val MISSING_ID =
-        "Support chat id is required"
-
-    const val MISSING_PRIORITY =
-        "Priority is required"
-
-    const val MISSING_STATUS =
-        "Status is required"
 }

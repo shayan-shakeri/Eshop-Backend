@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 data class AddNotificationRequest(
     val userId: String,
     val title: String,
-    val content: String,
-    val ip: String
+    val content: String
 )

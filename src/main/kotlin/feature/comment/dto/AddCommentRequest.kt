@@ -8,6 +8,5 @@ data class AddCommentRequest(
     val title: String,
     val content: String,
     val rating: Float,
-    val purchased: Boolean,
-    val ip: String
+    val purchased: Boolean
 )

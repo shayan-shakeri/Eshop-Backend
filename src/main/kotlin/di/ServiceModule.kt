@@ -156,8 +156,7 @@ val serviceModule = module {
 
     single {
         QuestionService(
-            repository = get(),
-            usersService = get()
+            repository = get()
         )
     }
     
@@ -181,7 +180,8 @@ val serviceModule = module {
 
     single {
         OrderService(
-            repository = get()
+            repository = get(),
+            userAuditLogService = get()
         )
     }
 
@@ -200,7 +200,9 @@ val serviceModule = module {
     single {
         SupportMessageService(
             repository = get(),
-            imageController = get()
+            imageController = get(),
+            notificationService = get(),
+            chatService = get()
         )
     }
 }

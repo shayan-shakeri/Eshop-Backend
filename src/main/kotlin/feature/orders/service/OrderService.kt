@@ -2,6 +2,8 @@ package com.shayan.feature.order.service
 
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.response.IdIpDTO
+import com.shayan.feature.audit_logs.service.AuditLogService
+import com.shayan.feature.order.constants.OrderConst
 import com.shayan.feature.order.dto.AddOrderRequest
 import com.shayan.feature.order.model.Order
 import com.shayan.feature.order.repository.OrderRepository
@@ -15,20 +17,28 @@ import io.ktor.server.plugins.NotFoundException
 import java.time.Instant
 
 class OrderService(
-    private val repository: OrderRepository
+    private val repository: OrderRepository,
+    private val userAuditLogService: AuditLogService
 ) {
 
     suspend fun addOrder(
         userId: String,
         request: AddOrderRequest
-    ): OrderResponse =
-        dbQuery {
+    ): OrderResponse {
+        runCatching {
+            userAuditLogService.add(
+                userId = userId,
+                action = OrderConst.ADD_ACTION,
+                ip = request.ip
+            )
+        }
+        return dbQuery {
 
             val order = Order(
                 id = IdGenerator.generate(),
                 userId = userId,
                 addressId = request.addressId,
-                deliveryState = DeliveryState.Received,
+                deliveryState = DeliveryState.InTransit,
                 deliveryDate = request.deliveryDate,
                 originalPrice = request.originalPrice,
                 finalPrice = request.finalPrice,
@@ -41,7 +51,7 @@ class OrderService(
                 ?.toOrderResponse()
                 ?: throw FailedToAdd()
         }
-
+    }
     suspend fun readUserOrders(
         userId: String
     ): List<OrderResponse> =
@@ -72,9 +82,17 @@ class OrderService(
 
 
     suspend fun updateDelivery(
+        userId: String,
         request: UpdateOrderRequest
-    ): OrderResponse =
-        dbQuery {
+    ): OrderResponse {
+        runCatching {
+            userAuditLogService.add(
+                userId = userId ,
+                action = OrderConst.UPDATE_ACTION,
+                ip = request.ip
+            )
+        }
+        return dbQuery {
 
             val existing =
                 repository.findById(request.id)
@@ -89,10 +107,19 @@ class OrderService(
                 ?.toOrderResponse()
                 ?: throw NotFoundException()
         }
+    }
 
     suspend fun deleteOrder(
+        userId: String,
         request: IdIpDTO
     ) {
+        runCatching {
+            userAuditLogService.add(
+                userId = userId,
+                action = OrderConst.DELETE_ACTION,
+                ip = request.ip
+            )
+        }
         dbQuery {
 
             repository.findById(request.id)

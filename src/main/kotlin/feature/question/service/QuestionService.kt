@@ -14,8 +14,7 @@ import core.util.IdGenerator
 import io.ktor.server.plugins.NotFoundException
 
 class QuestionService(
-    private val repository: QuestionRepository,
-    private val usersService: UsersService
+    private val repository: QuestionRepository
 ) {
 
     suspend fun addQuestion(

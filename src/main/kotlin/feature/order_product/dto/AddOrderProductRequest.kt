@@ -12,6 +12,5 @@ data class AddOrderProductRequest(
     @Serializable(with = BigDecimalSerializer::class)
     val originalPrice: BigDecimal,
     @Serializable(with = BigDecimalSerializer::class)
-    val finalPrice: BigDecimal,
-    val ip: String
+    val finalPrice: BigDecimal
 )

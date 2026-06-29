@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UpdateSupportChatStatusRequest(
     val id: String,
-    val status: SupportChatStatus,
-    val ip: String
+    val status: SupportChatStatus
 )

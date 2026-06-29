@@ -5,6 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UpdateNotificationRequest(
     val id: String,
-    val opened: Boolean,
-    val ip: String
+    val opened: Boolean
 )
