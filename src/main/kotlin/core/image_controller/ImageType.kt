@@ -6,5 +6,6 @@ enum class ImageType {
     BannerImage,
     CategoryImage,
     FilterImage,
-    Support
+    Support,
+    Banner
 }
