@@ -18,6 +18,8 @@ import com.shayan.feature.employee.route.employeeRoute
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.feature.employee_audit_log.route.employeeAuditLog
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
+import com.shayan.feature.error_log.route.errorLogRoute
+import com.shayan.feature.error_log.service.ErrorLogService
 import com.shayan.feature.favorites.route.favoriteRoute
 import com.shayan.feature.favorites.service.FavoritesService
 import com.shayan.feature.filter.route.filterRoute
@@ -136,5 +138,8 @@ fun Application.registerRoutes() {
 
         val versionControlService by inject<VersionControlService>()
         versionControlRoute(versionControlService)
+
+        val errorLogService by inject<ErrorLogService>()
+        errorLogRoute(errorLogService)
     }
 }

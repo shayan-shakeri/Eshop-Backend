@@ -18,6 +18,8 @@ import com.shayan.feature.employee.repository.EmployeeRepository
 import com.shayan.feature.employee.repository.EmployeeRepositoryImpl
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepository
 import com.shayan.feature.employee_audit_log.repository.EmployeeAuditLogRepositoryImpl
+import com.shayan.feature.error_log.repository.ErrorLogRepository
+import com.shayan.feature.error_log.repository.ErrorLogRepositoryImpl
 import com.shayan.feature.favorites.repository.FavoritesRepository
 import com.shayan.feature.favorites.repository.FavoritesRepositoryImpl
 import com.shayan.feature.filter.repository.RepositoryFilter
@@ -82,4 +84,5 @@ val repositoryModule = module {
     single<SupportMessageRepository> { SupportMessageRepositoryImpl() }
     single<FavoritesRepository> { FavoritesRepositoryImpl() }
     single<VersionControlRepository> { VersionControlRepositoryImpl() }
+    single<ErrorLogRepository> { ErrorLogRepositoryImpl() }
 }

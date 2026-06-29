@@ -1,48 +1,98 @@
-package com.shayan.config
+package core.plugin
 
+import com.shayan.core.exception.EmailExist
 import com.shayan.core.exception.FailedToAdd
+import com.shayan.core.exception.ImageExist
 import com.shayan.core.exception.InvalidCredentials
-import core.response.ApiResponse
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
-import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respond
+import com.shayan.feature.error_log.service.ErrorLogService
+import core.exception.AuthenticationException
+import core.exception.Forbidden
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
 
-fun Application.configStatusPages() {
+fun Application.configureStatusPages(
+    errorLogService: ErrorLogService
+) {
+
     install(StatusPages) {
 
-        exception<InvalidCredentials> { call, _ ->
+        exception<AuthenticationException> { call, cause ->
             call.respond(
                 HttpStatusCode.Unauthorized,
-                ApiResponse(
-                    success = false,
-                    message = "Invalid credentials"
-                )
+                cause.message ?: "Unauthorized"
             )
         }
 
-        exception<FailedToAdd> { call, _ ->
+        exception<InvalidCredentials> { call, cause ->
+            call.respond(
+                HttpStatusCode.Unauthorized,
+                cause.message ?: "Invalid credentials"
+            )
+        }
+
+        exception<Forbidden> { call, cause ->
+            call.respond(
+                HttpStatusCode.Forbidden,
+                cause.message ?: "Forbidden"
+            )
+        }
+
+        exception<NotFoundException> { call, cause ->
+            call.respond(
+                HttpStatusCode.NotFound,
+                cause.message ?: "Not found"
+            )
+        }
+
+        exception<BadRequestException> { call, cause ->
             call.respond(
                 HttpStatusCode.BadRequest,
-                ApiResponse(
-                    success = false,
-                    message = "Failed to add user"
-                )
+                cause.message ?: "Bad request"
+            )
+        }
+
+        exception<EmailExist> { call, cause ->
+            call.respond(
+                HttpStatusCode.Conflict,
+                cause.message ?: "Email already exists"
+            )
+        }
+
+        exception<ImageExist> { call, cause ->
+            call.respond(
+                HttpStatusCode.Conflict,
+                cause.message ?: "Image already exists"
+            )
+        }
+
+        exception<FailedToAdd> { call, cause ->
+            call.respond(
+                HttpStatusCode.InternalServerError,
+                cause.message ?: "Failed to add resource"
             )
         }
 
         exception<Throwable> { call, cause ->
-            cause.printStackTrace()
+
+            runCatching {
+                errorLogService.add(
+                    cause.stackTraceToString()
+                )
+            }
+
+            this@configureStatusPages.environment.log.error(
+                cause.stackTraceToString()
+            )
 
             call.respond(
                 HttpStatusCode.InternalServerError,
-                ApiResponse(
-                    success = false,
-                    message = "Internal server error"
+                mapOf(
+                    "message" to "Internal server error"
                 )
             )
         }
-
     }
 }
