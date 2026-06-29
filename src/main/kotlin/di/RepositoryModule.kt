@@ -50,6 +50,8 @@ import com.shayan.feature.users.repository.UserRepository
 import com.shayan.feature.users.repository.UserRepositoryImpl
 import com.shayan.feature.users_session.repository.UserSessionRepository
 import com.shayan.feature.users_session.repository.UserSessionRepositoryImpl
+import com.shayan.feature.version_control.repository.VersionControlRepository
+import com.shayan.feature.version_control.repository.VersionControlRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -79,5 +81,5 @@ val repositoryModule = module {
     single<SupportChatRepository> { SupportChatRepositoryImpl() }
     single<SupportMessageRepository> { SupportMessageRepositoryImpl() }
     single<FavoritesRepository> { FavoritesRepositoryImpl() }
-    
+    single<VersionControlRepository> { VersionControlRepositoryImpl() }
 }

@@ -49,6 +49,8 @@ import com.shayan.feature.user_pic.route.userPicRoute
 import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.route.userRoutes
 import com.shayan.feature.users.service.UsersService
+import com.shayan.feature.version_control.route.versionControlRoute
+import com.shayan.feature.version_control.service.VersionControlService
 import feature.orders.route.orderRoute
 import io.ktor.server.application.*
 import io.ktor.server.response.respond
@@ -131,5 +133,8 @@ fun Application.registerRoutes() {
 
         val favoritesService by inject<FavoritesService>()
         favoriteRoute(favoritesService)
+
+        val versionControlService by inject<VersionControlService>()
+        versionControlRoute(versionControlService)
     }
 }

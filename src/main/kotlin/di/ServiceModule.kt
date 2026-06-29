@@ -28,6 +28,7 @@ import com.shayan.feature.user_auth.service.UserAuthService
 import com.shayan.feature.user_pic.service.UserPicService
 import com.shayan.feature.users.service.UsersService
 import com.shayan.feature.users_session.service.UserSessionService
+import com.shayan.feature.version_control.service.VersionControlService
 import org.koin.dsl.module
 
 val serviceModule = module {
@@ -210,6 +211,13 @@ val serviceModule = module {
     single {
         FavoritesService(
             repository = get()
+        )
+    }
+
+    single {
+        VersionControlService(
+            repository = get(),
+            employeeAuditLogService = get()
         )
     }
 }
