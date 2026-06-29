@@ -18,6 +18,8 @@ import com.shayan.feature.employee.route.employeeRoute
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.feature.employee_audit_log.route.employeeAuditLog
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
+import com.shayan.feature.favorites.route.favoriteRoute
+import com.shayan.feature.favorites.service.FavoritesService
 import com.shayan.feature.filter.route.filterRoute
 import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.notification.route.notificationRoute
@@ -126,5 +128,8 @@ fun Application.registerRoutes() {
 
         val supportMessageService by inject<SupportMessageService>()
         supportMessageRoute(supportMessageService)
+
+        val favoritesService by inject<FavoritesService>()
+        favoriteRoute(favoritesService)
     }
 }

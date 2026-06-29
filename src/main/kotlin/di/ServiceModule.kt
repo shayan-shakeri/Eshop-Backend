@@ -10,6 +10,7 @@ import com.shayan.feature.email_verifier.service.EmailVerifierService
 import com.shayan.feature.employee.service.EmployeeService
 import com.shayan.feature.employee_audit_log.service.EmployeeAuditLogService
 import com.shayan.feature.employee_audit_log.table.EmployeeAuditLogTable
+import com.shayan.feature.favorites.service.FavoritesService
 import com.shayan.feature.filter.dto.FilterResponse
 import com.shayan.feature.filter.service.FilterService
 import com.shayan.feature.notification.service.NotificationService
@@ -203,6 +204,12 @@ val serviceModule = module {
             imageController = get(),
             notificationService = get(),
             chatService = get()
+        )
+    }
+
+    single {
+        FavoritesService(
+            repository = get()
         )
     }
 }
