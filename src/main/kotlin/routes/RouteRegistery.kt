@@ -26,6 +26,8 @@ import com.shayan.feature.favorites.route.favoriteRoute
 import com.shayan.feature.favorites.service.FavoritesService
 import com.shayan.feature.filter.route.filterRoute
 import com.shayan.feature.filter.service.FilterService
+import com.shayan.feature.monthly_log.route.monthlyLogRoute
+import com.shayan.feature.monthly_log.service.MonthlyLogService
 import com.shayan.feature.notification.route.notificationRoute
 import com.shayan.feature.notification.service.NotificationService
 import com.shayan.feature.order.service.OrderService
@@ -146,5 +148,8 @@ fun Application.registerRoutes() {
 
         val bannerService by inject<BannerService>()
         bannerRoute(bannerService)
+
+        val monthlyLogService by inject<MonthlyLogService>()
+        monthlyLogRoute(monthlyLogService)
     }
 }

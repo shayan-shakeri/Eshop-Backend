@@ -14,4 +14,6 @@ interface EmployeeRepository {
 
     suspend fun delete(id: String)
     suspend fun checkIfTerminated(id: String): Boolean
+
+
 }

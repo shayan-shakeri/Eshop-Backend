@@ -27,4 +27,6 @@ interface OrderProductRepository {
     suspend fun deleteByOrderId(
         orderId: String
     )
+
+    suspend fun readAll(): List<OrderProduct>
 }

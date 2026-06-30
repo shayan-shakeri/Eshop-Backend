@@ -77,4 +77,8 @@ class OrderProductRepositoryImpl :
             OrderProductTable.orderId eq orderId
         }
     }
+
+    override suspend fun readAll(): List<OrderProduct> =
+        OrderProductTable.selectAll().map { it.toOrderProduct() }
+
 }

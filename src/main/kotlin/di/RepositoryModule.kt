@@ -26,6 +26,8 @@ import com.shayan.feature.favorites.repository.FavoritesRepository
 import com.shayan.feature.favorites.repository.FavoritesRepositoryImpl
 import com.shayan.feature.filter.repository.RepositoryFilter
 import com.shayan.feature.filter.repository.RepositoryFilterImpl
+import com.shayan.feature.monthly_log.repository.MonthlyLogRepository
+import com.shayan.feature.monthly_log.repository.MonthlyLogRepositoryImpl
 import com.shayan.feature.notification.repository.NotificationRepository
 import com.shayan.feature.notification.repository.NotificationRepositoryImpl
 import com.shayan.feature.order.repository.OrderRepository
@@ -88,4 +90,5 @@ val repositoryModule = module {
     single<VersionControlRepository> { VersionControlRepositoryImpl() }
     single<ErrorLogRepository> { ErrorLogRepositoryImpl() }
     single<BannerRepository> { BannerRepositoryImpl() }
+    single<MonthlyLogRepository> { MonthlyLogRepositoryImpl() }
 }

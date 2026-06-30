@@ -1,6 +1,7 @@
 
 package com.shayan
 
+import com.shayan.config.configureSchedulers
 import com.shayan.config.configureWebSocket
 import com.shayan.feature.error_log.service.ErrorLogService
 import config.*
@@ -16,6 +17,7 @@ fun Application.application() {
     configureSecurity()
     configureDatabase()
     configureKoin()
+    configureSchedulers()
 
     val errorLoqService by inject<ErrorLogService>()
     configureStatusPages(errorLoqService)

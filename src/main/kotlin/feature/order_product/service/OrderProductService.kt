@@ -73,4 +73,14 @@ class OrderProductService(
             )
         }
     }
+
+    suspend fun readAll():
+            List<OrderProductResponse> =
+        dbQuery {
+
+            repository.readAll()
+                .map {
+                    it.toOrderProductResponse()
+                }
+        }
 }

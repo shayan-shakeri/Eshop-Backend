@@ -35,6 +35,16 @@ class EmployeeService(
         return dbQuery { employeeRepository.getAll().map { it.toEmployeeNoTokenResponse() } }
     }
 
+    suspend fun getAll():
+            List<EmployeeNoTokenResponse> =
+        dbQuery {
+
+            employeeRepository.getAll()
+                .map {
+                    it.toEmployeeNoTokenResponse()
+                }
+        }
+
     suspend fun login(loginEmployee: LoginEmployee): EmployeeResponse {
         val result = dbQuery {
             val result = employeeRepository.findByEmail(loginEmployee.email) ?: throw InvalidCredentials()
