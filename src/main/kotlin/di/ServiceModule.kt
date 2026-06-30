@@ -15,6 +15,7 @@ import com.shayan.feature.error_log.service.ErrorLogService
 import com.shayan.feature.favorites.service.FavoritesService
 import com.shayan.feature.filter.dto.FilterResponse
 import com.shayan.feature.filter.service.FilterService
+import com.shayan.feature.monthly_log.service.MonthlyLogService
 import com.shayan.feature.notification.service.NotificationService
 import com.shayan.feature.order.service.OrderService
 import com.shayan.feature.order_product.service.OrderProductService
@@ -235,6 +236,14 @@ val serviceModule = module {
             repository = get(),
             employeeAuditLogService = get(),
             imageController = get()
+        )
+    }
+
+    single {
+        MonthlyLogService(
+            repository = get(),
+            employeeService = get(),
+            orderProductService = get()
         )
     }
 }

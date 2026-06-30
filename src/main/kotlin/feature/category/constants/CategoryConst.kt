@@ -2,7 +2,6 @@ package com.shayan.feature.category.constants
 
 object CategoryConst {
 
-    // Database
     const val TABLE_NAME = "category"
     const val ID = "id"
     const val NAME = "name"

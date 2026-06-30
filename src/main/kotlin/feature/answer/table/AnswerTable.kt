@@ -4,41 +4,25 @@ import com.shayan.feature.answer.constants.AnswerConst
 import com.shayan.feature.users.table.UsersTable
 import com.shayan.util.enums.AnswerType
 import core.consts.ANC
+import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
 object AnswerTable : Table(AnswerConst.TABLE_NAME) {
 
-    val id =
-        varchar(
-            AnswerConst.ID,
-            ANC.ID_LENGTH
+    val id = varchar(AnswerConst.ID, ANC.ID_LENGTH)
+
+    val userId = varchar(AnswerConst.USER_ID, ANC.ID_LENGTH)
+        .references(
+            UsersTable.id,
+            onDelete = ReferenceOption.CASCADE,
+            onUpdate = ReferenceOption.RESTRICT
         )
 
-    val userId =
-        varchar(
-            AnswerConst.USER_ID,
-            ANC.ID_LENGTH
-        ).references(
-            UsersTable.id
-        )
-    val type =
-        enumerationByName<AnswerType>(
-            AnswerConst.TYPE,
-            20
-        )
+    val type = enumerationByName<AnswerType>(AnswerConst.TYPE, ANC.ENUM_LENGTH)
 
-    val questionCommentId =
-        varchar(
-            AnswerConst.QUESTION_COMMENT_ID,
-            ANC.ID_LENGTH
-        )
+    val questionCommentId = varchar(AnswerConst.QUESTION_COMMENT_ID, ANC.ID_LENGTH)
 
-    val content =
-        varchar(
-            AnswerConst.CONTENT,
-            AnswerConst.CONTENT_LENGTH
-        )
+    val content = varchar(AnswerConst.CONTENT, AnswerConst.CONTENT_LENGTH)
 
-    override val primaryKey =
-        PrimaryKey(id)
+    override val primaryKey = PrimaryKey(id)
 }

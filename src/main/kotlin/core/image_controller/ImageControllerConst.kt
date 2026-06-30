@@ -16,4 +16,6 @@ object ImageControllerConst {
     val SUPPORT_IMAGE_PATH: File = File(BASE_DIR, "support")
 
     const val IMAGE_NOT_EXIST = "Image not found:"
+
+    const val IMAGE_MIME_TYPE = "png"
 }

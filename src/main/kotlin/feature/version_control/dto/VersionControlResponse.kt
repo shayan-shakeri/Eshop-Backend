@@ -1,7 +1,9 @@
 package com.shayan.feature.version_control.dto
 
+import com.shayan.util.serializer.InstantSerializer
 import kotlinx.serialization.Serializable
-import kotlin.time.Instant
+import java.time.Instant
+
 
 @Serializable
 data class VersionControlResponse(
@@ -10,5 +12,6 @@ data class VersionControlResponse(
     val active: Boolean,
     val description: String,
     val forced: Boolean,
+    @Serializable(with = InstantSerializer::class)
     val createdAt: Instant
 )

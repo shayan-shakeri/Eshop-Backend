@@ -51,6 +51,7 @@ object AppConstants {
 
     object NumeralConst{
         const val ID_LENGTH = 40
+        const val ENUM_LENGTH = 20
     }
 
     object Role{
@@ -61,6 +62,18 @@ object AppConstants {
         const val HR = 4
         const val MARKETING = 5
     }
+
+    object StatusPages{
+        const val UNAUTHORIZED = "Unauthorized"
+        const val INVALID_CREDENTIALS = "Invalid credentials"
+        const val FORBIDDEN = "Forbidden"
+        const val NOT_FOUND = "Not found"
+        const val BAD_REQUEST = "Bad Request"
+        const val EMAIL_EXISTS = "Email exists"
+        const val IMAGE_EXISTS = "Image exists"
+        const val FAILED_TO_ADD = "Failed To Add"
+        const val ALREADY_EXISTS = "Already Exists"
+    }
 }
 
 typealias ANC = AppConstants.NumeralConst
@@ -69,3 +82,4 @@ typealias CJWT = AppConstants.Jwt
 typealias CRY = AppConstants.Crypto
 typealias EXC = AppConstants.Exception
 typealias ACR = AppConstants.Role
+typealias ASP = AppConstants.StatusPages

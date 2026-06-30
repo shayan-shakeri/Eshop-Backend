@@ -1,6 +1,7 @@
 package com.shayan.feature.banner.table
 
 import com.shayan.feature.banner.constants.BannerConst
+import core.consts.ANC
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.timestamp
 
@@ -10,7 +11,7 @@ object BannerTable : Table(
 
     val id = varchar(
         BannerConst.ID,
-        40
+        ANC.ID_LENGTH
     )
 
     val title = varchar(

@@ -9,10 +9,10 @@ object BannerConst {
     const val ACTIVE = "active"
     const val CREATED_AT = "created_at"
 
-    // numerical
+    //-------numerical
     const val TITLE_LENGTH = 40
 
-    // routes
+    //-------routes
     const val MAIN_ROUTE = "/banner"
 
     const val ADD_ROUTE = "/add"
@@ -21,17 +21,16 @@ object BannerConst {
     const val UPDATE_ROUTE = "/update"
     const val DELETE_ROUTE = "/delete"
 
-    // request fields
-    const val IMAGE = "image"
+    //-------request fields
     const val ACTIVE_PARAM = "active"
     const val IP = "ip"
 
-    // image
-    const val FILE_PATH = "uploads/banner"
+    //-------image
+    const val FILE_PATH = "uploads/banners"
     const val REMOTE_PATH = "/image"
     const val IMAGE_ROUTE = "$MAIN_ROUTE$REMOTE_PATH"
 
-    // actions
+    //-------actions
     const val ADD_ACTION =
         "Added banner"
 
@@ -41,7 +40,7 @@ object BannerConst {
     const val DELETE_ACTION =
         "Deleted banner"
 
-    // errors
+    //-------errors
     const val MISSING_FILE =
         "Image file is required"
 

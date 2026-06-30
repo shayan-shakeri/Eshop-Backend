@@ -23,7 +23,6 @@ object EmailVerifierConst {
     const val VERIFY_ROUTE = "/verify"
 
     const val SEND_ACTION = "User requested to get verification code"
-    const val VERIFY_ACTION = "User verified the verification code"
 
     const val FROM = "onboarding@resend.dev"
     const val SUBJECT = "Email verification"

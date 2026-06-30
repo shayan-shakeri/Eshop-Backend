@@ -27,8 +27,6 @@ object NotificationConst {
     const val ADD_ACTION =
         "Added notification"
 
-    const val OPEN_ACTION =
-        "Opened notification"
 
     const val DELETE_ACTION =
         "Deleted notification"

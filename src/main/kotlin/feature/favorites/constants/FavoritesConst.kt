@@ -24,7 +24,4 @@ object FavoritesConst {
     const val DELETE_ACTION =
         "Removed product from favorites"
 
-    // errors
-    const val MISSING_PRODUCT_ID =
-        "Product id is required"
 }
