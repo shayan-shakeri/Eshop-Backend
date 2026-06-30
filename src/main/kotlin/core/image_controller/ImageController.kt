@@ -37,7 +37,7 @@ class ImageController {
         title: String?,
         imageType: ImageType
     ): String {
-        val fileName = title ?: "${IdGenerator.generate()}.png"
+        val fileName = title ?: "${IdGenerator.generate()}.${ImageControllerConst.IMAGE_MIME_TYPE}"
 
         if (exists(imageType, fileName)) {
             throw ImageExist()

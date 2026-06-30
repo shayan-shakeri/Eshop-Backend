@@ -63,32 +63,60 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
     single<AuditLogRepository> { AuditLogRepositoryImpl() }
+
     single<UserSessionRepository> { UserSessionRepositoryImpl() }
+
     single<UserRepository> { UserRepositoryImpl() }
+
     single<AddressRepository> { AddressRepositoryImpl() }
+
     single<SearchHistoryRepository> { SearchHistoryRepositoryImpl() }
+
     single<EmailVerifierRepository> { EmailVerifierRepositoryImpl() }
+
     single<UserPicRepository> { UserPicRepositoryImpl() }
+
     single<EmployeeAuditLogRepository> { EmployeeAuditLogRepositoryImpl() }
+
     single<RoleRepository> { RoleRepositoryImpl() }
+
     single<EmployeeRepository> { EmployeeRepositoryImpl() }
+
     single<CategoryRepository> { CategoryRepositoryImpl() }
+
     single<RepositoryFilter> { RepositoryFilterImpl() }
+
     single<ProductImageRepository> { ProductImageRepositoryImpl() }
+
     single<DiscountRepository> { DiscountRepositoryImpl() }
+
     single<SettingRepository> { SettingRepositoryImpl() }
+
     single<ProductRepository> { ProductRepositoryImpl() }
+
     single<QuestionRepository> { QuestionRepositoryImpl() }
+
     single<CommentRepository> { CommentRepositoryImpl() }
+
     single<AnswerRepository> { AnswerRepositoryImpl() }
+
     single<NotificationRepository> { NotificationRepositoryImpl() }
+
     single<OrderRepository> { OrderRepositoryImpl() }
+
     single<OrderProductRepository> { OrderProductRepositoryImpl() }
+
     single<SupportChatRepository> { SupportChatRepositoryImpl() }
+
     single<SupportMessageRepository> { SupportMessageRepositoryImpl() }
+
     single<FavoritesRepository> { FavoritesRepositoryImpl() }
+
     single<VersionControlRepository> { VersionControlRepositoryImpl() }
+
     single<ErrorLogRepository> { ErrorLogRepositoryImpl() }
+
     single<BannerRepository> { BannerRepositoryImpl() }
+
     single<MonthlyLogRepository> { MonthlyLogRepositoryImpl() }
 }

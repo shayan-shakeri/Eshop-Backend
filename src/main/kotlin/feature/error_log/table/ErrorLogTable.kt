@@ -1,6 +1,7 @@
 package com.shayan.feature.error_log.table
 
 import com.shayan.feature.error_log.constants.ErrorLogConst
+import core.consts.ANC
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.timestamp
 
@@ -10,7 +11,7 @@ object ErrorLogTable : Table(
 
     val id = varchar(
         ErrorLogConst.ID,
-        40
+        ANC.ID_LENGTH
     )
 
     val errorMessage = text(

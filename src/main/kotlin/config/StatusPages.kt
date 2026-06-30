@@ -1,10 +1,12 @@
 package core.plugin
 
+import com.shayan.core.exception.AlreadyExistsException
 import com.shayan.core.exception.EmailExist
 import com.shayan.core.exception.FailedToAdd
 import com.shayan.core.exception.ImageExist
 import com.shayan.core.exception.InvalidCredentials
 import com.shayan.feature.error_log.service.ErrorLogService
+import core.consts.ASP
 import core.exception.AuthenticationException
 import core.exception.Forbidden
 import io.ktor.http.*
@@ -22,56 +24,63 @@ fun Application.configureStatusPages(
         exception<AuthenticationException> { call, cause ->
             call.respond(
                 HttpStatusCode.Unauthorized,
-                cause.message ?: "Unauthorized"
+                cause.message ?: ASP.UNAUTHORIZED
             )
         }
 
         exception<InvalidCredentials> { call, cause ->
             call.respond(
                 HttpStatusCode.Unauthorized,
-                cause.message ?: "Invalid credentials"
+                cause.message ?: ASP.INVALID_CREDENTIALS
             )
         }
 
         exception<Forbidden> { call, cause ->
             call.respond(
                 HttpStatusCode.Forbidden,
-                cause.message ?: "Forbidden"
+                cause.message ?: ASP.FORBIDDEN
             )
         }
 
         exception<NotFoundException> { call, cause ->
             call.respond(
                 HttpStatusCode.NotFound,
-                cause.message ?: "Not found"
+                cause.message ?: ASP.NOT_FOUND
             )
         }
 
         exception<BadRequestException> { call, cause ->
             call.respond(
                 HttpStatusCode.BadRequest,
-                cause.message ?: "Bad request"
+                cause.message ?: ASP.BAD_REQUEST
             )
         }
 
         exception<EmailExist> { call, cause ->
             call.respond(
                 HttpStatusCode.Conflict,
-                cause.message ?: "Email already exists"
+                cause.message ?: ASP.EMAIL_EXISTS
             )
         }
 
         exception<ImageExist> { call, cause ->
             call.respond(
                 HttpStatusCode.Conflict,
-                cause.message ?: "Image already exists"
+                cause.message ?: ASP.IMAGE_EXISTS
             )
         }
 
         exception<FailedToAdd> { call, cause ->
             call.respond(
                 HttpStatusCode.InternalServerError,
-                cause.message ?: "Failed to add resource"
+                cause.message ?: ASP.FAILED_TO_ADD
+            )
+        }
+
+        exception<AlreadyExistsException> { call, cause ->
+            call.respond(
+                HttpStatusCode.Conflict,
+                cause.message ?: ASP.ALREADY_EXISTS
             )
         }
 

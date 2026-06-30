@@ -10,10 +10,10 @@ object AnswerConst {
     const val TYPE = "type"
     const val CONTENT = "content"
 
-    // Numeral
+    //-------numeral
     const val CONTENT_LENGTH = 255
 
-    // Route
+    //-------route
     const val MAIN_ROUTE = "/answer"
 
     const val ADD_ROUTE = "/add"
@@ -29,7 +29,7 @@ object AnswerConst {
     const val QUESTION_COMMENT_ID_PARAM =
         "questionCommentId"
 
-    // Action
+    //-------action
     const val ADD_ACTION =
         "User added an answer"
 

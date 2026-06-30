@@ -3,7 +3,7 @@ package config
 import core.database.DatabaseFactory
 import io.ktor.server.application.*
 
-fun Application.configureDatabase() {
+fun configureDatabase() {
 
     DatabaseFactory.init()
 

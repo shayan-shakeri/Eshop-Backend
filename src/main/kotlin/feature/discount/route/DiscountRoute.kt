@@ -32,7 +32,7 @@ fun Route.discountRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                if (roleId.toInt() != ACR.STORAGE){
+                if (roleId.toInt() != ACR.MARKETING){
                     call.respond(HttpStatusCode.Forbidden)
                     return@post
                 }
@@ -115,7 +115,7 @@ fun Route.discountRoute(
 
 
 
-                if (roleId.toInt() != ACR.STORAGE){
+                if (roleId.toInt() != ACR.MARKETING){
                     call.respond(HttpStatusCode.Forbidden)
                 }
 
@@ -139,7 +139,7 @@ fun Route.discountRoute(
                 val roleId =
                     call.roleCodeExtract()
 
-                if (roleId.toInt() != ACR.STORAGE){
+                if (roleId.toInt() != ACR.MARKETING){
                     call.respond(HttpStatusCode.Forbidden)
                     return@put
                 }
@@ -164,7 +164,7 @@ fun Route.discountRoute(
 
                 val roleId =
                     call.roleCodeExtract()
-                if (roleId.toInt() != ACR.STORAGE){
+                if (roleId.toInt() != ACR.MARKETING){
                     call.respond(HttpStatusCode.Forbidden)
                     return@put
                 }
@@ -187,7 +187,7 @@ fun Route.discountRoute(
 
                 val roleId =
                     call.roleCodeExtract()
-                if (roleId.toInt() != ACR.STORAGE){
+                if (roleId.toInt() != ACR.MARKETING){
                     call.respond(HttpStatusCode.Forbidden)
                     return@delete
                 }

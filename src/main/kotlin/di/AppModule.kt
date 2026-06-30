@@ -18,8 +18,6 @@ val appModule = module {
     }
 
     single {
-        MonthlyLogScheduler(
-            get()
-        )
+        MonthlyLogScheduler(get())
     }
 }
