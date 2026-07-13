@@ -1,20 +1,28 @@
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "com.shayan"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 application {
-    mainClass = "io.ktor.server.netty.EngineMain"
+    mainClass.set("com.shayan.MainKt")
+}
+
+tasks.shadowJar {
+    manifest {
+        attributes(
+            "Main-Class" to "com.shayan.MainKt"
+        )
+    }
+    mergeServiceFiles()
 }
 
 kotlin {
     jvmToolchain(21)
 }
-
 dependencies {
     // Ktor Core and Netty
     implementation(ktorLibs.server.core)
@@ -68,5 +76,4 @@ dependencies {
 
     //websocket
     implementation(libs.websocket)
-
 }

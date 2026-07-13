@@ -1,39 +1,50 @@
-# Eshop
+# EShop Backend API
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+A high-performance, containerized e-commerce backend built with Kotlin, Ktor, and HikariCP database connection pooling. Optimized for decoupled microservice architectures and lightweight cloud deployments.
 
-Here are some useful links to get you started:
- * [Ktor Documentation](https://ktor.io/docs/home.html)
- * [Ktor GitHub page](https://github.com/ktorio/ktor)
- * [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). [Request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up).
+---
 
+## 🚀 Features & Architecture
+* **Ktor Server Core:** Light asynchronous engine for fast routing and serialization.
+* **Robust Feature Modules:** Fully isolated architectures for Banners, Categories, Filters, Product Images, Support Messages, and User Profiles.
+* **Docker Native:** Cloud-ready container image based on clean, alpine openjdk runtimes.
+* **HikariCP Integration:** Production-grade database connection management.
 
-## Features
-Here's a list of features included in this project:
+---
 
-| Name | Description |
-|------|-------------|
-| [Koin](https://start.ktor.io/p/io.insert-koin/server-koin) | Provides dependency injection |
-| [kotlinx.serialization](https://start.ktor.io/p/io.ktor/server-kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library |
-| [Content Negotiation](https://start.ktor.io/p/io.ktor/server-content-negotiation) | Provides automatic content conversion according to Content-Type and Accept headers |
-| [Exposed](https://start.ktor.io/p/org.jetbrains/server-exposed) | Adds Exposed database to your application |
-| [Rate Limiting](https://start.ktor.io/p/io.github.flaxoos/server-rate-limiting) | Manage request rate limiting as you see fit |
-| [Call Logging](https://start.ktor.io/p/io.ktor/server-call-logging) | Logs client requests |
-| [Request Validation](https://start.ktor.io/p/io.ktor/server-request-validation) | Adds validation for incoming requests |
-| [Status Pages](https://start.ktor.io/p/io.ktor/server-status-pages) | Provides exception handling for routes |
-| [Authentication](https://start.ktor.io/p/io.ktor/server-auth) | Provides extension point for handling the Authorization header |
-| [Authentication JWT](https://start.ktor.io/p/io.ktor/server-auth-jwt) | Handles JSON Web Token (JWT) bearer authentication scheme |
+## 🛠️ Local Development Setup
 
+### Prerequisites
+* Java 21 (LTS)
+* Docker Desktop
+* Gradle 9.x
 
-## Building & Running
-To build or run the project, use one of the following tasks:
+### 1. Environment Variable Configuration
+Create a `.env` file in the root project folder. Ensure local connections are mapped properly via the Docker host bridge if containerizing:
 
+```env
+# Database
+DB_URL=jdbc:mysql://host.docker.internal:3306/eshop
+DB_USER=root
+DB_PASSWORD=test
+DB_POOL_SIZE=10
 
-| Task | Description |
-|------|-------------|
+# Password Hashing
+HASH_ITERATIONS=10000
+HASH_ALGORITHM=PBKDF2WithHmacSHA256
 
-If the server starts successfully, you'll see the following output:
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
-```
+# JWT Secrets
+ACCESS_TOKEN_SECRET=test
+REFRESH_TOKEN_SECRET=test
+
+# JWT Configuration
+TOKEN_ISSUER=eshop
+TOKEN_AUDIENCE=eshop-users
+
+# Token Expiration (milliseconds)
+ACCESS_USER_EXP=3600000
+ACCESS_EMPLOYEE_EXP=28800000
+REFRESH_EXP=2592000000
+
+# Resend Email Token
+EMAIL_SENDER_API_KEY=test
