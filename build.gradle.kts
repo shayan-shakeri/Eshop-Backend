@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.shayan"
-version = "1.0.0"
+version = "v1.0.1"
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"

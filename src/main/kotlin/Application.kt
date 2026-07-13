@@ -7,9 +7,16 @@ import com.shayan.feature.error_log.service.ErrorLogService
 import config.*
 import core.plugin.configureStatusPages
 import io.ktor.server.application.*
+import io.ktor.server.netty.EngineMain
 import org.koin.ktor.ext.inject
 import routes.registerRoutes
 
+
+fun main(
+    args: Array<String>
+) {
+    EngineMain.main(args)
+}
 
 fun Application.application() {
     configureSerialization()
