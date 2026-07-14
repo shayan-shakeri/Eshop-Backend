@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.shayan"
-version = "1.0.1"
+version = "1.0.2"
 
 application {
     mainClass.set("com.shayan.MainKt")

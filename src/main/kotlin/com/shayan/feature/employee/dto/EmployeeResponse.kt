@@ -11,7 +11,7 @@ import java.time.LocalDate
 @Serializable
 data class EmployeeResponse (
     val id: String,
-    val roleId: String,
+    val roleCode: Int,
     val name: String,
     val nationalId: String,
     val phone: String,

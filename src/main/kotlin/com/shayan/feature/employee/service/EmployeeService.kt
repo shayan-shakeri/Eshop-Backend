@@ -46,9 +46,10 @@ class EmployeeService(
         }
 
     suspend fun login(loginEmployee: LoginEmployee): EmployeeResponse {
+        var roleId= ""
         val result = dbQuery {
             val result = employeeRepository.findByEmail(loginEmployee.email) ?: throw InvalidCredentials()
-
+            roleId = result.roleId
             val hashPassword = PasswordHasher.hashPassword(
                 loginEmployee.password,
                 result.salt,
@@ -58,13 +59,15 @@ class EmployeeService(
 
             if (employeeRepository.checkIfTerminated(result.id)) throw Forbidden(true)
             if (hashPassword.hash != result.passwordHash) throw InvalidCredentials()
-            val role = roleService.read(result.roleId)
-            result.toEmployeeResponse(AccessTokenGenerator.employeeToken(result.id, role.code))
+
+            val roleCode = roleService.read(result.roleId).code
+
+            result.toEmployeeResponse(AccessTokenGenerator.employeeToken(result.id, roleCode), roleCode)
         }
         runCatching {
             employeeAuditLogService.addAuditLog(
                 result.id,
-                result.roleId,
+                roleId,
                 EmployeeConst.LOGIN_ACTION,
                 loginEmployee.ip
             )

@@ -3,10 +3,10 @@ package com.shayan.feature.employee.mapper
 import com.shayan.feature.employee.dto.EmployeeResponse
 import com.shayan.feature.employee.model.Employee
 
-fun Employee.toEmployeeResponse(accessToken: String): EmployeeResponse =
+fun Employee.toEmployeeResponse(accessToken: String, roleCode: Int): EmployeeResponse =
     EmployeeResponse(
         id = id,
-        roleId = roleId,
+        roleCode = roleCode,
         name = name,
         nationalId = nationalId,
         phone = phone,
