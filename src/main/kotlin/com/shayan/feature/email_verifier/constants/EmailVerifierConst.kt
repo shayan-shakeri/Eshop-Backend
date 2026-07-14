@@ -1,11 +1,10 @@
-package com.shayan.feature.sender.constants
+package com.shayan.feature.email_verifier.constants
 
 object EmailVerifierConst {
 
     const val TABLE_NAME = "verification_codes"
 
     const val ID = "id"
-    const val USER_ID = "user_id"
     const val EMAIL = "email"
     const val CODE_HASH = "code_hash"
     const val EXPIRES_AT = "expires_at"

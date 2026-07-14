@@ -1,6 +1,6 @@
 package com.shayan.feature.email_verifier.repository
 
-import com.shayan.feature.emailVerifier.model.EmailVerifier
+import com.shayan.feature.email_verifier.model.EmailVerifier
 import com.shayan.feature.email_verifier.mapper.toEmailVerifier
 import com.shayan.feature.email_verifier.table.EmailVerifierTable
 import core.database.dbQuery
@@ -15,7 +15,6 @@ class EmailVerifierRepositoryImpl : EmailVerifierRepository {
 
         EmailVerifierTable.insert {
             it[id] = entity.id
-            it[userId] = entity.userId
             it[email] = entity.email
             it[codeHash] = entity.codeHash
             it[expiresAt] = entity.expiresAt

@@ -5,7 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class VerifyEmail (
     val email: String,
-    val code: String,
-    val userId: String,
-    val ip: String,
+    val code: String
 )

@@ -1,6 +1,6 @@
 package com.shayan.feature.email_verifier.repository
 
-import com.shayan.feature.emailVerifier.model.EmailVerifier
+import com.shayan.feature.email_verifier.model.EmailVerifier
 
 
 interface EmailVerifierRepository {

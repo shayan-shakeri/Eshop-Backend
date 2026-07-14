@@ -2,11 +2,10 @@ package com.shayan.feature.email_verifier.service
 
 import com.resend.Resend
 import com.resend.services.emails.model.CreateEmailOptions
-import com.shayan.feature.sender.constants.EmailVerifierConst
+import com.shayan.feature.email_verifier.constants.EmailVerifierConst
 import core.consts.ENV
 import core.util.EnvLoader
 import feature.email_verifier.template.VerificationEmailTemplate
-import org.koin.core.component.getScopeId
 
 class EmailSender(
     private val resend: Resend = Resend(EnvLoader.get(ENV.EMAIL_SENDER_API_KEY))

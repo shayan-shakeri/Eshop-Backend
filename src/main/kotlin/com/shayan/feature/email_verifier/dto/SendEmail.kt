@@ -4,8 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SendEmail(
-    val email: String,
-    val userId: String,
-    val username: String,
-    val ip: String
+    val email: String
 )
