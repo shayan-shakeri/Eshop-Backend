@@ -10,21 +10,20 @@ import config.configureSerialization
 import core.plugin.configureStatusPages
 import io.ktor.server.application.*
 import io.ktor.server.netty.EngineMain
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.ktor.ext.inject
 import routes.registerRoutes
 import kotlin.getValue
 
 fun main(args: Array<String>) {
-    println("=== MAIN START ===")
-    io.ktor.server.netty.EngineMain.main(args)
-    println("=== MAIN END ===")
+    EngineMain.main(args)
 }
 
 fun Application.application() {
+
     println("=== APPLICATION MODULE START ===")
 
     configureSerialization()
-    println("serialization ok")
 
     configureWebSocket()
     println("websocket ok")

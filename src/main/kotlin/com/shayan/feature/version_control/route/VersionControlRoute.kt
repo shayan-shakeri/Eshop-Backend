@@ -24,18 +24,11 @@ fun Route.versionControlRoute(
         VersionControlConst.MAIN_ROUTE
     ) {
 
-        post(
-            VersionControlConst.VERIFY_ROUTE
-        ) {
+        post(VersionControlConst.VERIFY_ROUTE) {
 
-            val request =
-                call.receive<VerifyVersionRequest>()
+            val request = call.receive<VerifyVersionRequest>()
 
-            call.respond(
-                versionControlService.verify(
-                    request
-                )
-            )
+            call.respond(versionControlService.verify(request))
         }
 
         authenticate(

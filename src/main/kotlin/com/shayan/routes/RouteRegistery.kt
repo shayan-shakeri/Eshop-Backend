@@ -26,7 +26,6 @@ import com.shayan.feature.favorites.route.favoriteRoute
 import com.shayan.feature.favorites.service.FavoritesService
 import com.shayan.feature.filter.route.filterRoute
 import com.shayan.feature.filter.service.FilterService
-import com.shayan.routes.healthHealthRoute
 import com.shayan.feature.monthly_log.route.monthlyLogRoute
 import com.shayan.feature.monthly_log.service.MonthlyLogService
 import com.shayan.feature.notification.route.notificationRoute
@@ -58,6 +57,7 @@ import com.shayan.feature.users.route.userRoutes
 import com.shayan.feature.users.service.UsersService
 import com.shayan.feature.version_control.route.versionControlRoute
 import com.shayan.feature.version_control.service.VersionControlService
+import com.shayan.routes.healthRoute
 import feature.orders.route.orderRoute
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
@@ -128,7 +128,7 @@ fun Application.registerRoutes() {
         val orderService by inject<OrderService>()
         orderRoute(orderService)
 
-        val orderProductService by inject< OrderProductService>()
+        val orderProductService by inject<OrderProductService>()
         orderProductRoute(orderProductService)
 
         val supportChatService by inject<SupportChatService>()
@@ -152,6 +152,6 @@ fun Application.registerRoutes() {
         val monthlyLogService by inject<MonthlyLogService>()
         monthlyLogRoute(monthlyLogService)
 
-        healthHealthRoute()
+        healthRoute()
     }
 }

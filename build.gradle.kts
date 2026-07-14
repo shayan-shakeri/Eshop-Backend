@@ -2,10 +2,11 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "com.shayan"
-version = "1.0.0"
+version = "1.0.1"
 
 application {
     mainClass.set("com.shayan.MainKt")
