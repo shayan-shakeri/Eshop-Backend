@@ -23,11 +23,13 @@ object UsersConst {
 
     //-------------ROUTING
     private const val IP_PARAM_URL = "/{ip}"
+    private const val EMAIL_PARAM_URL = "/{email}"
     private const val LOGIN_ROUTE = "/login"
     private const val UPDATE_ROUTE = "/update"
 
     const val MAIN_ROUTE = "/user"
     const val IP_PARAM = "ip"
+    const val EMAIL_PARAM = "email"
 
     const val LOGIN_NORMAL_ROUTE = "$LOGIN_ROUTE/normal"
     const val LOGIN_TOKEN_ROUTE = "$LOGIN_ROUTE/token/$IP_PARAM_URL"
@@ -37,8 +39,11 @@ object UsersConst {
     const val UPDATE_INFO_ROUTE = "$UPDATE_ROUTE/info"
     const val UPDATE_PASSWORD_ROUTE = "$UPDATE_ROUTE/password"
 
+
     const val DELETE_ROUTE = "/delete/$IP_PARAM_URL"
     const val LOGOUT_ROUTE = "/logout/$IP_PARAM_URL"
+
+    const val CHECK_EMAIL_EXISTENCE = "/check-email/$EMAIL_PARAM_URL"
 
     //---------------ACTIONS
     const val LOGIN_ACTION = "User logged in account"

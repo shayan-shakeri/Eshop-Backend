@@ -66,6 +66,7 @@ fun Route.categoryRoute(
                 var fileBytes: ByteArray? = null
                 var categoryName: String? = null
                 var ip: String? = null
+                var originalFileName: String? = null
 
                 multipart.forEachPart { part ->
 
@@ -74,6 +75,9 @@ fun Route.categoryRoute(
                         is PartData.FileItem -> {
                             if (part.name == CategoryConst.IMAGE) {
                                 fileBytes = part.streamProvider().readBytes()
+
+                                originalFileName =
+                                    part.originalFileName
                             }
                         }
 
@@ -123,7 +127,8 @@ fun Route.categoryRoute(
                     ip = ip,
                     categoryName = categoryName,
                     fileBytes = fileBytes,
-                    baseUrl = baseUrl
+                    baseUrl = baseUrl,
+                    imageTitle = originalFileName
                 )
 
                 call.respond(result)

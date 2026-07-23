@@ -17,6 +17,7 @@ class CategoryRepositoryImpl : CategoryRepository {
         CategoryTable.insert {
             it[CategoryTable.id] = category.id
             it[CategoryTable.name] = category.name
+            it[CategoryTable.imageTitle] = category.imageTitle
         }
         return CategoryTable
             .selectAll()

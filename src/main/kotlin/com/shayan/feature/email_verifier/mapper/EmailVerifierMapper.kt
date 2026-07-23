@@ -7,7 +7,6 @@ import org.jetbrains.exposed.sql.ResultRow
 
 fun ResultRow.toEmailVerifier(): EmailVerifier = EmailVerifier(
     id = this[EmailVerifierTable.id],
-    userId = this[EmailVerifierTable.userId],
     email = this[EmailVerifierTable.email],
     codeHash = this[EmailVerifierTable.codeHash],
     expiresAt = this[EmailVerifierTable.expiresAt],

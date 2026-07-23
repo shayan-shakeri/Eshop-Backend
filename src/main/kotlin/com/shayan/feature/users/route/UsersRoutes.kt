@@ -29,6 +29,11 @@ fun Routing.userRoutes(
             call.respond(usersService.signup(request))
         }
 
+        get(UsersConst.CHECK_EMAIL_EXISTENCE) {
+            val email = call.requirePathParameter(UsersConst.EMAIL_PARAM)
+            call.respond(usersService.emailExist(email))
+        }
+
         authenticate(CJWT.ACCESS_AUTH) {
 
             get(UsersConst.LOGIN_TOKEN_ROUTE) {
@@ -54,6 +59,8 @@ fun Routing.userRoutes(
                 val ip = call.extractFromParam(UsersConst.IP_PARAM)
                 call.respond(usersService.logout(id, ip))
             }
+
+
 
             delete(UsersConst.DELETE_ROUTE) {
                 val id = call.idExtractor()

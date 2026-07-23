@@ -78,8 +78,7 @@ val serviceModule = module {
         EmailVerifierService(
             repository = get(),
             sha256Hasher = get(),
-            emailSender = get(),
-            auditLogService = get()
+            emailSender = get()
         )
     }
 

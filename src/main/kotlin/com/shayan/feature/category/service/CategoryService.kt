@@ -13,6 +13,7 @@ import com.shayan.feature.user_pic.constants.UserPicConst
 import com.shayan.feature.user_pic.mapper.toUserPicResponse
 import core.database.dbQuery
 import core.util.IdGenerator
+import java.util.UUID
 
 class CategoryService (
     private val categoryRepository: CategoryRepository,
@@ -25,6 +26,7 @@ class CategoryService (
         roleId: String,
         ip: String,
         categoryName: String,
+        imageTitle: String?,
         fileBytes: ByteArray,
         baseUrl: String
     ): CategoryResponse{
@@ -32,13 +34,14 @@ class CategoryService (
         return dbQuery {
             val fileName = imageController.addImage(
                 fileBytes = fileBytes,
-                title = "$categoryName.png",
+                title = imageTitle,
                 imageType = ImageType.CategoryImage
             )
 
             val category = Category(
                 id = IdGenerator.generate(),
                 name = categoryName,
+                imageTitle = fileName
             )
 
             categoryRepository.addCategory(category)
@@ -51,7 +54,7 @@ class CategoryService (
 
     suspend fun readCategory(baseUrl: String): List<CategoryResponse> = dbQuery{
         categoryRepository.getAllCategories().map {
-            it.toCategoryResponse("$baseUrl${CategoryConst.IMAGE_ROUTE}/${it.name}.png")
+            it.toCategoryResponse("$baseUrl${CategoryConst.IMAGE_ROUTE}/${it.imageTitle}")
         }
     }
 }

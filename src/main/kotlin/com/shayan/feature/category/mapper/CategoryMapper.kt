@@ -7,5 +7,6 @@ import org.jetbrains.exposed.sql.ResultRow
 fun ResultRow.toCategory(): Category =
     Category(
         id = this[CategoryTable.id],
-        name = this[CategoryTable.name]
+        name = this[CategoryTable.name],
+        imageTitle = this[CategoryTable.imageTitle]
     )
